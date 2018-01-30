@@ -61,6 +61,7 @@ public class User {
 		this.email = new UserEmail(email);
 		this.passwordHash = passwordHash;
 		this.enabled = false;
+		this.profilePictureUrl= "/img/profile_icons/default.png";
 	}
 
 	public User(Long id, String username, String fullName) {

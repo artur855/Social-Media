@@ -32,6 +32,7 @@ public class Post {
 		this.title = title;
 		this.body = body;
 		this.author = author;
+		
 	}
 
 	@Override
