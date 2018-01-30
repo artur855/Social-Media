@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
+<head th:replace="layout :: site-head">
+<title th:text="${post.title}">View Post</title>
+</head>
+<body>
+	<header th:replace="layout :: header"></header>
+	<main>
+	<article class="container">
+		<h2 class="title" th:text="${post.title}">Post Title</h2>
+		<hr class="hr_heading" />
+		<div class="date">
+			<p>Posted on</p>
+			<span th:text="${#dates.format(post.date, 'dd-MMM-yyyy')}">dd-MMM-yyyy</span>
+			<span th:if="${post.author}" th:remove="tag">
+				by
+				<span th:text="${post.author.fullName != null ? post.author.fullName : post.author.username}">Author name</span>
+			</span>
+		</div>
+		<p class="content" th:utext="${post.body}">Post content</p>
+	</article>
+	</main>
+	<footer th:replace="layout :: footer"></footer>
+</body>
+</html>

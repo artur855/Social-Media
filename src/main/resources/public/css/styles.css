@@ -1,0 +1,147 @@
+html body {
+	background-color: #F5F5F5;
+}
+
+body>aside {
+	float: right;
+	width: 200px;
+	background: #CCC;
+	padding: 15px;
+	margin-left: 20px;
+	margin-top: 10px;
+	margin-right: 10px;
+}
+
+body>aside>h2 {
+	margin: 5px 0px 15px 0px;
+}
+
+body>aside a {
+	display: block;
+	margin: 5px 0px;
+	text-decoration: none;
+}
+
+body>main:after {
+	content: '';
+	display: block;
+	clear: both;
+}
+
+footer {
+	padding-top: 10px;
+}
+
+#messages {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.hr_heading {
+	display: block;
+	height: 1px;
+	border: 0;
+	border-top: 1px solid #ccc;
+	margin: 1em 0;
+	padding: 0;
+}
+
+.formError {
+	color: red;
+	font-style: italic;
+}
+
+.loginForm div:first-child[class*="col-"] {
+	margin-left: 13.5%;
+}
+
+.loginForm h2 {
+	text-align: center;
+}
+
+.registerForm div:first-child[class*="col-"] {
+	margin-left: 13.5%;
+}
+
+.registerForm h2 {
+	text-align: center;
+}
+
+.registerForm>button {
+	margin-left: 14%;
+}
+
+.spanOr {
+	display: block;
+	position: absolute;
+	left: 50%;
+	top: -1em;
+	margin-left: -1.5em;
+	background-color: white;
+	width: 3em;
+	color: #AAA;
+	text-align: center;
+	margin-top: 1.2em;
+}
+
+.btn-google {
+	background-color: #D85040;
+	color: #FFF;
+}
+
+.btn-google:hover {
+	background-color: #c35040;
+	color: #FFF;
+}
+
+.btn-github {
+	background-color: #000;
+	color: #FFF;
+}
+
+.btn-github:hover {
+	color: #FFF;
+}
+
+.btn-facebook {
+	background-color: #3B5998;
+	color: #FFF;
+}
+
+.btn-facebook:hover {
+	background-color: #1D3469;
+	color: #FFF;
+}
+
+.input-group-text {
+	width: 2.5em;
+}
+
+.btn-403 {
+	text-align: center;
+}
+
+.btn-403 a {
+	height: 40px;
+	text-align: center;
+	margin: 2px;
+	line-height: 25px;	
+}
+.close-icon {
+	cursor: pointer;
+	outline: none;
+	border:none;
+	background:none;
+	width: 30px; 
+}
+li{
+	list-style: none;
+    text-decoration: none;
+}
+
+a.unstyled{
+	 
+    text-decoration: none;
+    color: inherit;
+
+}

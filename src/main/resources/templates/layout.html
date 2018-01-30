@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
+<head th:fragment="site-head">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Site to learn delevopment with spring and maven" />
+<meta author="author" content="Arthur Gonçalves" />
+<meta http-equiv="refresh" content="1000" />
+<link rel="icon" href="../public/img/favicon.ico" th:href="@{/img/favicon.ico}" />
+<link rel="stylesheet" href="../public/css/styles.css" th:href="@{/css/styles.css}" />
+<link href="https://use.fontawesome.com/releases/v5.0.4/css/all.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css"
+	integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous"
+/>
+<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+	crossorigin="anonymous"
+></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+	integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"
+></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js"
+	integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"
+></script>
+<script type="text/javascript" src="../public/js/scripts.js" th:src="@{/js/scripts.js}"></script>
+<meta th:include="this :: head" th:remove="tag" />
+</head>
+<body>
+	<!-- TRADICIONAL HEADER-->
+	<header th:fragment="site-header">
+		<nav class="navbar navbar-expand-lg navbar-primary bg-light">
+			<a class="navbar-brand" href="index.html" th:href="@{/}">
+				<img alt='Arthurzera icon' src="../public/img/arthurzera.jpg" th:src="@{/img/arthurzera.jpg}" width="30px" />
+				Arthurzera
+			</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+				aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
+			>
+				<span class="navbar-toggler-icon" style="color: black;"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item active" sec:authorize="!isAuthenticated()">
+						<a class="nav-link" href="/users/login.html" th:href="@{/users/login}">
+							<i class="fas fa-sign-in-alt"></i>
+							Login
+						</a>
+					</li>
+					<li class="nav-item active" sec:authorize="!isAuthenticated()">
+						<a class="nav-link" href="/users/register.html" th:href="@{/users/register}">
+							<i class="fas fa-user-plus"></i>
+							Register
+						</a>
+					</li>
+					<li id="logged-in-info nav-item active" sec:authorize="isAuthenticated()">
+						<a class="nav-link" href="users/profile.html" th:href="@{'/users/'+${currentUser.getUsername()}+'/profile'}">
+							<span>
+								Hello,
+								<b th:text="${currentUser.getUsername()}">(user)</b>
+							</span>
+						</a>
+					</li>
+					<li class="nav-item active" sec:authorize="hasRole('ROLE_ADMIN')">
+						<a class="nav-link" href="/users/index.html" th:href="@{/admin/home}">
+							<i class="fas fa-key"></i>
+							ADMIN
+						</a>
+					</li>
+					<li class="nav-item active" sec:authorize="isAuthenticated()">
+						<a class="nav-link" href="/users/index.html" th:href="@{/users/logout}">
+							<i class="fas fa-sign-out-alt"></i>
+							Logout
+						</a>
+					</li>
+				</ul>
+				<form class="form-inline my-2 my-lg-0">
+					<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
+					<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+				</form>
+			</div>
+		</nav>
+		<div class="container" id="messages"
+			th:with="notifyMessages=${session[T(com.arthurzera.website.services.NotificationService).NOTIFY_MSG_SESSION_KEY]}"
+		>
+			<div th:each="msg: ${notifyMessages}">
+				<th:block th:switch="${#strings.toLowerCase(msg.type)}">
+					<div th:case="danger">
+						<div class="alert alert-danger alert-dismissible fade show" role="alert">
+							<span th:text="${msg.text}"></span>
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+					</div>
+					<div th:case="warning">
+						<div class="alert alert-success alert-dismissible fade show" role="alert">
+							<span th:text="${msg.text}"></span>
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+					</div>
+					<div th:case="info">
+						<div class="alert alert-info alert-dismissible fade show" role="alert">
+							<span th:text="${msg.text}"></span>
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+					</div>
+					<div th:case="success">
+						<div class="alert alert-success alert-dismissible fade show" role="alert">
+							<span th:text="${msg.text}"></span>
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+					</div>
+				</th:block>
+			</div>
+			<span th:if="${notifyMessages}" th:remove="all"
+				th:text="${session.remove(T(com.arthurzera.website.services.NotificationService).NOTIFY_MSG_SESSION_KEY)}"
+			></span>
+		</div>
+	</header>
+	<!-- END TRADICIONAL HEADER -->
+	<!-- TRADICIONAL POST -->
+	<div class="card card-outline-danger bg-light my-2" th:fragment="post-body">
+		<div class="pull-right">
+			<button type="button" class="close close-icon " aria-label="Close" data-toggle="tooltip" data-placement="top" title="Hide post">
+				<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+		<div class="card-body">
+			<div class="media" style="margin-left: -10px;">
+				<figure>
+					<a th:href="@{'/users/'+${post.getAuthor().getUsername()}+'/profile'}">
+						<img class="rounded d-flex mx-2" th:src="@{${post.getAuthor().getProfilePictureUrl()}}" width="45px" />
+					</a>
+					<br />
+					<figcaption class="d-flex flex-column text-center justify-content-center">
+						<a class="fas fa-arrow-up unstyled" href="#"></a>
+						<a class="fas fa-circle unstyled my-1" style="font-size: 0.5em"></a>
+						<a class="fas fa-arrow-down unstyled" href="#"></a>
+					</figcaption>
+				</figure>
+				<div class="media-body">
+					<h6>
+						<a class="ml-1" th:href="@{'/users/'+${post.getAuthor().getUsername()}+'/profile'}"
+							th:text="${post.getAuthor().getUsername()}"
+						>Author Username</a>
+					</h6>
+					<p>
+						<i class="fa fa-calendar-alt"></i>
+						<small class="text-muted" th:text="|Updated ${post.getTimePassed()} ago|"> Updated {{post.time_passed}} ago</small>
+					</p>
+					<h4 class="media-body" th:if="${post.getTitle()} != null" th:text="${post.getTitle()}">Text Title</h4>
+					<div class="media-body" th:text="${post.getBody()}">Text Body</div>
+					<ul class="list-inline list-unstyled">
+						<li class="list-inline-item">
+							<i class="fa fa-comments"></i>
+							Comments |
+						</li>
+						<li class="list-inline-item">
+							<i class="fa fa-tags"></i>
+							Tags:
+						</li>
+						<li class="list-inline-item">
+							<a href="#">
+								<span class="badge badge-primary">Rock</span>
+							</a>
+						</li>
+						<li class="list-inline-item">
+							<a href="#">
+								<span class="badge badge-primary">ShitPost</span>
+							</a>
+						</li>
+						<li class="list-inline-item">
+							<a href="#">
+								<span class="badge badge-primary">Latim</span>
+							</a>
+						</li>
+						<li class="list-inline-item">
+							<a href="#">
+								<span class="badge badge-primary">Test</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<a class="pull-right btn btn-warning" th:if="${post.getAuthor()} == ${currentUser}" th:href="@{/post/{id}/delete}">Delete</a>
+		</div>
+		<script type="text/javascript">
+			jQuery('#posts > article > div > div.pull-right > button').click(
+					function() {
+						var $target = $(this).parents('div');
+						$target.fadeOut("slow");
+					});
+		</script>
+	</div>
+	<!-- END TRADICIONAL POST -->
+	<!-- TRADICIONAL FOOTER -->
+	<footer th:fragment="site-footer">
+		<div class="container">
+			<hr />
+			<span class="text-muted">Admin: Arthur Gonçalves Azevedo</span>
+			<br />
+			<span class="text-muted">Contact email: arthuzeramicroblog@gmail.com</span>
+			<br />
+			<span class="text-muted">Phone: +55 79 4002-8922</span>
+		</div>
+	</footer>
+	<!-- END TRADICIONAL FOOTER -->
+</body>
+</html>

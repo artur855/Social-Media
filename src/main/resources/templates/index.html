@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
+<head th:replace="layout :: site-head">
+<title>Arthurzera</title>
+</head>
+<body>
+    <header th:replace="layout :: site-header"></header>
+    <aside>
+        <h2>Recent Posts</h2>
+        <a href="#" th:each="p: ${latest5posts}" th:text="${p.title}" th:href="@{/posts/view/{id}/(id=${p.id})}">Work Begins
+            on HTML5.1</a>
+    </aside>
+    <main class="container" id="posts">
+    <article th:each="post : ${latest3posts}">
+        <div th:replace="layout::post-body">
+        </div>
+        
+    </article>
+    </main>
+    <footer th:replace="layout :: site-footer"></footer>
+</body>
+</html>
