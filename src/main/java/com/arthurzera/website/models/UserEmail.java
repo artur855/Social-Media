@@ -18,13 +18,13 @@ public class UserEmail {
 	private String email;
 
 	@Column
-	private boolean email_confirmed;
+	private boolean emailConfirmed;
 
 	@Column
-	private Date email_confirmation_sent_on;
+	private Date emailConfirmationSentOn;
 
 	@Column
-	private Date email_confirmed_on;
+	private Date emailConfirmedOn;
  
 	@OneToOne(mappedBy = "email", optional = false, fetch = FetchType.LAZY)
 	@JoinColumn(name="user")
@@ -54,29 +54,29 @@ public class UserEmail {
 	}
 
 	public boolean isConfirmed() {
-		return email_confirmed;
+		return emailConfirmed;
 	}
 
-	public void setEmail_confirmed(boolean email_confirmed) {
-		this.email_confirmed = email_confirmed;
+	public void setEmailConfirmed(boolean emailConfirmed) {
+		this.emailConfirmed = emailConfirmed;
 	}
 
-	public String getEmail_confirmation_sent_on() {
+	public String getEmailConfirmationSentOn() {
 		SimpleDateFormat format = new SimpleDateFormat("dd-mm-yyyy");
-		return format.format(email_confirmation_sent_on);
+		return format.format(emailConfirmationSentOn);
 	}
 
-	public void setEmail_confirmation_sent_on(Date email_confirmation_sent_on) {
-		this.email_confirmation_sent_on = email_confirmation_sent_on;
+	public void setEmailConfirmationSentOn(Date emailConfirmationSentOn) {
+		this.emailConfirmationSentOn = emailConfirmationSentOn;
 	}
 
-	public String getEmail_confirmed_on() {
+	public String getEmailConfirmedOn() {
 		SimpleDateFormat format = new SimpleDateFormat("dd-mm-yyyy");
-		return format.format(email_confirmed_on);
+		return format.format(emailConfirmedOn);
 	}
 
-	public void setEmail_confirmed_on(Date email_confirmed_on) {
-		this.email_confirmed_on = email_confirmed_on;
+	public void setEmailConfirmedOn(Date emailConfirmedOn) {
+		this.emailConfirmedOn = emailConfirmedOn;
 	}
 
 	public User getUser() {

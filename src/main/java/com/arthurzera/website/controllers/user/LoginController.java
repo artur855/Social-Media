@@ -2,8 +2,17 @@ package com.arthurzera.website.controllers.user;
 
 import com.arthurzera.website.controllers.BasicController;
 import com.arthurzera.website.forms.LoginForm;
+import com.arthurzera.website.models.User;
 
+import java.util.Date;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -56,4 +65,19 @@ public class LoginController extends BasicController {
 		return mvc;
 	}
 
+	@RequestMapping("/users/logout")
+	public ModelAndView logout(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mvc = super.mvc();
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if (auth!=null) {
+			new SecurityContextLogoutHandler().logout(request, response, auth);
+		}
+		User user = (User) mvc.getModel().get("currentUser");
+		user.setLastSeen(new Date());
+		userService.edit(user);
+		notifyService.addSuccessMessage("Logout with success");
+		mvc.setViewName("redirect:/users/login?logout");
+		return mvc;
+	}
+	
 }

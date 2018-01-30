@@ -39,7 +39,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/admin/**").hasAuthority("ROLE_ADMIN").anyRequest().authenticated().and().formLogin()
 				.loginPage("/users/login").loginProcessingUrl("/users/login").defaultSuccessUrl("/")
 				.usernameParameter("username").passwordParameter("password").permitAll().and().logout()
-				.logoutRequestMatcher(new AntPathRequestMatcher("/users/logout")).logoutSuccessUrl("/").permitAll()
 				.and().rememberMe().rememberMeCookieName("remember-me").tokenRepository(persistentTokenRepository())
 				.tokenValiditySeconds(60 * 60 * 24 * 7).and().exceptionHandling()
 				.accessDeniedHandler(new AccessDeniedHandlerImp("/acess-denied"));

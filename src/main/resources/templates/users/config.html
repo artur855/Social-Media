@@ -49,17 +49,17 @@
 				<div class="card-body">
 					<p>
 						<i class="far fa-calendar"></i>
-						<span th:text="| Member since: ${user.getCreated_at()}|">Member since: dd-mm-yyyy</span>
+						<span th:text="| Member since: ${user.getCreatedAt()}|">Member since: dd-mm-yyyy</span>
 					</p>
 					<p>
-						Last logged in:
-						<b style="color: red;">IN DEVELPOMENT</b>
+						<i class="far fa-calendar"></i> Last logged in:
+						<span th:text="${user.getLastSeen()}">Last seen</span>
 					</p>
 					<div th:object="${user.getEmail()}">
 						<p>
 							<i class="far fa-calendar"></i>
 							<span
-								th:text="*{isConfirmed()} ? ' Email confirmed: ' + *{getEmail_confirmed_on()} : ' Email has not been confirmed yet!!'"
+								th:text="*{isConfirmed()} ? ' Email confirmed: ' + *{getEmailConfirmedOn()} : ' Email has not been confirmed yet!!'"
 							></span>
 						</p>
 					</div>

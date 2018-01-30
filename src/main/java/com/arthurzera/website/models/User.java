@@ -35,7 +35,7 @@ public class User {
 	private Set<Post> posts = new HashSet<>();
 
 	@Column(nullable = false)
-	private Date created_at = new Date();
+	private Date createdAt = new Date();
 
 	@ManyToMany(fetch = FetchType.EAGER)
 	private Set<Role> roles = new HashSet<>();
@@ -48,6 +48,9 @@ public class User {
 
 	@Column
 	private String aboutMe;
+
+	@Column
+	private Date lastSeen;
 
 	public User() {
 	}
@@ -69,7 +72,7 @@ public class User {
 	@Override
 	public String toString() {
 		return "User{" + "id=" + id + ", username=" + username + ", email=" + email + ", fullName=" + fullName
-				+ ", passwordHash=" + passwordHash + ", created_at=" + created_at + '}';
+				+ ", passwordHash=" + passwordHash + ", created_at=" + createdAt + '}';
 	}
 
 	public Long getId() {
@@ -104,14 +107,10 @@ public class User {
 		this.email = email;
 	}
 
-	public String getCreated_at() {
+	public String getCreatedAt() {
 		SimpleDateFormat format = new SimpleDateFormat("dd-mm-yyyy");
-		return format.format(created_at);
+		return format.format(createdAt);
 
-	}
-
-	public void setCreated_at(Date created_at) {
-		this.created_at = created_at;
 	}
 
 	public String getPasswordHash() {
@@ -130,7 +129,8 @@ public class User {
 		this.posts = posts;
 	}
 
-	public Boolean getEnabled() {
+	
+	public Boolean isEnabled() {
 		return enabled;
 	}
 
@@ -180,4 +180,14 @@ public class User {
 		this.verificationToken = verificationToken;
 	}
 
+	public String getLastSeen() {
+		SimpleDateFormat format = new SimpleDateFormat("dd-mm-yyyy");
+		return (lastSeen != null) ? format.format(lastSeen) : "First login!!!";
+	}
+
+	public void setLastSeen(Date lastSeen) {
+		this.lastSeen = lastSeen;
+	}
+
+	
 }

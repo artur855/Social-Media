@@ -12,7 +12,7 @@
 			<p class="badge badge-info" th:text="${user.getAboutMe()}">About me: User</p>
 			<p class="badge badge-info">
 				Last seen:
-				<b style="color: red;">IN PROGRESS</b>
+				<b th:text="${user.getLastSeen()}">Last seen</b>
 			</p>
 			<h1 class="badge badge-secondary" th:text="|${user.getUsername()}'s Profile|">User's Profile</h1>
 		</div>
@@ -35,6 +35,7 @@
 					<li th:each="post :${user.getPosts()}">
 						<!-- Post -->
 						<div th:replace="layout :: post-body"></div>
+						<!-- End Post -->
 					</li>
 				</ul>
 			</div>

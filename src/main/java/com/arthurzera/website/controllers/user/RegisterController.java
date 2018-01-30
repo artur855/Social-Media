@@ -60,7 +60,7 @@ public class RegisterController extends BasicController {
 			String message = "To confirm your account click in the link below";
 			emailService.sendSimpleMessage(user.getEmail().getEmail(), "Registration Confirmation",
 					message + "\n http://localhost:8181" + confirmationUrl);
-			user.getEmail().setEmail_confirmation_sent_on(new Date());
+			user.getEmail().setEmailConfirmationSentOn(new Date());
 			userService.edit(user);
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -79,7 +79,7 @@ public class RegisterController extends BasicController {
 			return mvc;
 		}
 		User user = verificationToken.getUser();
-		if (user.getEnabled()) {
+		if (user.isEnabled()) {
 			notifyService.addInfoMessage("User already confirmed!");
 			mvc.setViewName("redirect:/users/login");
 		}
@@ -90,8 +90,8 @@ public class RegisterController extends BasicController {
 			return mvc;
 		}
 		user.setEnabled(true);
-		user.getEmail().setEmail_confirmed_on(new Date());
-		user.getEmail().setEmail_confirmed(true);
+		user.getEmail().setEmailConfirmedOn(new Date());
+		user.getEmail().setEmailConfirmed(true);
 		userService.edit(user);
 		notifyService.addInfoMessage("Account activated");
 		mvc.setViewName("redirect:/users/login");
