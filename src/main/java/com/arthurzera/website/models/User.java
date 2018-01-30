@@ -108,7 +108,7 @@ public class User {
 	}
 
 	public String getCreatedAt() {
-		SimpleDateFormat format = new SimpleDateFormat("dd-mm-yyyy");
+		SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
 		return format.format(createdAt);
 
 	}
@@ -181,7 +181,7 @@ public class User {
 	}
 
 	public String getLastSeen() {
-		SimpleDateFormat format = new SimpleDateFormat("dd-mm-yyyy");
+		SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
 		return (lastSeen != null) ? format.format(lastSeen) : "First login!!!";
 	}
 

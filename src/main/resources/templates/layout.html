@@ -151,7 +151,7 @@
 					</h6>
 					<p>
 						<i class="fa fa-calendar-alt"></i>
-						<small class="text-muted" th:text="|Updated ${post.getTimePassed()} ago|"> Updated {{post.time_passed}} ago</small>
+						<small class="text-muted" th:text="${post.getTimePassed()}"> Updated x ago</small>
 					</p>
 					<h4 class="media-body" th:if="${post.getTitle()} != null" th:text="${post.getTitle()}">Text Title</h4>
 					<div class="media-body" th:text="${post.getBody()}">Text Body</div>

@@ -62,7 +62,7 @@ public class UserEmail {
 	}
 
 	public String getEmailConfirmationSentOn() {
-		SimpleDateFormat format = new SimpleDateFormat("dd-mm-yyyy");
+		SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
 		return format.format(emailConfirmationSentOn);
 	}
 
@@ -71,7 +71,7 @@ public class UserEmail {
 	}
 
 	public String getEmailConfirmedOn() {
-		SimpleDateFormat format = new SimpleDateFormat("dd-mm-yyyy");
+		SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
 		return format.format(emailConfirmedOn);
 	}
 

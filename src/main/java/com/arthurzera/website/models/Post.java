@@ -1,6 +1,5 @@
 package com.arthurzera.website.models;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.persistence.*;
 
@@ -84,7 +83,7 @@ public class Post {
 		Date now = new Date();
 		long time = now.getTime() - this.date.getTime();
 		time = (long) (time / 1000.0);
-		String distance = "";
+		String distance = "Updated ";
 		if (time < 3600) {
 			distance += (int) time / 60;
 			distance += ((time / 60) > 1) ? " mins ago" : " min ago";
