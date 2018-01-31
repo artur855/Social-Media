@@ -1,6 +1,9 @@
 package com.arthurzera.website.models;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.*;
 
 @Entity
@@ -21,9 +24,13 @@ public class Post {
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	private User author;
 
+	@OneToMany(mappedBy="post")
+	private Set<Comment> comments = new HashSet<>();
+	
 	@Column(nullable = false)
 	private Date date = new Date();
 
+	
 	public Post() {
 	}
 

@@ -34,6 +34,9 @@ public class User {
 	@OneToMany(mappedBy = "author")
 	private Set<Post> posts = new HashSet<>();
 
+	@OneToMany(mappedBy = "user")
+	private Set<Comment> comments = new HashSet<>();
+	
 	@Column(nullable = false)
 	private Date createdAt = new Date();
 
