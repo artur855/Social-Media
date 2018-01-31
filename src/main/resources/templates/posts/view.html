@@ -43,24 +43,9 @@
 							<i class="fa fa-tags"></i>
 							Tags:
 						</li>
-						<li class="list-inline-item">
-							<a href="#">
-								<span class="badge badge-primary">Rock</span>
-							</a>
-						</li>
-						<li class="list-inline-item">
-							<a href="#">
-								<span class="badge badge-primary">ShitPost</span>
-							</a>
-						</li>
-						<li class="list-inline-item">
-							<a href="#">
-								<span class="badge badge-primary">Latim</span>
-							</a>
-						</li>
-						<li class="list-inline-item">
-							<a href="#">
-								<span class="badge badge-primary">Test</span>
+						<li class="list-inline-item" th:each="tag : ${post.getTags()}">
+							<a th:href="@{'/tags/'+${tag.getId()}+'/view'}">
+								<span class="badge badge-primary" th:text="${tag.getTag()}">Rock</span>
 							</a>
 						</li>
 					</ul>
