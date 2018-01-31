@@ -55,6 +55,13 @@ public class User {
 	@Column
 	private Date lastSeen;
 
+	//TODO ADD UPVOTED POSTS
+	//TODO ADD UPVOTED COMMENTS
+	
+	//TODO ADD DOWNVOTED POSTS
+	//TODO ADD DOWNVOTED COMMENTS
+	
+	
 	public User() {
 	}
 

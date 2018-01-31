@@ -127,14 +127,7 @@ footer {
 	margin: 2px;
 	line-height: 25px;
 }
-
-.close-icon {
-	cursor: pointer;
-	outline: none;
-	border: none;
-	background: none;
-	width: 30px;
-}
+ 
 
 li {
 	list-style: none;

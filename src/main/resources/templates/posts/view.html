@@ -6,7 +6,17 @@
 <body>
 	<header th:replace="layout :: header"></header>
 	<main class="container">
-	<div class="card card-outline-danger bg-light my-2">
+	<div class="card card-outline-danger bg-light">
+		<div class="dropdown" style="text-align: right;">
+			<button class="pull-right btn unstyled dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+				aria-haspopup="true" aria-expanded="false"
+			></button>
+			<div th:if="${post.getAuthor()} == ${currentUser}">
+				<div class="dropdown-menu  dropdown-menu-left" aria-labelledby="dropdownMenuButton">
+					<a class="dropdown-item" th:href="@{'/posts/'+${post.getId()}+'/delete'}">Delete</a>
+				</div>
+			</div>
+		</div>
 		<div class="card-body">
 			<div class="media" style="margin-left: -10px;">
 				<figure>
@@ -54,9 +64,6 @@
 					</ul>
 				</div>
 			</div>
-			<a class="pull-right btn btn-warning" th:if="${post.getAuthor()} == ${currentUser}"
-				th:href="@{'/post/'+${post.getId()}+'/delete'}"
-			>Delete</a>
 		</div>
 	</div>
 	<div>
@@ -69,4 +76,10 @@
 	</main>
 	<footer th:replace="layout :: footer"></footer>
 </body>
+<script type="text/javascript">
+	$('#hide-button').click(function() {
+		var $target = $(this).parents('li');
+		$target.fadeOut("slow");
+	});
+</script>
 </html>

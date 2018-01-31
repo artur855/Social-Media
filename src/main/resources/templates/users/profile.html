@@ -48,10 +48,10 @@
 	</main>
 	<footer th:replace="layout::footer"></footer>
 </body>
-<script>
-	$('.close').click(function() {
+<script type="text/javascript">
+	$('#hide-button').click(function() {
 		var $target = $(this).parents('li');
 		$target.fadeOut("slow");
-	})
+	});
 </script>
 </html>

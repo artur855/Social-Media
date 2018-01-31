@@ -9,7 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class PostsController extends BasicController {
 
-	@RequestMapping("/posts/view/{id}")
+	@RequestMapping("/posts/{id}/view")
 	public ModelAndView view(@PathVariable("id") Long id) {
 		Post post = postService.findById(id);
 		ModelAndView mvc = super.mvc();
@@ -19,7 +19,6 @@ public class PostsController extends BasicController {
 			return mvc;
 		}
 		mvc.addObject("post", post);
-		notifyService.addSuccessMessage("Post #" + id + " found");
 		mvc.setViewName("posts/view");
 		return mvc;
 	}

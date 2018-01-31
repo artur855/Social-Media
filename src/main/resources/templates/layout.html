@@ -125,12 +125,22 @@
 	<!-- END TRADICIONAL HEADER -->
 	<!-- TRADICIONAL POST -->
 	<div class="card card-outline-danger bg-light my-2" th:fragment="post-body">
-		<div class="pull-right">
-			<button type="button" id="close-button" class="close close-icon " aria-label="Close" data-toggle="tooltip" data-placement="top"
-				title="Hide post"
-			>
-				<span aria-hidden="true">&times;</span>
-			</button>
+		<div class="dropdown" style="text-align: right;">
+			<button class="pull-right btn unstyled dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+				aria-haspopup="true" aria-expanded="false"
+			></button>
+			<div class="dropdown-menu  dropdown-menu-left" aria-labelledby="dropdownMenuButton">
+				<button type="button" id="hide-button" class="dropdown-item" aria-label="Close" data-toggle="tooltip" data-placement="top"
+					title="Hide post"
+				>
+					<span aria-hidden="true">Hide</span>
+				</button>
+				<a class="dropdown-item" th:href="@{'/posts/'+${post.getId()}+'/view'}">See post page</a>
+				<div th:if="${post.getAuthor()} == ${currentUser}">
+					<div class="dropdown-divider"></div>
+					<a class="dropdown-item" th:href="@{'/posts/'+${post.getId()}+'/delete'}">Delete</a>
+				</div>
+			</div>
 		</div>
 		<div class="card-body">
 			<div class="media" style="margin-left: -10px;">
@@ -179,20 +189,27 @@
 					</ul>
 				</div>
 			</div>
-			<a class="pull-right btn btn-warning" th:if="${post.getAuthor()} == ${currentUser}"
-				th:href="@{'/post/'+${post.getId()}+'/delete'}"
-			>Delete</a>
 		</div>
-		<script type="text/javascript">
-			$('#close-button').click(function() {
-				var $target = $(this).parents('div');
-				$target.fadeOut("slow");
-			});
-		</script>
 	</div>
 	<!-- END TRADICIONAL POST -->
 	<!-- TRADICIONAL COMMENT -->
 	<div class="card card-outline-danger bg-light my-2" th:fragment="comment-body">
+		<div class="dropdown" style="text-align: right;">
+			<button class="pull-right btn unstyled dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+				aria-haspopup="true" aria-expanded="false"
+			></button>
+			<div class="dropdown-menu  dropdown-menu-left" aria-labelledby="dropdownMenuButton">
+				<button type="button" id="hide-button" class="dropdown-item" aria-label="Close" data-toggle="tooltip" data-placement="top"
+					title="Hide post"
+				>
+					<span aria-hidden="true">Hide</span>
+				</button>
+				<div th:if="${comment.getUser()} == ${currentUser}">
+					<div class="dropdown-divider"></div>
+					<a class="dropdown-item" th:href="@{'/comments/'+${comment.getId()}+'/delete'}">Delete</a>
+				</div>
+			</div>
+		</div>
 		<div class="card-body">
 			<div class="media" style="margin-left: -10px;">
 				<figure>
@@ -230,9 +247,6 @@
 					</ul>
 				</div>
 			</div>
-			<a class="pull-right btn btn-warning" th:if="${comment.getUser()} == ${currentUser}"
-				th:href="@{'/comment/'+${comment.getId()}+'/delete'}"
-			>Delete</a>
 		</div>
 	</div>
 	<!-- END TRADICIONAL COMMENT-->

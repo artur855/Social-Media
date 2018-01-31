@@ -4,12 +4,4 @@ $(document).ready(function() {
 		return false;
 	})
 });
-
-$(function() {
-	$('[data-toggle="tooltip"]').tooltip()
-});
-
-$('#close-button').click(function() {
-	var $target = $(this).parents('div');
-	$target.fadeOut("slow");
-});
+ 
