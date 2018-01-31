@@ -36,7 +36,7 @@ public class User {
 
 	@OneToMany(mappedBy = "user")
 	private Set<Comment> comments = new HashSet<>();
-	
+
 	@Column(nullable = false)
 	private Date createdAt;
 
@@ -55,13 +55,18 @@ public class User {
 	@Column
 	private Date lastSeen;
 
-	//TODO ADD UPVOTED POSTS
-	//TODO ADD UPVOTED COMMENTS
-	
-	//TODO ADD DOWNVOTED POSTS
-	//TODO ADD DOWNVOTED COMMENTS
-	
-	
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(joinColumns = @JoinColumn(name = "follower_id"), inverseJoinColumns = @JoinColumn(name = "followed_id"))
+	private Set<User> following;
+
+	@ManyToMany(mappedBy = "following")
+	private Set<User> followers;
+	// TODO ADD UPVOTED POSTS
+	// TODO ADD UPVOTED COMMENTS
+
+	// TODO ADD DOWNVOTED POSTS
+	// TODO ADD DOWNVOTED COMMENTS
+
 	public User() {
 	}
 
@@ -71,7 +76,7 @@ public class User {
 		this.email = new UserEmail(email);
 		this.passwordHash = passwordHash;
 		this.enabled = false;
-		this.profilePictureUrl= "/img/profile_icons/default.png";
+		this.profilePictureUrl = "/img/profile_icons/default.png";
 		this.roles = new HashSet<>();
 		this.posts = new HashSet<>();
 		this.comments = new HashSet<>();
@@ -138,7 +143,6 @@ public class User {
 		this.posts = posts;
 	}
 
-	
 	public Boolean isEnabled() {
 		return enabled;
 	}
@@ -198,5 +202,41 @@ public class User {
 		this.lastSeen = lastSeen;
 	}
 
-	
+	public Set<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(Set<Comment> comments) {
+		this.comments = comments;
+	}
+
+	public Set<User> getFollowing() {
+		return following;
+	}
+
+	public void setFollowing(Set<User> following) {
+		this.following = following;
+	}
+
+	public Set<User> getFollowers() {
+		return followers;
+	}
+
+	public void setFollowers(Set<User> followers) {
+		this.followers = followers;
+	}
+
+	public void follow(User user) {
+		this.following.add(user);
+		user.getFollowers().add(this);
+	}
+
+	public void unfollow(User user) {
+		this.following.remove(user);
+		user.getFollowers().remove(this);
+	}
+
+	public boolean isFollowing(User user) {
+		return this.following.contains(user);
+	}
 }

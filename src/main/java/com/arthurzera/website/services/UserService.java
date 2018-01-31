@@ -3,13 +3,18 @@ package com.arthurzera.website.services;
 
 
 
+import com.arthurzera.website.models.Post;
 import com.arthurzera.website.models.User;
 import com.arthurzera.website.models.VerificationToken;
 import com.arthurzera.website.repositories.UserRepository;
 import com.arthurzera.website.repositories.VerificationTokenRepository;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -81,6 +86,32 @@ public class UserService implements IUserService {
 	@Override
 	public VerificationToken getVerificationToken(String token) {
 		return tokenRepository.findByToken(token);
+	}
+
+
+	@Override
+	public void follow(User currentUser, User user) {
+		currentUser.follow(user);
+		userRepository.save(currentUser);
+		userRepository.save(user);
+	}
+
+
+	@Override
+	public void unfollow(User currentUser, User user) {
+		currentUser.unfollow(user);
+		userRepository.save(currentUser);
+		userRepository.save(user);
+	}
+
+
+	@Override
+	public List<Post> findTimeLine(User currentUser) {
+		Set<User> users = currentUser.getFollowing();
+		users.add(currentUser);
+		List<Post> timeLine = new ArrayList<>();
+		users.stream().forEach(user -> user.getPosts().stream().forEach(post -> timeLine.add(post)));;
+		return timeLine;
 	}
 
 }

@@ -7,7 +7,7 @@
     <header th:replace="layout :: site-header"></header>
     <aside>
         <h2>Recent Posts</h2>
-        <a href="#" th:each="p: ${latest5posts}" th:text="(${p.getTitle()} != null) ? ${p.getTitle()} :'Post from ' + ${p.getAuthor().getUsername()]" th:href="@{/posts/view/{id}/(id=${p.id})}">Work Begins
+        <a href="#" th:each="p: ${latest5Posts}" th:text="${p.getTitle()}" th:href="@{'/posts/'+${p.getId()}+'/view'}">Work Begins
             on HTML5.1</a>
     </aside>
     <main class="container" id="posts">
