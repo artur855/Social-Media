@@ -136,13 +136,16 @@
 			<div class="media" style="margin-left: -10px;">
 				<figure>
 					<a th:href="@{'/users/'+${post.getAuthor().getUsername()}+'/profile'}">
-						<img class="rounded d-flex mx-2" th:src="@{${post.getAuthor().getProfilePictureUrl()}}" width="45px" />
+						<img id="profile-picture" class="rounded d-flex mx-2" th:src="@{${post.getAuthor().getProfilePictureUrl()}}" width="45px" />
 					</a>
 					<br />
-					<figcaption class="d-flex flex-column text-center justify-content-center">
-						<a class="fas fa-arrow-up unstyled" href="#"></a>
-						<a class="fas fa-circle unstyled my-1" style="font-size: 0.5em"></a>
-						<a class="fas fa-arrow-down unstyled" href="#"></a>
+					<figcaption class="d-flex text-center justify-content-center">
+						<span id="points" class="d-flex flex-column justify-content-center mr-2" th:text="${post.getPoints()}"></span>
+						<div class="d-flex flex-column justify-content-center">
+							<button id="arrow-up" class="fas fa-arrow-up unstyled"></button>
+							<span class="fas fa-circle unstyled my-1" style="font-size: 0.5em"></span>
+							<button id="arrow-down" class="fas fa-arrow-down unstyled"></button>
+						</div>
 					</figcaption>
 				</figure>
 				<div class="media-body">
@@ -159,8 +162,10 @@
 					<div class="media-body" th:text="${post.getBody()}">Text Body</div>
 					<ul class="list-inline list-unstyled">
 						<li id="comments" class="list-inline-item">
-							<i class="fa fa-comments"></i>
-							Comments |
+							<button id="comments" class="unstyled">
+								<i class="fa fa-comments"></i>
+								Comments |
+							</button>
 						</li>
 						<li class="list-inline-item">
 							<i class="fa fa-tags"></i>
@@ -195,10 +200,13 @@
 						<img class="rounded d-flex mx-2" th:src="@{${comment.getUser().getProfilePictureUrl()}}" width="45px" />
 					</a>
 					<br />
-					<figcaption class="d-flex flex-column text-center justify-content-center">
-						<a class="fas fa-arrow-up unstyled" href="#"></a>
-						<a class="fas fa-circle unstyled my-1" style="font-size: 0.5em"></a>
-						<a class="fas fa-arrow-down unstyled" href="#"></a>
+					<figcaption class="d-flex text-center justify-content-center">
+						<span id="points" class="d-flex flex-column justify-content-center mr-2" th:text="${post.getPoints()}"></span>
+						<div class="d-flex flex-column justify-content-center">
+							<button id="arrow-up" class="fas fa-arrow-up unstyled"></button>
+							<span class="fas fa-circle unstyled my-1" style="font-size: 0.5em"></span>
+							<button id="arrow-down" class="fas fa-arrow-down unstyled"></button>
+						</div>
 					</figcaption>
 				</figure>
 				<div class="media-body">

@@ -8,7 +8,7 @@ import java.util.Set;
 import javax.persistence.*;
 
 @Entity
-@Table(name="comments")
+@Table(name = "comments")
 public class Comment {
 
 	@Id
@@ -34,15 +34,19 @@ public class Comment {
 	@JoinColumn(name = "parent_comment")
 	private Comment parent;
 
+	@Column
+	private int points;
+
+	public Comment() {
+	}
+
 	public Comment(String body, User user, Post post) {
 		this.body = body;
 		this.user = user;
 		this.post = post;
 		this.createdAt = new Date();
 		this.comments = new HashSet<>();
-	}
-
-	public Comment() {
+		this.points = 0;
 	}
 
 	@Override
@@ -132,6 +136,22 @@ public class Comment {
 
 	public void setParent(Comment parent) {
 		this.parent = parent;
+	}
+
+	public int getPoints() {
+		return points;
+	}
+
+	public void setPoints(int points) {
+		this.points = points;
+	}
+
+	public void addPoint() {
+		this.points++;
+	}
+
+	public void removePoint() {
+		this.points--;
 	}
 
 }

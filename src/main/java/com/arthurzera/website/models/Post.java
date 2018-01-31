@@ -34,6 +34,9 @@ public class Post {
 	@JoinTable
 	private Set<Tag> tags;
 	
+	@Column
+	private int points;
+	
 	public Post() {
 	}
 
@@ -45,6 +48,7 @@ public class Post {
 		this.tags = new HashSet<>();
 		this.comments = new HashSet<>();
 		this.date = new Date();
+		this.points = 0;
 	}
 
 	@Override
@@ -142,5 +146,20 @@ public class Post {
 	public void removeTag(Tag tag) {
 		this.tags.remove(tag);
 		tag.getPosts().remove(this);
+	}
+
+	public int getPoints() {
+		return points;
+	}
+
+	public void setPoints(int points) {
+		this.points = points;
+	}
+	
+	public void addPoint() {
+		this.points++;
+	}
+	public void removePoint() {
+		this.points--;
 	}
 }

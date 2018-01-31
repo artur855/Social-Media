@@ -125,29 +125,37 @@ footer {
 	height: 40px;
 	text-align: center;
 	margin: 2px;
-	line-height: 25px;	
+	line-height: 25px;
 }
+
 .close-icon {
 	cursor: pointer;
 	outline: none;
-	border:none;
-	background:none;
-	width: 30px; 
+	border: none;
+	background: none;
+	width: 30px;
 }
-li{
+
+li {
 	list-style: none;
-    text-decoration: none;
+	text-decoration: none;
 }
 
-.unstyled{
-	outline:none;
-	background:none;
-	border:none;
-    text-decoration: none;
-    color: inherit;
-
-}
-.unstyled:hover{
+.unstyled {
+	outline: none;
+	background: none;
+	border: none;
 	text-decoration: none;
 	color: inherit;
+}
+
+.unstyled:hover {
+	text-decoration: none;
+	color: inherit;
+}
+
+#points{
+	color: #A9A9A9;
+	font-size:larger;
+	font-weight: bold;
 }
