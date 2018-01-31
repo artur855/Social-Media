@@ -1,5 +1,6 @@
 package com.arthurzera.website.models;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Set;
 
@@ -8,28 +9,28 @@ import javax.persistence.*;
 @Entity
 @Table
 public class Comment {
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	@ManyToOne
 	private Post post;
-	
+
 	@ManyToOne
 	private User user;
-	
+
 	@Column
 	private Date createdAt = new Date();
-	
+
 	@Column
 	private String body;
-	
-	@OneToMany(mappedBy="parent")
+
+	@OneToMany(mappedBy = "parent")
 	private Set<Comment> comments;
-	
+
 	@ManyToOne
-	@JoinColumn(name="parent_comment")
+	@JoinColumn(name = "parent_comment")
 	private Comment parent;
 
 	public Comment(String body, User user, Post post) {
@@ -37,8 +38,34 @@ public class Comment {
 		this.user = user;
 		this.post = post;
 	}
-	public Comment() {}
-	
+
+	public Comment() {
+	}
+
+	@Override
+	public String toString() {
+		return "Comment [id=" + id + ", createdAt=" + createdAt + ", body=" + body + ", parent=" + parent + "]";
+	}
+
+	public String getTimePassed() {
+		Date now = new Date();
+		long time = now.getTime() - this.createdAt.getTime();
+		time = (long) (time / 1000.0);
+		String distance = "Updated ";
+		if (time < 3600) {
+			distance += (int) time / 60;
+			distance += ((time / 60) > 1) ? " mins ago" : " min ago";
+		} else if (3600 < time && time < 86400) {
+			distance += (int) time / 3600;
+			distance += ((time / 3600) > 1) ? " hours ago" : " hour ago";
+		} else {
+			distance += (int) time / 86400;
+			distance += ((time / 86400) > 1) ? " days ago" : " day ago";
+
+		}
+		return distance;
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -63,8 +90,9 @@ public class Comment {
 		this.user = user;
 	}
 
-	public Date getCreatedAt() {
-		return createdAt;
+	public String getCreatedAt() {
+		SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+		return format.format(createdAt);
 	}
 
 	public void setCreatedAt(Date createdAt) {
@@ -86,23 +114,21 @@ public class Comment {
 	public void setComments(Set<Comment> comments) {
 		this.comments = comments;
 	}
-	
+
 	public void respondComment(Comment comment) {
 		this.comments.add(comment);
 	}
-	
+
 	public void deleteComment(Comment comment) {
 		this.comments.remove(comment);
 	}
+
 	public Comment getParent() {
 		return parent;
 	}
+
 	public void setParent(Comment parent) {
 		this.parent = parent;
 	}
-	
-	
-	
-	
-	
+
 }

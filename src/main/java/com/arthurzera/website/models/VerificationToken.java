@@ -16,7 +16,6 @@ public class VerificationToken {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	
 	@Column
 	private String token;
 
@@ -28,12 +27,18 @@ public class VerificationToken {
 	private Date expiryDate;
 
 	public VerificationToken() {
-		
+
 	}
+
 	public VerificationToken(String token, User user) {
 		this.token = token;
 		this.user = user;
 		this.expiryDate = calculateExpiryDate(EXPIRATION);
+	}
+
+	@Override
+	public String toString() {
+		return "VerificationToken [id=" + id + ", token=" + token + ", expiryDate=" + expiryDate + "]";
 	}
 
 	private Date calculateExpiryDate(int expiryTimeInMinutes) {

@@ -15,7 +15,7 @@ import com.arthurzera.website.services.IRoleService;
 import com.arthurzera.website.services.IUserService;
 import com.arthurzera.website.services.mail.IEmailService;
 
-public class BasicController {
+public abstract class BasicController {
 
 	@Autowired
 	protected IEmailService emailService;

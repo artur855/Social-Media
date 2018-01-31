@@ -105,4 +105,20 @@ public class Post {
 		}
 		return distance;
 	}
+
+	public Set<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(Set<Comment> comments) {
+		this.comments = comments;
+	}
+	public void addComment(Comment comment) {
+		this.comments.add(comment);
+	}
+
+	public void deleteComment(Comment comment) {
+		this.comments.remove(comment);
+	}
+
 }

@@ -5,20 +5,79 @@
 </head>
 <body>
 	<header th:replace="layout :: header"></header>
-	<main>
-	<article class="container">
-		<h2 class="title" th:text="${post.title}">Post Title</h2>
-		<hr class="hr_heading" />
-		<div class="date">
-			<p>Posted on</p>
-			<span th:text="${#dates.format(post.date, 'dd-MMM-yyyy')}">dd-MMM-yyyy</span>
-			<span th:if="${post.author}" th:remove="tag">
-				by
-				<span th:text="${post.author.fullName != null ? post.author.fullName : post.author.username}">Author name</span>
-			</span>
+	<main class="container">
+	<div class="card card-outline-danger bg-light my-2">
+		<div class="card-body">
+			<div class="media" style="margin-left: -10px;">
+				<figure>
+					<a th:href="@{'/users/'+${post.getAuthor().getUsername()}+'/profile'}">
+						<img class="rounded d-flex mx-2" th:src="@{${post.getAuthor().getProfilePictureUrl()}}" width="45px" />
+					</a>
+					<br />
+					<figcaption class="d-flex flex-column text-center justify-content-center">
+						<a class="fas fa-arrow-up unstyled" href="#"></a>
+						<a class="fas fa-circle unstyled my-1" style="font-size: 0.5em"></a>
+						<a class="fas fa-arrow-down unstyled" href="#"></a>
+					</figcaption>
+				</figure>
+				<div class="media-body">
+					<h6>
+						<a class="ml-1" th:href="@{'/users/'+${post.getAuthor().getUsername()}+'/profile'}"
+							th:text="${post.getAuthor().getUsername()}"
+						>Author Username</a>
+					</h6>
+					<p>
+						<i class="fa fa-calendar-alt"></i>
+						<small class="text-muted" th:text="${post.getTimePassed()}"> Updated x ago</small>
+					</p>
+					<h4 class="media-body" th:if="${post.getTitle()} != null" th:text="${post.getTitle()}">Text Title</h4>
+					<div class="media-body" th:text="${post.getBody()}">Text Body</div>
+					<ul class="list-inline list-unstyled">
+						<li class="list-inline-item">
+							<button class="unstyled" id="comments">
+								<i class="fa fa-comments"></i>
+								Comments |
+							</button>
+						</li>
+						<li class="list-inline-item">
+							<i class="fa fa-tags"></i>
+							Tags:
+						</li>
+						<li class="list-inline-item">
+							<a href="#">
+								<span class="badge badge-primary">Rock</span>
+							</a>
+						</li>
+						<li class="list-inline-item">
+							<a href="#">
+								<span class="badge badge-primary">ShitPost</span>
+							</a>
+						</li>
+						<li class="list-inline-item">
+							<a href="#">
+								<span class="badge badge-primary">Latim</span>
+							</a>
+						</li>
+						<li class="list-inline-item">
+							<a href="#">
+								<span class="badge badge-primary">Test</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<a class="pull-right btn btn-warning" th:if="${post.getAuthor()} == ${currentUser}"
+				th:href="@{'/post/'+${post.getId()}+'/delete'}"
+			>Delete</a>
 		</div>
-		<p class="content" th:utext="${post.body}">Post content</p>
-	</article>
+	</div>
+	<div>
+		<ul class="list-group">
+			<li class="list-group-item" th:each="comment : ${post.getComments()}">
+				<div th:replace="layout::comment-body"></div>
+			</li>
+		</ul>
+	</div>
 	</main>
 	<footer th:replace="layout :: footer"></footer>
 </body>

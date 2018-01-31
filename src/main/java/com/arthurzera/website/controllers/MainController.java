@@ -14,10 +14,10 @@ public class MainController extends BasicController {
 	@RequestMapping("/")
 	public ModelAndView index() {
 		ModelAndView mvc = super.mvc();
+		List<Post> allPosts = postService.findAll();
 		List<Post> latest5Posts = postService.findLatest5();
-		mvc.addObject("latest5posts", latest5Posts);
-		List<Post> latest3Posts = latest5Posts.stream().limit(3).collect(Collectors.toList());
-		mvc.addObject("latest3posts", latest3Posts);
+		mvc.addObject("allPosts", allPosts);
+		mvc.addObject("latest5Posts", latest5Posts);
 		mvc.setViewName("index");
 		return mvc;
 	}

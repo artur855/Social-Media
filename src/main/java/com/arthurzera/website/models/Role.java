@@ -27,6 +27,12 @@ public class Role {
 		this.role = role;
 	}
 
+	
+	@Override
+	public String toString() {
+		return "Role [id=" + id + ", role=" + role + "]";
+	}
+
 	public String getRole() {
 		return role;
 	}

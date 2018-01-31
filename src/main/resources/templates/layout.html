@@ -126,7 +126,9 @@
 	<!-- TRADICIONAL POST -->
 	<div class="card card-outline-danger bg-light my-2" th:fragment="post-body">
 		<div class="pull-right">
-			<button type="button" class="close close-icon " aria-label="Close" data-toggle="tooltip" data-placement="top" title="Hide post">
+			<button type="button" id="close-button" class="close close-icon " aria-label="Close" data-toggle="tooltip" data-placement="top"
+				title="Hide post"
+			>
 				<span aria-hidden="true">&times;</span>
 			</button>
 		</div>
@@ -156,7 +158,7 @@
 					<h4 class="media-body" th:if="${post.getTitle()} != null" th:text="${post.getTitle()}">Text Title</h4>
 					<div class="media-body" th:text="${post.getBody()}">Text Body</div>
 					<ul class="list-inline list-unstyled">
-						<li class="list-inline-item">
+						<li id="comments" class="list-inline-item">
 							<i class="fa fa-comments"></i>
 							Comments |
 						</li>
@@ -187,17 +189,56 @@
 					</ul>
 				</div>
 			</div>
-			<a class="pull-right btn btn-warning" th:if="${post.getAuthor()} == ${currentUser}" th:href="@{/post/{id}/delete}">Delete</a>
+			<a class="pull-right btn btn-warning" th:if="${post.getAuthor()} == ${currentUser}" th:href="@{'/post/'+${post.getId()}+'/delete'}">Delete</a>
 		</div>
 		<script type="text/javascript">
-			jQuery('#posts > article > div > div.pull-right > button').click(
-					function() {
-						var $target = $(this).parents('div');
-						$target.fadeOut("slow");
-					});
+			$('#close-button').click(function() {
+				var $target = $(this).parents('div');
+				$target.fadeOut("slow");
+			});
 		</script>
 	</div>
 	<!-- END TRADICIONAL POST -->
+	<!-- TRADICIONAL COMMENT -->
+	<div class="card card-outline-danger bg-light my-2" th:fragment="comment-body">
+		<div class="card-body">
+			<div class="media" style="margin-left: -10px;">
+				<figure>
+					<a th:href="@{'/users/'+${comment.getUser().getUsername()}+'/profile'}">
+						<img class="rounded d-flex mx-2" th:src="@{${comment.getUser().getProfilePictureUrl()}}" width="45px" />
+					</a>
+					<br />
+					<figcaption class="d-flex flex-column text-center justify-content-center">
+						<a class="fas fa-arrow-up unstyled" href="#"></a>
+						<a class="fas fa-circle unstyled my-1" style="font-size: 0.5em"></a>
+						<a class="fas fa-arrow-down unstyled" href="#"></a>
+					</figcaption>
+				</figure>
+				<div class="media-body">
+					<h6>
+						<a class="ml-1" th:href="@{'/users/'+${comment.getUser().getUsername()}+'/profile'}"
+							th:text="${comment.getUser().getUsername()}"
+						>Author Username</a>
+					</h6>
+					<p>
+						<i class="fa fa-calendar-alt"></i>
+						<small class="text-muted" th:text="${comment.getTimePassed()}"> Updated x ago</small>
+					</p>
+					<div class="media-body" th:text="${comment.getBody()}">Text Body</div>
+					<ul class="list-inline">
+						<li class="list-inline-item">
+							<button class="unstyled" id="comments">
+								<i class="fa fa-comments"></i>
+								Comments
+							</button>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<a class="pull-right btn btn-warning" th:if="${comment.getUser()} == ${currentUser}" th:href="@{'/comment/'+${comment.getId()}+'/delete'}">Delete</a>
+		</div>
+	</div>
+	<!-- END TRADICIONAL COMMENT-->
 	<!-- TRADICIONAL FOOTER -->
 	<footer th:fragment="site-footer">
 		<div class="container">

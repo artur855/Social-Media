@@ -139,9 +139,15 @@ li{
     text-decoration: none;
 }
 
-a.unstyled{
-	 
+.unstyled{
+	outline:none;
+	background:none;
+	border:none;
     text-decoration: none;
     color: inherit;
 
+}
+.unstyled:hover{
+	text-decoration: none;
+	color: inherit;
 }

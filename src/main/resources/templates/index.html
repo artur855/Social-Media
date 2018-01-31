@@ -7,14 +7,13 @@
     <header th:replace="layout :: site-header"></header>
     <aside>
         <h2>Recent Posts</h2>
-        <a href="#" th:each="p: ${latest5posts}" th:text="${p.title}" th:href="@{/posts/view/{id}/(id=${p.id})}">Work Begins
+        <a href="#" th:each="p: ${latest5posts}" th:text="(${p.getTitle()} != null) ? ${p.getTitle()} :'Post from ' + ${p.getAuthor().getUsername()]" th:href="@{/posts/view/{id}/(id=${p.id})}">Work Begins
             on HTML5.1</a>
     </aside>
     <main class="container" id="posts">
-    <article th:each="post : ${latest3posts}">
+    <article th:each="post : ${allPosts}">
         <div th:replace="layout::post-body">
         </div>
-        
     </article>
     </main>
     <footer th:replace="layout :: site-footer"></footer>
