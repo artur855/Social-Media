@@ -17,7 +17,7 @@ public class Role {
 
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable
-	private Set<User> users = new HashSet<>();
+	private Set<User> users;
 
 	public Role() {
 		
@@ -25,6 +25,7 @@ public class Role {
 	
 	public Role(String role) {
 		this.role = role;
+		this.users = new HashSet<>();
 	}
 
 	

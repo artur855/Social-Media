@@ -32,16 +32,16 @@ public class User {
 	private VerificationToken verificationToken;
 
 	@OneToMany(mappedBy = "author")
-	private Set<Post> posts = new HashSet<>();
+	private Set<Post> posts;
 
 	@OneToMany(mappedBy = "user")
 	private Set<Comment> comments = new HashSet<>();
 	
 	@Column(nullable = false)
-	private Date createdAt = new Date();
+	private Date createdAt;
 
 	@ManyToMany(fetch = FetchType.EAGER)
-	private Set<Role> roles = new HashSet<>();
+	private Set<Role> roles;
 
 	@Column
 	private Boolean enabled;
@@ -65,12 +65,10 @@ public class User {
 		this.passwordHash = passwordHash;
 		this.enabled = false;
 		this.profilePictureUrl= "/img/profile_icons/default.png";
-	}
-
-	public User(Long id, String username, String fullName) {
-		this.id = id;
-		this.username = username;
-		this.fullName = fullName;
+		this.roles = new HashSet<>();
+		this.posts = new HashSet<>();
+		this.comments = new HashSet<>();
+		this.createdAt = new Date();
 	}
 
 	@Override

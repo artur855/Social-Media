@@ -2,17 +2,18 @@ package com.arthurzera.website.models;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.*;
 
 @Entity
-@Table
+@Table(name="comments")
 public class Comment {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Long id;
 
 	@ManyToOne
 	private Post post;
@@ -21,7 +22,7 @@ public class Comment {
 	private User user;
 
 	@Column
-	private Date createdAt = new Date();
+	private Date createdAt;
 
 	@Column
 	private String body;
@@ -37,6 +38,8 @@ public class Comment {
 		this.body = body;
 		this.user = user;
 		this.post = post;
+		this.createdAt = new Date();
+		this.comments = new HashSet<>();
 	}
 
 	public Comment() {
@@ -66,11 +69,11 @@ public class Comment {
 		return distance;
 	}
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

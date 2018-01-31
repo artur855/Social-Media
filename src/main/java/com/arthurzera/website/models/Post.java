@@ -25,11 +25,14 @@ public class Post {
 	private User author;
 
 	@OneToMany(mappedBy="post")
-	private Set<Comment> comments = new HashSet<>();
+	private Set<Comment> comments;
 	
 	@Column(nullable = false)
-	private Date date = new Date();
-
+	private Date date;
+	
+	@ManyToMany
+	@JoinTable
+	private Set<Tag> tags;
 	
 	public Post() {
 	}
@@ -39,7 +42,9 @@ public class Post {
 		this.title = title;
 		this.body = body;
 		this.author = author;
-		
+		this.tags = new HashSet<>();
+		this.comments = new HashSet<>();
+		this.date = new Date();
 	}
 
 	@Override
@@ -121,4 +126,21 @@ public class Post {
 		this.comments.remove(comment);
 	}
 
+	public Set<Tag> getTags() {
+		return tags;
+	}
+
+	public void setTags(Set<Tag> tags) {
+		this.tags = tags;
+		
+	}
+	
+	public void addTag(Tag tag) {
+		this.tags.add(tag);
+		tag.getPosts().add(this);
+	}
+	public void removeTag(Tag tag) {
+		this.tags.remove(tag);
+		tag.getPosts().remove(this);
+	}
 }
