@@ -174,7 +174,9 @@
 						<li id="comments" class="list-inline-item">
 							<button id="comments" class="unstyled">
 								<i class="fa fa-comments"></i>
-								Comments |
+								<span
+									th:text="${post.getComments().size()>1} ? ${post.getComments().size()} + ' Comments |' : ${post.getComments().size()} + ' Comment |'"
+								>x Comments |</span>
 							</button>
 						</li>
 						<li class="list-inline-item">
@@ -241,7 +243,9 @@
 						<li class="list-inline-item">
 							<button class="unstyled" id="comments">
 								<i class="fa fa-comments"></i>
-								Comments
+								<span
+									th:text="${comment.getComments().size()>1} ? ${comment.getComments().size()} + ' Comments' : ${comment.getComments().size()} + ' Comment'"
+								>x Comments</span>
 							</button>
 						</li>
 					</ul>

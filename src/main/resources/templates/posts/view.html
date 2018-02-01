@@ -48,8 +48,8 @@
 					<ul class="list-inline list-unstyled">
 						<li class="list-inline-item">
 							<button class="unstyled" id="comments">
-								<i class="fa fa-comments"></i>
-								Comments |
+									<i class="fa fa-comments"></i>
+									<span th:text="${post.getComments().size()>1} ? ${post.getComments().size()} + ' Comments |' : ${post.getComments().size()} + ' Comment |'">x Comments |</span>
 							</button>
 						</li>
 						<li class="list-inline-item">

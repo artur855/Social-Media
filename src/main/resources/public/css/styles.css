@@ -117,11 +117,11 @@ footer {
 	width: 2.5em;
 }
 
-.btn-403 {
+.btn-error {
 	text-align: center;
 }
 
-.btn-403 a {
+.btn-error a {
 	height: 40px;
 	text-align: center;
 	margin: 2px;
