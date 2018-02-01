@@ -4,19 +4,39 @@
 <title>Arthurzera</title>
 </head>
 <body>
-    <header th:replace="layout :: site-header"></header>
-    <aside>
-        <h2>Recent Posts</h2>
-        <a href="#" th:each="p: ${latest5Posts}" th:text="${p.getTitle()}" th:href="@{'/posts/'+${p.getId()}+'/view'}">Work Begins
-            on HTML5.1</a>
-    </aside>
-    <main class="container" id="posts">
-    <article th:each="post : ${allPosts}">
-        <div th:replace="layout::post-body">
-        </div>
-    </article>
-    </main>
-    <footer th:replace="layout :: site-footer"></footer>
+	<header th:replace="layout :: site-header"></header>
+	<aside>
+		<h2>Recent Posts</h2>
+		<a href="#" th:each="p: ${latest5Posts}" th:text="${p.getTitle()}" th:href="@{'/posts/'+${p.getId()}+'/view'}">Work Begins
+			on HTML5.1</a>
+	</aside>
+	<main class="container" id="posts">
+	<div>
+		<form id="postForm" action="posts/create" th:action="@{/posts/create}" class="card card-body" method="post" th:object="${postForm}">
+			<div class="row">
+				<div class="col-sm-5">
+					<div class="form-group">
+						<input type="text" class="form-control" name="title" placeholder="Post Title" th:value="*{title}" />
+						<span class="formError" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Invalid Title</span>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="form-group">
+						<textarea class="form-control autoExpand" rows="10" name="body" placeholder="Post Body" th:value="*{body}" ></textarea>
+						<span class="formError" th:if="${#fields.hasErrors('body')}" th:errors="*{body}">Invalid Title</span>
+					</div>
+				</div>
+			</div>
+			<button type="submit" class="btn btn-success">Post!!</button>
+		</form>
+	</div>
+	<article th:each="post : ${allPosts}">
+		<div th:replace="layout::post-body"></div>
+	</article>
+	</main>
+	<footer th:replace="layout :: site-footer"></footer>
 </body>
 <script type="text/javascript">
 	$('#hide-button').click(function() {

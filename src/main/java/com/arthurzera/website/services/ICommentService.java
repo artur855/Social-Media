@@ -1,7 +1,6 @@
 package com.arthurzera.website.services;
 
 import java.util.Set;
-
 import com.arthurzera.website.models.Comment;
 import com.arthurzera.website.models.User;
 

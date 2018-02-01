@@ -40,8 +40,7 @@ public class Post {
 	public Post() {
 	}
 
-	public Post(Long id, String title, String body, User author) {
-		this.id = id;
+	public Post(String title, String body, User author) {
 		this.title = title;
 		this.body = body;
 		this.author = author;
@@ -55,6 +54,7 @@ public class Post {
 	public String toString() {
 		return "Post{" + "id=" + id + ", title=" + title + ", body=" + body + ", author=" + author + '}';
 	}
+	
 
 	public Long getId() {
 		return id;
@@ -137,6 +137,10 @@ public class Post {
 	public void setTags(Set<Tag> tags) {
 		this.tags = tags;
 		
+	}
+	
+	public boolean hasTag(Tag tag) {
+		return this.tags.contains(tag);
 	}
 	
 	public void addTag(Tag tag) {

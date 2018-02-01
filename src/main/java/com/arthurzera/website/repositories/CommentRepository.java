@@ -13,4 +13,5 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
 	Comment findByPost(Post post);
 	Comment findByBody(String body);
 	
+	
 }

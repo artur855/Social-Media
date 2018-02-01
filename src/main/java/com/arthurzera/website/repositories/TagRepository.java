@@ -8,5 +8,5 @@ import com.arthurzera.website.models.Tag;
 @Repository
 public interface TagRepository extends JpaRepository<Tag, Long>{
 	Tag findByTag(String tag);
-	Tag findById(Long id);
+	 
 }
