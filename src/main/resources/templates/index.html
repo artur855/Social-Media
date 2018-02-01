@@ -12,7 +12,9 @@
 	</aside>
 	<main class="container" id="posts">
 	<div>
-		<form id="postForm" action="posts/create" th:action="@{/posts/create}" class="card card-body" method="post" th:object="${postForm}">
+		<form id="postForm" action="posts/create" th:action="@{/posts/create}" class="card card-body" method="post"
+			th:object="${postForm}"
+		>
 			<div class="row">
 				<div class="col-sm-5">
 					<div class="form-group">
@@ -20,12 +22,20 @@
 						<span class="formError" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Invalid Title</span>
 					</div>
 				</div>
-			</div>
-			<div class="row">
+				<div class="dropdown">
+					<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+						aria-haspopup="true" aria-expanded="false"
+					>Select tag</button>
+					<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+						
+							<a id="tagItem" class="dropdown-item" role="menu-item" th:text="${tag.getTag()}" th:each="tag : ${tags}"></a>
+						 
+					</div>
+				</div>
 				<div class="col-sm-12">
 					<div class="form-group">
-						<textarea class="form-control autoExpand" rows="10" name="body" placeholder="Post Body" th:value="*{body}" ></textarea>
-						<span class="formError" th:if="${#fields.hasErrors('body')}" th:errors="*{body}">Invalid Title</span>
+						<textarea class="form-control autoExpand" rows="10" name="body" placeholder="Post Body" th:value="*{body}"></textarea>
+						<span class="formError" th:if="${#fields.hasErrors('body')}" th:errors="*{body}">Invalid Body</span>
 					</div>
 				</div>
 			</div>
@@ -42,6 +52,13 @@
 	$('#hide-button').click(function() {
 		var $target = $(this).parents('li');
 		$target.fadeOut("slow");
+	});
+	
+	$(function() {
+		$("#tagItem").click(
+				 
+				$(this).parents('div').html("slow");
+
 	});
 </script>
 </html>

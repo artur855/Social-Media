@@ -2,6 +2,7 @@ package com.arthurzera.website.controllers;
 
 import com.arthurzera.website.forms.PostForm;
 import com.arthurzera.website.models.Post;
+import com.arthurzera.website.models.Tag;
 import com.arthurzera.website.models.User;
 
 import java.util.List;
@@ -24,8 +25,10 @@ public class MainController extends BasicController {
 			allPosts = postService.findAll();
 		}
 		latest5Posts = postService.findLatest5();
+		List<Tag> tags = tagService.findAll();
 		mvc.addObject("postForm", new PostForm());
 		mvc.addObject("allPosts", allPosts);
+		mvc.addObject("tags", tags);
 		mvc.addObject("latest5Posts", latest5Posts);
 		mvc.setViewName("index");
 		return mvc;

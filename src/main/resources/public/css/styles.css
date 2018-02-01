@@ -129,9 +129,10 @@ footer {
 }
  
 
-li {
+ul,li {
 	list-style: none;
 	text-decoration: none;
+	padding:0px;
 }
 
 .unstyled {
@@ -151,4 +152,10 @@ li {
 	color: #A9A9A9;
 	font-size:larger;
 	font-weight: bold;
+}
+
+.dropdown-menu {
+    height: auto;
+    max-height: 200px;
+    overflow-x: hidden;
 }

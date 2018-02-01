@@ -1,5 +1,7 @@
 package com.arthurzera.website.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,6 +37,11 @@ public class TagService implements ITagService {
 	@Override
 	public void deleteById(Long id) {
 		tagRepository.delete(id);
+	}
+
+	@Override
+	public List<Tag> findAll() {
+		return tagRepository.findAll();
 	}
 
 }

@@ -185,7 +185,7 @@
 						</li>
 						<li class="list-inline-item" th:each="tag : ${post.getTags()}">
 							<a th:href="@{'/tags/'+${tag.getId()}+'/view'}">
-								<span class="badge badge-primary" th:text="${tag.getTag()}">Rock</span>
+								<span class="badge badge-primary" th:text="${tag.getTag()}">Tag</span>
 							</a>
 						</li>
 					</ul>

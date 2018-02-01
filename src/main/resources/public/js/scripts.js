@@ -16,3 +16,4 @@ $(document).one('focus.autoExpand', 'textarea.autoExpand', function() {
 	rows = Math.ceil((this.scrollHeight - this.baseScrollHeight) / 20);
 	this.rows = minRows + rows;
 });
+
