@@ -1,0 +1,72 @@
+<html xmlns:th="http://thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
+<head th:replace="layout::site-head">
+<title>Change email</title>
+</head>
+<body>
+	<header th:replace="layout::header"></header>
+	<main class="container">
+	<div>
+		<h2>User Configuration</h2>
+		<hr class="hr_heading" />
+	</div>
+	<div class="card card-body">
+		<h3>Change Email</h3>
+		<hr class="hr_heading" />
+		<form class="emailPasswordForm" method="post" th:action="@{'/users/'+${user.getUsername()}+'/config/change-email'}"
+			th:object="${emailPasswordForm}"
+		>
+			<div class="row">
+				<div class="col-sm-9">
+					<div class="form-group">
+						<div class="input-group">
+							<span class="input-group-prepend">
+								<span class="input-group-text">
+									<i class="fas fa-at"></i>
+								</span>
+							</span>
+							<input type="email" class="form-control" name="email" placeholder="New Email" th:value="*{email}" />
+						</div>
+						<span class="formError" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Invalid Email</span>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-9">
+					<div class="form-group">
+						<div class="input-group">
+							<span class="input-group-prepend">
+								<span class="input-group-text">
+									<i class="fas fa-lock"></i>
+								</span>
+							</span>
+							<input type="password" class="form-control" name="password" placeholder="Password" th:value="*{password}" />
+						</div>
+						<span class="formError" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Invalid Password</span>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-9">
+					<div class="form-group">
+						<div class="input-group">
+							<span class="input-group-prepend">
+								<span class="input-group-text">
+									<i class="fas fa-lock"></i>
+								</span>
+							</span>
+							<input type="password" class="form-control" name="confirmPassword" placeholder="Confirm password"
+								th:value="*{confirmPassword}"
+							/>
+						</div>
+						<span class="formError" th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}">Invalid
+							Password</span>
+					</div>
+				</div>
+			</div>
+			<button class="btn btn-primary" type="submit">Sign Up</button>
+		</form>
+	</div>
+	</main>
+	<footer th:replace="layout::footer"></footer>
+</body>
+</html>

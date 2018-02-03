@@ -25,16 +25,16 @@ public class UserEmail {
 
 	@Column
 	private Date emailConfirmedOn;
- 
+	
 	@OneToOne(mappedBy = "email", optional = false, fetch = FetchType.LAZY)
-	@JoinColumn(name="user")
+	@JoinColumn(name = "user")
 	private User user;
 
 	public UserEmail() {
 	}
 
 	public UserEmail(String email) {
-		this.email= email;
+		this.email = email;
 	}
 
 	public Long getId() {
@@ -86,6 +86,4 @@ public class UserEmail {
 	public void setUser(User user) {
 		this.user = user;
 	}
-
-	
 }

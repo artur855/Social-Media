@@ -13,36 +13,34 @@
 		<br />
 		<div class="row">
 			<div class="col-xs-12 col-sm-9">
-				<form method="post" action="/users/login"
-					th:action="@{/users/login}" th:object="${loginForm}">
+				<form method="post" action="/users/login" th:action="@{/users/login}" th:object="${loginForm}">
 					<div class="form-group">
 						<div class="input-group">
-							<span class="input-group-prepend"> <span
-								class="input-group-text"> <i class="fas fa-user"></i>
+							<span class="input-group-prepend">
+								<span class="input-group-text">
+									<i class="fas fa-user"></i>
+								</span>
 							</span>
-							</span> <input type="text" class="form-control" name="username"
-								placeholder="Username" th:value="*{username}" />
+							<input type="text" class="form-control" name="username" placeholder="Username" th:value="*{username}" />
 						</div>
-						<span class="formError" th:if="${#fields.hasErrors('username')}"
-							th:errors="*{username}">Invalid Username</span>
+						<span class="formError" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Invalid Username</span>
 					</div>
 					<div class="form-group">
 						<div class="input-group">
-							<span class="input-group-prepend"> <span
-								class="input-group-text"> <i class="fas fa-lock"></i>
+							<span class="input-group-prepend">
+								<span class="input-group-text">
+									<i class="fas fa-lock"></i>
+								</span>
 							</span>
-							</span> <input type="password" class="form-control" name="password"
-								placeholder="Password" th:value="*{password}" />
+							<input type="password" class="form-control" name="password" placeholder="Password" th:value="*{password}" />
 						</div>
-						<span class="formError" th:if="${#fields.hasErrors('password')}"
-							th:errors="*{password}">Invalid Password</span>
+						<span class="formError" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Invalid Password</span>
 					</div>
 					<div class="form-check">
-						<input id="remember-me" name="remember-me" class="form-check-input" type="checkbox" /> <label
-							class="">Remember Me</label>
+						<input id="remember-me" name="remember-me" class="form-check-input" type="checkbox" />
+						<label class="">Remember Me</label>
 					</div>
-					<button class="btn btn-success btn-block" type="submit">Sign
-						in</button>
+					<button class="btn btn-success btn-block" type="submit">Sign in</button>
 				</form>
 			</div>
 		</div>
@@ -55,19 +53,22 @@
 		<div class="row">
 			<div class="col-xs-4 col-sm-3">
 				<form action="/users/auth/facebook" th:action="@{/users/auth/facebook}" method="POST">
-				<button type="submit" class="btn btn-lg btn-block btn-facebook"> <i
-					class="fab fa-facebook"></i> <span>Facebook</span>
-				</button>
+					<button type="submit" class="btn btn-lg btn-block btn-facebook">
+						<i class="fab fa-facebook"></i>
+						<span>Facebook</span>
+					</button>
 				</form>
 			</div>
 			<div class="col-xs-4 col-sm-3">
-				<a href="#" class="btn btn-lg btn-block btn-github"> <i
-					class="fab fa-github"></i> <span>Github</span>
+				<a href="#" class="btn btn-lg btn-block btn-github">
+					<i class="fab fa-github"></i>
+					<span>Github</span>
 				</a>
 			</div>
 			<div class="col-xs-4 col-sm-3">
-				<a href="#" class="btn btn-lg btn-block btn-google"> <i
-					class="fab fa-google-plus"></i> <span>Google+</span>
+				<a href="#" class="btn btn-lg btn-block btn-google">
+					<i class="fab fa-google-plus"></i>
+					<span>Google+</span>
 				</a>
 			</div>
 		</div>
@@ -75,9 +76,9 @@
 		<h2>Don't have a account yet?</h2>
 		<div class="row">
 			<div class="col-9">
-				<a href="register.html" th:href="@{/users/register}"
-					class="btn btn-lg btn-block btn-secondary"> <i
-					class="fas fa-user-plus"></i> <span>Register</span>
+				<a href="register.html" th:href="@{/users/register}" class="btn btn-lg btn-block btn-secondary">
+					<i class="fas fa-user-plus"></i>
+					<span>Register</span>
 				</a>
 			</div>
 		</div>

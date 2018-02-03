@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html xmlns:th="http://thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
 <head th:replace="layout::site-head">
-<title th:text="|${user.getUsername()}'s Config|">User Config</title>
+<title th:text="|${user.getUsername()}'s Config|">user Config</title>
 </head>
 <body>
 	<header th:replace="layout::header"></header>
 	<main class="container" th:fragment="config-page">
 	<div>
-		<h2 th:text="|${user.getUsername()}'s Config|">User Config</h2>
+		<h2 th:text="|${user.getUsername()}'s Config|">user Config</h2>
 		<hr class="hr_heading" />
 	</div>
 	<div class="row my-2">
 		<div class="col-sm-8">
 			<div class="card">
 				<div class="card-header bg-primary">Email Address</div>
-				<div class="card-body" th:text="${user.getEmail().getEmail()}">User Address</div>
+				<div class="card-body" th:text="${user.getEmail().getEmail()}">user Address</div>
 			</div>
 		</div>
 	</div>
@@ -27,16 +27,16 @@
 						<a>Change user information</a>
 					</p>
 					<p>
-						<a th:href="@{'/users/'+${user.getUsername()}+'/edit'}|">Change email</a>
+						<a th:href="@{'/users/'+${user.getUsername()}+'/config/change-email'}|">Change email</a>
 					</p>
 					<p th:if="${!user.getEmail().isConfirmed()}">
-						<a th:href="@{'/users/'+${user.getUsername()}+'/reset/re_sent_conrfimation_email'}">Resend confirmation email</a>
+						<a th:href="@{'/users/'+${user.getUsername()}+'/config/re-sent-conrfimation-email'}">Resend confirmation email</a>
 					</p>
 					<p>
-						<a th:href="@{'/users/'+${user.getUsername()}+'/reset/password'}">Change password</a>
+						<a th:href="@{'/users/'+${user.getUsername()}+'/config/password'}">Change password</a>
 					</p>
 					<p>
-						<a th:href="@{'/users/'+${user.getUsername()}+'/reset/password_email'}">Send email to reset password</a>
+						<a th:href="@{'/users/'+${user.getUsername()}+'/config/password-email'}">Send email to reset password</a>
 					</p>
 				</div>
 			</div>

@@ -45,7 +45,7 @@
                                         <span class="input-group-prepend">
                                             <span class="input-group-text"><i class="fas fa-at"></i></span>
                                         </span>
-                                        <input type="text" class="form-control" name="email" placeholder="Email" th:value="*{email}"/>
+                                        <input type="email" class="form-control" name="email" placeholder="Email" th:value="*{email}"/>
                                     </div>
                                     <span class="formError" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Invalid Email</span>                                </div>
                             </div>

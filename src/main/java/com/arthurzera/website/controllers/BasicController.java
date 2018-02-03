@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.arthurzera.website.models.User;
@@ -39,6 +40,9 @@ public abstract class BasicController {
 	
 	@Autowired
 	protected ITagService tagService;
+	
+	@Autowired
+	protected BCryptPasswordEncoder passwordEncoder;
 	
 	public ModelAndView mvc() {
 		ModelAndView mvc = new ModelAndView();

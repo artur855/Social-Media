@@ -10,9 +10,7 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -49,7 +47,7 @@ public class RegisterController extends BasicController {
 			return mvc;
 		}
 		User user = new User(registerForm.getUsername(), registerForm.getFullName(), registerForm.getEmail(),
-				new BCryptPasswordEncoder().encode(registerForm.getPassword()));
+				passwordEncoder.encode(registerForm.getPassword()));
 		user.addRole(roleService.findByRole("ROLE_USER"));
 		userService.create(user);
 		try {
@@ -70,7 +68,7 @@ public class RegisterController extends BasicController {
 	}
 
 	@RequestMapping(value = "/users/registrationConfirm")
-	public ModelAndView confirmRegistration(Model model, @RequestParam("token") String token) {
+	public ModelAndView confirmRegistration(@RequestParam("token") String token) {
 		ModelAndView mvc = super.mvc();
 		VerificationToken verificationToken = userService.getVerificationToken(token);
 		if (verificationToken == null) {
