@@ -26,7 +26,13 @@ public class ErrorController extends BasicController{
 	@ResponseStatus(value=HttpStatus.NOT_FOUND)
 	public ModelAndView error404() {
 		ModelAndView mvc = super.mvc();
-		mvc.setViewName("404");
+		mvc.setViewName("error/404");
+		return mvc;
+	}
+	@ResponseStatus(value=HttpStatus.INTERNAL_SERVER_ERROR)
+	public ModelAndView error500() {
+		ModelAndView mvc = super.mvc();
+		mvc.setViewName("error/500");
 		return mvc;
 	}
 	
