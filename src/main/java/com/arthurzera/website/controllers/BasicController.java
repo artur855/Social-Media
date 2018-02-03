@@ -15,6 +15,7 @@ import com.arthurzera.website.services.INotificationService;
 import com.arthurzera.website.services.IPostService;
 import com.arthurzera.website.services.IRoleService;
 import com.arthurzera.website.services.ITagService;
+import com.arthurzera.website.services.IUserEmailService;
 import com.arthurzera.website.services.IUserService;
 import com.arthurzera.website.services.mail.IEmailService;
 
@@ -22,10 +23,13 @@ public abstract class BasicController {
 
 	@Autowired
 	protected IEmailService emailService;
-	
+
 	@Autowired
 	protected IUserService userService;
 
+	@Autowired
+	protected IUserEmailService userEmailService;
+	
 	@Autowired
 	protected IPostService postService;
 
@@ -37,13 +41,13 @@ public abstract class BasicController {
 
 	@Autowired
 	protected ICommentService commentService;
-	
+
 	@Autowired
 	protected ITagService tagService;
-	
+
 	@Autowired
 	protected BCryptPasswordEncoder passwordEncoder;
-	
+
 	public ModelAndView mvc() {
 		ModelAndView mvc = new ModelAndView();
 		Optional<User> currentUser = currentUser();

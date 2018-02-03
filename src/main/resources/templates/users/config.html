@@ -30,7 +30,7 @@
 						<a th:href="@{'/users/'+${user.getUsername()}+'/config/change-email'}|">Change email</a>
 					</p>
 					<p th:if="${!user.getEmail().isConfirmed()}">
-						<a th:href="@{'/users/'+${user.getUsername()}+'/config/re-sent-conrfimation-email'}">Resend confirmation email</a>
+						<a th:href="@{'/users/'+${user.getUsername()}+'/config/re-send-confirmation-email'}">Re send confirmation email</a>
 					</p>
 					<p>
 						<a th:href="@{'/users/'+${user.getUsername()}+'/config/password'}">Change password</a>

@@ -20,6 +20,7 @@ import com.arthurzera.website.models.VerificationToken;
 
 @Controller
 public class ChangeEmailController extends BasicController {
+
 	@RequestMapping("/users/{username}/config/change-email")
 	public ModelAndView changeEmail(@PathVariable("username") String username) {
 		ModelAndView mvc = super.mvc();

@@ -9,14 +9,14 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class ErrorController extends BasicController{
 
-	@RequestMapping("/acess-denied")
+	@RequestMapping("/error/acess-denied")
 	public ModelAndView error_403() {
 		ModelAndView mvc = super.mvc();
 		mvc.setViewName("error/access-denied");
 		return mvc;
 	}
 	
-	@RequestMapping("/badUser")
+	@RequestMapping("/error/badUser")
 	public ModelAndView badUser() {
 		ModelAndView mvc = super.mvc();
 		mvc.setViewName("error/bad-user");

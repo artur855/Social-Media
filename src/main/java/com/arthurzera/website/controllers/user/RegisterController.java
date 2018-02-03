@@ -73,7 +73,7 @@ public class RegisterController extends BasicController {
 		VerificationToken verificationToken = userService.getVerificationToken(token);
 		if (verificationToken == null) {
 			notifyService.addDangerMessage("Invalid Token");
-			mvc.setViewName("redirect:/badUser");
+			mvc.setViewName("redirect:/error/badUser");
 			return mvc;
 		}
 		User user = verificationToken.getUser();
@@ -84,7 +84,7 @@ public class RegisterController extends BasicController {
 		Calendar cal = Calendar.getInstance();
 		if ((verificationToken.getExpiryDate().getTime() - cal.getTime().getTime()) <= 0) {
 			notifyService.addDangerMessage("The token has expired");
-			mvc.setViewName("redirect:/badUser");
+			mvc.setViewName("redirect:/error/badUser");
 			return mvc;
 		}
 		user.setEnabled(true);

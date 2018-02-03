@@ -23,5 +23,4 @@ public class UserConfigController extends BasicController {
 		mvc.setViewName("users/config");
 		return mvc;
 	}
-
 }

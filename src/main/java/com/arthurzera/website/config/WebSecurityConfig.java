@@ -35,14 +35,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-				.antMatchers("/", "/index", "/users/register", "/badUser", "/users/login", "/users/auth/**",
-						"/connect/**")
+				.antMatchers("/", "/index", "/users/register", "/error/**", "/users/login", "/users/auth/**",
+						"/connect/**", "/re-sent-confirmation-email")
 				.permitAll().antMatchers("/admin/**").hasAuthority("ROLE_ADMIN").anyRequest().authenticated().and()
 				.formLogin().loginPage("/users/login").loginProcessingUrl("/users/login").defaultSuccessUrl("/")
 				.usernameParameter("username").passwordParameter("password").permitAll().and().logout().and()
 				.rememberMe().rememberMeCookieName("remember-me").tokenRepository(persistentTokenRepository())
 				.tokenValiditySeconds(60 * 60 * 24 * 7).and().exceptionHandling()
-				.accessDeniedHandler(new AccessDeniedHandlerImp("/acess-denied"));
+				.accessDeniedHandler(new AccessDeniedHandlerImp("/error/acess-denied"));
 		http.csrf().disable();
 	}
 

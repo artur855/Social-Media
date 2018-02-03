@@ -76,9 +76,18 @@
 		<h2>Don't have a account yet?</h2>
 		<div class="row">
 			<div class="col-9">
-				<a href="register.html" th:href="@{/users/register}" class="btn btn-lg btn-block btn-secondary">
+				<a href="/users/register" th:href="@{/users/register}" class="btn btn-lg btn-block btn-secondary">
 					<i class="fas fa-user-plus"></i>
 					<span>Register</span>
+				</a>
+			</div>
+		</div>
+		<br />
+		<h2>Already has a account?</h2>
+		<div class="row">
+			<div class="col-9">
+				<a class="btn btn-lg btn-block btn-secondary" href="/re-send-confirmation-email" th:href="@{/re-sent-confirmation-email}" >
+					<span>Re sent confirmation email</span>
 				</a>
 			</div>
 		</div>

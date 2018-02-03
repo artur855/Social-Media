@@ -59,9 +59,9 @@ public class LoginController extends BasicController {
 			mvc.setViewName("/users/login");
 			return mvc;
 		}
-
-		notifyService.addSuccessMessage("Login successful");
+		
 		mvc.setViewName("redirect:/index");
+		
 		return mvc;
 	}
 

@@ -6,6 +6,7 @@ package com.arthurzera.website.services;
 import com.arthurzera.website.models.Post;
 import com.arthurzera.website.models.User;
 import com.arthurzera.website.models.VerificationToken;
+import com.arthurzera.website.repositories.UserEmailRepository;
 import com.arthurzera.website.repositories.UserRepository;
 import com.arthurzera.website.repositories.VerificationTokenRepository;
 
@@ -27,6 +28,8 @@ public class UserService implements IUserService {
     @Autowired
     private VerificationTokenRepository tokenRepository;
     
+    @Autowired 
+    private UserEmailRepository userEmailRepository;
     @Override
     public boolean authenticate(String username, String password) {
         try {      
@@ -71,7 +74,7 @@ public class UserService implements IUserService {
 
     @Override
     public User findByEmail(String email) {
-        return this.userRepository.findByEmail(email);
+        return this.userRepository.findByEmail(userEmailRepository.findByEmail(email));
     }
 
     
