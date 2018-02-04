@@ -33,7 +33,7 @@
 						<a th:href="@{'/users/'+${user.getUsername()}+'/config/re-send-confirmation-email'}">Re send confirmation email</a>
 					</p>
 					<p>
-						<a th:href="@{'/users/'+${user.getUsername()}+'/config/password'}">Change password</a>
+						<a th:href="@{'/users/'+${user.getUsername()}+'/config/change-password'}">Change password</a>
 					</p>
 					<p>
 						<a th:href="@{'/users/'+${user.getUsername()}+'/config/password-email'}">Send email to reset password</a>
@@ -52,15 +52,14 @@
 						<span th:text="| Member since: ${user.getCreatedAt()}|">Member since: dd-mm-yyyy</span>
 					</p>
 					<p>
-						<i class="far fa-calendar"></i> Last logged in:
+						<i class="far fa-calendar"></i>
+						Last logged in:
 						<span th:text="${user.getLastSeen()}">Last seen</span>
 					</p>
 					<div th:object="${user.getEmail()}">
 						<p>
 							<i class="far fa-calendar"></i>
-							<span
-								th:text="*{isConfirmed()} ? ' Email confirmed: ' + *{getEmailConfirmedOn()} : ' Email has not been confirmed yet!!'"
-							></span>
+							<span th:text="*{isConfirmed()} ? ' Email confirmed: ' + *{getEmailConfirmedOn()} : ' Email has not been confirmed yet!!'"></span>
 						</p>
 					</div>
 				</div>

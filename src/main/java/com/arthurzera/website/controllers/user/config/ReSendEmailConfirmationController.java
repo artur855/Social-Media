@@ -19,7 +19,6 @@ public class ReSendEmailConfirmationController extends BasicController {
 	@RequestMapping("/re-send-confirmation-email")
 	public ModelAndView reSentEmailConfirmation() {
 		ModelAndView mvc = super.mvc();
-		System.out.println("TO AQUI");
 		User user = (User) mvc.getModel().get("currentUser");
 		mvc.addObject("emailForm", new EmailForm());
 		mvc.addObject("user", user);
