@@ -2,6 +2,7 @@ package com.arthurzera.website.services;
 
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ public class CommentService implements ICommentService {
 	private CommentRepository commentRepository;
 
 	@Override
-	public Set<Comment> findByUser(User user) {
+	public List<Comment> findByUser(User user) {
 		return user.getComments();
 	}
 

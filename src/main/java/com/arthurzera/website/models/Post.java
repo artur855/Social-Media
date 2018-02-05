@@ -1,9 +1,8 @@
 package com.arthurzera.website.models;
 
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
-
+import java.util.List;
 import javax.persistence.*;
 
 @Entity
@@ -24,18 +23,18 @@ public class Post {
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	private User author;
 
-	@OneToMany(mappedBy="post")
-	private Set<Comment> comments;
+	@OneToMany(mappedBy="post", targetEntity=Comment.class)
+	private List<Comment> comments;
 	
 	@Column(nullable = false)
 	private Date date;
 	
 	@ManyToMany
 	@JoinTable
-	private Set<Tag> tags;
+	private List<Tag> tags;
 	
-	@Column
-	private int points;
+	@OneToMany(mappedBy="evaluated", targetEntity=PostEvaluation.class)
+	private List<PostEvaluation> evaluations;
 	
 	public Post() {
 	}
@@ -44,10 +43,10 @@ public class Post {
 		this.title = title;
 		this.body = body;
 		this.author = author;
-		this.tags = new HashSet<>();
-		this.comments = new HashSet<>();
+		this.tags = new ArrayList<>();
+		this.comments = new ArrayList<>();
 		this.date = new Date();
-		this.points = 0;
+		 
 	}
 
 	@Override
@@ -115,11 +114,11 @@ public class Post {
 		return distance;
 	}
 
-	public Set<Comment> getComments() {
+	public List<Comment> getComments() {
 		return comments;
 	}
 
-	public void setComments(Set<Comment> comments) {
+	public void setComments(List<Comment> comments) {
 		this.comments = comments;
 	}
 	public void addComment(Comment comment) {
@@ -130,11 +129,11 @@ public class Post {
 		this.comments.remove(comment);
 	}
 
-	public Set<Tag> getTags() {
+	public List<Tag> getTags() {
 		return tags;
 	}
 
-	public void setTags(Set<Tag> tags) {
+	public void setTags(List<Tag> tags) {
 		this.tags = tags;
 		
 	}
@@ -151,19 +150,14 @@ public class Post {
 		this.tags.remove(tag);
 		tag.getPosts().remove(this);
 	}
-
+ 
 	public int getPoints() {
+		int points = 0;
+		for (PostEvaluation postEvaluation : evaluations) {
+			points+= postEvaluation.getEvalution().getValue();
+		}
 		return points;
 	}
-
-	public void setPoints(int points) {
-		this.points = points;
-	}
 	
-	public void addPoint() {
-		this.points++;
-	}
-	public void removePoint() {
-		this.points--;
-	}
+	
 }

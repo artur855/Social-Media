@@ -110,7 +110,7 @@ public class UserService implements IUserService {
 
 	@Override
 	public List<Post> findTimeLine(User currentUser) {
-		Set<User> users = currentUser.getFollowing();
+		List<User> users = currentUser.getFollowing();
 		users.add(currentUser);
 		List<Post> timeLine = new ArrayList<>();
 		users.stream().forEach(user -> user.getPosts().stream().forEach(post -> timeLine.add(post)));;

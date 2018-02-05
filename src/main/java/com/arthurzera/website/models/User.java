@@ -1,9 +1,10 @@
 package com.arthurzera.website.models;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
+
 import javax.persistence.*;
 
 @Entity
@@ -32,22 +33,25 @@ public class User {
 	private VerificationToken verificationToken;
 
 	@OneToMany(mappedBy = "author")
-	private Set<Post> posts;
+	private List<Post> posts;
 
 	@Column
 	private Date birthday;
-	
+
 	@Column
 	private String cellphoneNumber;
-	
-	@OneToMany(mappedBy = "user")
-	private Set<Comment> comments = new HashSet<>();
+
+	@OneToMany(mappedBy = "user", targetEntity=Comment.class)
+	private List<Comment> comments;
+
+	@OneToMany(mappedBy = "evaluator", targetEntity=PostEvaluation.class)
+	private List<PostEvaluation> postEvaluations;
 
 	@Column(nullable = false)
 	private Date createdAt;
 
-	@ManyToMany(fetch = FetchType.EAGER)
-	private Set<Role> roles;
+	@ManyToMany
+	private List<Role> roles;
 
 	@Column
 	private Boolean enabled;
@@ -63,15 +67,10 @@ public class User {
 
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(joinColumns = @JoinColumn(name = "follower_id"), inverseJoinColumns = @JoinColumn(name = "followed_id"))
-	private Set<User> following;
+	private List<User> following;
 
 	@ManyToMany(mappedBy = "following")
-	private Set<User> followers;
-	// TODO ADD UPVOTED POSTS
-	// TODO ADD UPVOTED COMMENTS
-
-	// TODO ADD DOWNVOTED POSTS
-	// TODO ADD DOWNVOTED COMMENTS
+	private List<User> followers;
 
 	public User() {
 	}
@@ -83,9 +82,9 @@ public class User {
 		this.passwordHash = passwordHash;
 		this.enabled = false;
 		this.profilePictureUrl = "/img/profile_icons/default.png";
-		this.roles = new HashSet<>();
-		this.posts = new HashSet<>();
-		this.comments = new HashSet<>();
+		this.roles = new ArrayList<>();
+		this.posts = new ArrayList<>();
+		this.comments = new ArrayList<>();
 		this.createdAt = new Date();
 	}
 
@@ -141,11 +140,11 @@ public class User {
 		this.passwordHash = passwordHash;
 	}
 
-	public Set<Post> getPosts() {
+	public List<Post> getPosts() {
 		return posts;
 	}
 
-	public void setPosts(Set<Post> posts) {
+	public void setPosts(List<Post> posts) {
 		this.posts = posts;
 	}
 
@@ -157,11 +156,11 @@ public class User {
 		this.enabled = enabled;
 	}
 
-	public Set<Role> getRoles() {
+	public List<Role> getRoles() {
 		return roles;
 	}
 
-	public void setRoles(Set<Role> roles) {
+	public void setRoles(List<Role> roles) {
 		this.roles = roles;
 	}
 
@@ -208,27 +207,27 @@ public class User {
 		this.lastSeen = lastSeen;
 	}
 
-	public Set<Comment> getComments() {
+	public List<Comment> getComments() {
 		return comments;
 	}
 
-	public void setComments(Set<Comment> comments) {
+	public void setComments(List<Comment> comments) {
 		this.comments = comments;
 	}
 
-	public Set<User> getFollowing() {
+	public List<User> getFollowing() {
 		return following;
 	}
 
-	public void setFollowing(Set<User> following) {
+	public void setFollowing(List<User> following) {
 		this.following = following;
 	}
 
-	public Set<User> getFollowers() {
+	public List<User> getFollowers() {
 		return followers;
 	}
 
-	public void setFollowers(Set<User> followers) {
+	public void setFollowers(List<User> followers) {
 		this.followers = followers;
 	}
 
@@ -261,5 +260,26 @@ public class User {
 	public void setCellphoneNumber(String cellphoneNumber) {
 		this.cellphoneNumber = cellphoneNumber;
 	}
-	
+
+	public List<PostEvaluation> getPostEvaluations() {
+		return postEvaluations;
+	}
+
+	public void setEvaluations(List<PostEvaluation> postEvaluations) {
+		this.postEvaluations = postEvaluations;
+	}
+
+	public List<Post> getPostUpvoted() {
+		List<Post> upvoted = new ArrayList<>();
+		this.postEvaluations.stream().filter(evaluation -> "UP".equalsIgnoreCase(evaluation.getEvalution().name()))
+				.forEach(evaluation -> upvoted.add(evaluation.getPost()));
+		return upvoted;
+	}
+	public List<Post> getPostDownVoted() {
+		List<Post> upvoted = new ArrayList<>();
+		this.postEvaluations.stream().filter(evaluation -> "DOWN".equalsIgnoreCase(evaluation.getEvalution().name()))
+		.forEach(evaluation -> upvoted.add(evaluation.getPost()));
+		return upvoted;
+	}
+
 }
