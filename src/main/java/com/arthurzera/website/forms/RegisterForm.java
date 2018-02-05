@@ -1,14 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.arthurzera.website.forms;
 
 import java.util.Date;
 
 import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.Email;
+
+import com.arthurzera.website.validators.ValidPassword;
 
 public class RegisterForm {
 
@@ -21,10 +18,10 @@ public class RegisterForm {
 	@Email
 	private String email;
 
-	@Size(min = 6, max = 12, message = "Password size should have more them 6 and less than 12 charcters")
+	@ValidPassword
 	private String password;
 
-	@Size(min = 6, max = 12, message = "Password size should have more them 6 and less than 12 charcters")
+	@ValidPassword
 	private String confirmPassword;
 
 	private Date birthday;

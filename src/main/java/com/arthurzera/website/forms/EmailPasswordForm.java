@@ -1,18 +1,17 @@
 package com.arthurzera.website.forms;
 
-import javax.validation.constraints.Size;
-
 import org.hibernate.validator.constraints.Email;
+import com.arthurzera.website.validators.ValidPassword;
 
 public class EmailPasswordForm {
 	
 	@Email
 	private String email;
 	
-	@Size(min = 6, max = 12, message = "Password size should have more them 6 and less than 12 charcters")
+	@ValidPassword
 	private String password;
 	
-	@Size(min = 6, max = 12, message = "Password size should have more them 6 and less than 12 charcters")
+	@ValidPassword
 	private String confirmPassword;
 
 	public EmailPasswordForm() {

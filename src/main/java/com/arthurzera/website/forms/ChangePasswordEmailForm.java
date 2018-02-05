@@ -1,13 +1,13 @@
 package com.arthurzera.website.forms;
 
-import javax.validation.constraints.Size;
+import com.arthurzera.website.validators.ValidPassword;
 
 public class ChangePasswordEmailForm {
 
-	@Size(min = 6, max = 12, message = "Password size should have more them 6 and less than 12 charcters")
+	@ValidPassword
 	private String newPassword;
 
-	@Size(min = 6, max = 12, message = "Password size should have more them 6 and less than 12 charcters")
+	@ValidPassword
 	private String confirmNewPassword;
 
 	public ChangePasswordEmailForm() {
