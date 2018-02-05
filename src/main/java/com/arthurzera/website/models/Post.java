@@ -33,7 +33,7 @@ public class Post {
 	@JoinTable
 	private List<Tag> tags;
 	
-	@OneToMany(mappedBy="evaluated", targetEntity=PostEvaluation.class)
+	@OneToMany(mappedBy="postEvaluated", targetEntity=PostEvaluation.class)
 	private List<PostEvaluation> evaluations;
 	
 	public Post() {

@@ -3,6 +3,7 @@ package com.arthurzera.website.models;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -33,9 +34,9 @@ public class Comment {
 	@ManyToOne
 	@JoinColumn(name = "parent_comment")
 	private Comment parent;
-
-	@Column
-	private int points;
+	
+	@OneToMany(mappedBy="commentEvaluated", targetEntity=CommentEvaluation.class)
+	private List<CommentEvaluation> evaluations;
 
 	public Comment() {
 	}
@@ -46,7 +47,6 @@ public class Comment {
 		this.post = post;
 		this.createdAt = new Date();
 		this.comments = new HashSet<>();
-		this.points = 0;
 	}
 
 	@Override
@@ -139,19 +139,13 @@ public class Comment {
 	}
 
 	public int getPoints() {
+		int points = 0;
+		for (CommentEvaluation commentEvaluation : evaluations) {
+			points+= commentEvaluation.getEvalution().getValue();
+		}
 		return points;
 	}
 
-	public void setPoints(int points) {
-		this.points = points;
-	}
 
-	public void addPoint() {
-		this.points++;
-	}
-
-	public void removePoint() {
-		this.points--;
-	}
 
 }

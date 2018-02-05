@@ -44,9 +44,12 @@ public class User {
 	@OneToMany(mappedBy = "user", targetEntity=Comment.class)
 	private List<Comment> comments;
 
-	@OneToMany(mappedBy = "evaluator", targetEntity=PostEvaluation.class)
+	@OneToMany(mappedBy = "postEvaluator", targetEntity=PostEvaluation.class)
 	private List<PostEvaluation> postEvaluations;
 
+	@OneToMany(mappedBy="commentEvaluator", targetEntity=CommentEvaluation.class)
+	private List<CommentEvaluation> commentEvaluations;
+	
 	@Column(nullable = false)
 	private Date createdAt;
 
@@ -265,10 +268,10 @@ public class User {
 		return postEvaluations;
 	}
 
-	public void setEvaluations(List<PostEvaluation> postEvaluations) {
+	public void setPostEvaluations(List<PostEvaluation> postEvaluations) {
 		this.postEvaluations = postEvaluations;
 	}
-
+	
 	public List<Post> getPostUpvoted() {
 		List<Post> upvoted = new ArrayList<>();
 		this.postEvaluations.stream().filter(evaluation -> "UP".equalsIgnoreCase(evaluation.getEvalution().name()))
@@ -279,6 +282,28 @@ public class User {
 		List<Post> upvoted = new ArrayList<>();
 		this.postEvaluations.stream().filter(evaluation -> "DOWN".equalsIgnoreCase(evaluation.getEvalution().name()))
 		.forEach(evaluation -> upvoted.add(evaluation.getPost()));
+		return upvoted;
+	}
+
+	public List<CommentEvaluation> getCommentEvaluations() {
+		return commentEvaluations;
+	}
+
+	public void setCommentEvaluations(List<CommentEvaluation> commentEvaluations) {
+		this.commentEvaluations = commentEvaluations;
+	}
+
+	
+	public List<Comment> getCommentUpvoted() {
+		List<Comment> upvoted = new ArrayList<>();
+		this.commentEvaluations.stream().filter(evaluation -> "UP".equalsIgnoreCase(evaluation.getEvalution().name()))
+		.forEach(evaluation -> upvoted.add(evaluation.getCommentEvaluated()));
+		return upvoted;
+	}
+	public List<Comment> getCommentDownvoted() {
+		List<Comment> upvoted = new ArrayList<>();
+		this.commentEvaluations.stream().filter(evaluation -> "DOWN".equalsIgnoreCase(evaluation.getEvalution().name()))
+		.forEach(evaluation -> upvoted.add(evaluation.getCommentEvaluated()));
 		return upvoted;
 	}
 

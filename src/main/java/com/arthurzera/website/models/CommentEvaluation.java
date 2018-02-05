@@ -4,23 +4,23 @@ import javax.persistence.*;
 
 @Entity
 @Table
-public class PostEvaluation {
+public class CommentEvaluation {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	@ManyToOne(optional = false, targetEntity = User.class)
-	private User postEvaluator;
+	private User commentEvaluator;
 
-	@ManyToOne(optional = false, targetEntity = Post.class)
-	private Post postEvaluated;
+	@ManyToOne(optional = false, targetEntity = Comment.class)
+	private Comment commentEvaluated;
 
 	@Column
 	@Enumerated(EnumType.ORDINAL)
 	private EvaluationType evalution;
 
-	public PostEvaluation() {
+	public CommentEvaluation() {
 	}
 
 	public Long getId() {
@@ -31,20 +31,20 @@ public class PostEvaluation {
 		this.id = id;
 	}
 
-	public User getUser() {
-		return postEvaluator;
+	public User getCommentEvaluator() {
+		return commentEvaluator;
 	}
 
-	public void setUser(User user) {
-		this.postEvaluator = user;
+	public void setCommentEvaluator(User commentEvaluator) {
+		this.commentEvaluator = commentEvaluator;
 	}
 
-	public Post getPost() {
-		return postEvaluated;
+	public Comment getCommentEvaluated() {
+		return commentEvaluated;
 	}
 
-	public void setPost(Post post) {
-		this.postEvaluated = post;
+	public void setCommentEvaluated(Comment commentEvaluated) {
+		this.commentEvaluated = commentEvaluated;
 	}
 
 	public EvaluationType getEvalution() {
