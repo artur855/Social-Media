@@ -293,6 +293,15 @@ public class User {
 		this.commentEvaluations = commentEvaluations;
 	}
 
+	public List<Post> getAllPostEvaluated(){
+		List<Post> evaluated = new ArrayList<>();
+		this.postEvaluations.stream().forEach(evaluation -> evaluated.add(evaluation.getPost()));
+		return evaluated;
+	}
+	
+	public boolean hasEvaluated(Post post) {
+		return this.getAllPostEvaluated().contains(post);
+	}
 	
 	public List<Comment> getCommentUpvoted() {
 		List<Comment> upvoted = new ArrayList<>();
@@ -306,5 +315,14 @@ public class User {
 		.forEach(evaluation -> upvoted.add(evaluation.getCommentEvaluated()));
 		return upvoted;
 	}
+	
+	public List<Comment> getAllCommentEvaluated(){
+		List<Comment> evaluated = new ArrayList<>();
+		this.commentEvaluations.stream().forEach(evaluation -> evaluated.add(evaluation.getCommentEvaluated()));
+		return evaluated;
+	}
 
+	public boolean hasEvaluated(Comment comment) {
+		return this.getAllCommentEvaluated().contains(comment);
+	}
 }
