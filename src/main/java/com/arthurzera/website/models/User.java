@@ -34,6 +34,12 @@ public class User {
 	@OneToMany(mappedBy = "author")
 	private Set<Post> posts;
 
+	@Column
+	private Date birthday;
+	
+	@Column
+	private String cellphoneNumber;
+	
 	@OneToMany(mappedBy = "user")
 	private Set<Comment> comments = new HashSet<>();
 
@@ -239,4 +245,21 @@ public class User {
 	public boolean isFollowing(User user) {
 		return this.following.contains(user);
 	}
+
+	public Date getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(Date birthday) {
+		this.birthday = birthday;
+	}
+
+	public String getCellphoneNumber() {
+		return cellphoneNumber;
+	}
+
+	public void setCellphoneNumber(String cellphoneNumber) {
+		this.cellphoneNumber = cellphoneNumber;
+	}
+	
 }

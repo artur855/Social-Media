@@ -48,6 +48,7 @@ public class RegisterController extends BasicController {
 		}
 		User user = new User(registerForm.getUsername(), registerForm.getFullName(), registerForm.getEmail(),
 				passwordEncoder.encode(registerForm.getPassword()));
+		user.setBirthday(registerForm.getBirthday());
 		user.addRole(roleService.findByRole("ROLE_USER"));
 		userService.create(user);
 		try {

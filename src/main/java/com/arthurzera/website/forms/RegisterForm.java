@@ -5,68 +5,95 @@
  */
 package com.arthurzera.website.forms;
 
+import java.util.Date;
+
 import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.Email;
 
 public class RegisterForm {
 
-    @Size(min = 6, max = 15, message = "Username size should have more them 6 and less than 15 characters")
-    private String username;
+	@Size(min = 6, max = 15, message = "Username size should have more them 6 and less than 15 characters")
+	private String username;
 
-    @Size(min = 0, max = 40, message = "Fullname size should have more them 2 and less than 40 characters")
-    private String fullName;
+	@Size(min = 0, max = 40, message = "Fullname size should have more them 2 and less than 40 characters")
+	private String fullName;
 
-    @Email
-    private String email;
+	@Email
+	private String email;
 
-    @Size(min = 6, max = 12, message = "Password size should have more them 6 and less than 12 charcters")
-    private String password;
+	@Size(min = 6, max = 12, message = "Password size should have more them 6 and less than 12 charcters")
+	private String password;
 
-    @Size(min = 6, max = 12, message = "Password size should have more them 6 and less than 12 charcters")
-    private String confirmPassword;
+	@Size(min = 6, max = 12, message = "Password size should have more them 6 and less than 12 charcters")
+	private String confirmPassword;
 
-    @Override
-    public String toString() {
-        return "RegisterForm{" + "username=" + username + ", fullName=" + fullName + ", email=" + email + ", password=" + password + ", confirmPassword=" + confirmPassword + '}';
-    }
+	private Date birthday;
+	
+	private String cellphoneNumber;
 
-    public String getUsername() {
-        return username;
-    }
+	public RegisterForm() {
+	}
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+	@Override
+	public String toString() {
+		return "RegisterForm{" + "username=" + username + ", fullName=" + fullName + ", email=" + email + ", password="
+				+ password + ", confirmPassword=" + confirmPassword + ", birthday="+birthday.toString()+", cellphoneNumber="+cellphoneNumber+'}';
+	}
 
-    public String getFullName() {
-        return fullName;
-    }
+	public String getUsername() {
+		return username;
+	}
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
-    public String getEmail() {
-        return email;
-    }
+	public String getFullName() {
+		return fullName;
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
+	}
 
-    public String getPassword() {
-        return password;
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    public String getConfirmPassword() {
-        return confirmPassword;
-    }
+	public String getPassword() {
+		return password;
+	}
 
-    public void setConfirmPassword(String confirmPassword) {
-        this.confirmPassword = confirmPassword;
-    }
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
+
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
+	}
+
+	public Date getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(Date birthday) {
+		this.birthday = birthday;
+	}
+
+	public String getCellphoneNumber() {
+		return cellphoneNumber;
+	}
+
+	public void setCellphoneNumber(String cellphoneNumber) {
+		this.cellphoneNumber = cellphoneNumber;
+	}
+
 }

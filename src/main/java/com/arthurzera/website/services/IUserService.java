@@ -8,9 +8,7 @@ package com.arthurzera.website.services;
 import com.arthurzera.website.models.Post;
 import com.arthurzera.website.models.User;
 import com.arthurzera.website.models.VerificationToken;
-
 import java.util.List;
-import java.util.Set;
 
 public interface IUserService {
 
