@@ -1,5 +1,6 @@
 package com.arthurzera.website.controllers;
 
+import com.arthurzera.website.forms.CommentForm;
 import com.arthurzera.website.forms.PostForm;
 import com.arthurzera.website.models.Post;
 import com.arthurzera.website.models.Tag;
@@ -30,6 +31,7 @@ public class MainController extends BasicController {
 		mvc.addObject("allPosts", allPosts);
 		mvc.addObject("tags", tags);
 		mvc.addObject("latest5Posts", latest5Posts);
+		mvc.addObject("commentForm", new CommentForm());
 		mvc.setViewName("index");
 		return mvc;
 	}
