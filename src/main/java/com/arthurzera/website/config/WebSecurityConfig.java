@@ -1,7 +1,6 @@
 package com.arthurzera.website.config;
 
 import javax.sql.DataSource;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -11,27 +10,48 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+import org.springframework.social.connect.ConnectionFactoryLocator;
+import org.springframework.social.connect.UsersConnectionRepository;
+import org.springframework.social.connect.mem.InMemoryUsersConnectionRepository;
+import org.springframework.social.connect.web.ProviderSignInController;
 
+import com.arthurzera.website.auth.FacebookConnectionSignUp;
+import com.arthurzera.website.auth.FacebookSignInAdapter;
 import com.arthurzera.website.exception.AccessDeniedHandlerImp;
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
-	BCryptPasswordEncoder passwordEncoder;
+	private BCryptPasswordEncoder passwordEncoder;
 
 	@Autowired
+	private UserDetailsService userDetailsService;
+	
+	@Autowired
 	private DataSource dataSource;
+	
+	@Autowired
+	private ConnectionFactoryLocator connectionFactoryLocator;
+	
+	@Autowired
+	private UsersConnectionRepository usersConnectionRepositrory;
 
+	@Autowired
+	private FacebookConnectionSignUp facebookConnectionSignUp;
+	
 	@Value("${spring.queries.users-query}")
 	private String usersQuery;
 
 	@Value("${spring.queries.roles-query}")
 	private String rolesQuery;
-
+ 
+	
+	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
@@ -61,6 +81,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	protected void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 		auth.jdbcAuthentication().usersByUsernameQuery(usersQuery).authoritiesByUsernameQuery(rolesQuery)
-				.dataSource(dataSource).passwordEncoder(passwordEncoder);
+				.dataSource(dataSource).passwordEncoder(passwordEncoder).and().userDetailsService(userDetailsService);
+	}
+	
+	@Bean
+	public ProviderSignInController providerSignInController() {
+		((InMemoryUsersConnectionRepository) usersConnectionRepositrory).setConnectionSignUp(facebookConnectionSignUp);
+		return new ProviderSignInController(connectionFactoryLocator, usersConnectionRepositrory, new FacebookSignInAdapter());
 	}
 }
