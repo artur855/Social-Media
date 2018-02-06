@@ -325,4 +325,19 @@ public class User {
 	public boolean hasEvaluated(Comment comment) {
 		return this.getAllCommentEvaluated().contains(comment);
 	}
+	
+	public boolean isEvaluated(Post post) {
+		
+		return this.getAllPostEvaluated().contains(post);
+	}
+	public boolean isEvaluated(Comment comment) {
+		return this.getAllCommentEvaluated().contains(comment);
+	}
+	
+	public EvaluationType getEvaluation(Post post) {
+		return this.getPostEvaluations().stream().filter(p -> p.getPost().equals(post)).findFirst().get().getEvaluation();
+	}
+	public EvaluationType getEvaluation(Comment comment) {
+		return this.getCommentEvaluations().stream().filter(p -> p.getCommentEvaluated().equals(comment)).findFirst().get().getEvalution();
+	}
 }

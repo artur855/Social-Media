@@ -220,11 +220,34 @@
 					</a>
 					<br />
 					<figcaption class="d-flex text-center justify-content-center">
-						<span id="points" class="d-flex flex-column justify-content-center mr-2" th:text="${post.getPoints()}"></span>
-						<div class="d-flex flex-column justify-content-center">
-							<a id="arrow-up" class="fas fa-arrow-up unstyled" th:href="@{'/comments/'+${comment.getId()}+'/upvote'}"></a>
-							<span class="fas fa-circle unstyled my-1" style="font-size: 0.5em"></span>
-							<a id="arrow-down" class="fas fa-arrow-down unstyled" th:href="@{'/comments/'+${comment.getId()}+'/downvote'}"></a>
+						<span id="points" class="d-flex flex-column justify-content-center mr-2" th:text="${comment.getPoints()}"></span>
+						<div >
+							<div th:if="${currentUser.isEvaluated(comment)}">
+								<div class="d-flex flex-column justify-content-center" th:if="${currentUser.getEvaluation(comment).name().equalsIgnoreCase('UP')}">
+									<a id="arrow-up" class="fas fa-arrow-up unstyled" style="color: red;"
+										th:href="@{'/comments/'+${comment.getId()}+'/upvote'}"
+									></a>
+									<span class="fas fa-circle unstyled my-1" style="font-size: 0.5em; color: red;"></span>
+									<a id="arrow-down" class="fas fa-arrow-down unstyled" th:href="@{'/comments/'+${comment.getId()}+'/downvote'}"></a>
+								</div>
+								<div class="d-flex flex-column justify-content-center" th:if="${currentUser.getEvaluation(comment).name().equalsIgnoreCase('DOWN')}">
+									<a id="arrow-up" class="fas fa-arrow-up unstyled" th:href="@{'/comments/'+${comment.getId()}+'/upvote'}"></a>
+									<span class="fas fa-circle unstyled my-1" style="font-size: 0.5em; color: blue;"></span>
+									<a id="arrow-down" class="fas fa-arrow-down unstyled" style="color: blue;"
+										th:href="@{'/comments/'+${comment.getId()}+'/downvote'}"
+									></a>
+								</div>
+								<div class="d-flex flex-column justify-content-center" th:if="${currentUser.getEvaluation(comment).name().equalsIgnoreCase('NONE')}">
+									<a id="arrow-up" class="fas fa-arrow-up unstyled" th:href="@{'/comments/'+${comment.getId()}+'/upvote'}"></a>
+									<span class="fas fa-circle unstyled my-1" style="font-size: 0.5em"></span>
+									<a id="arrow-down" class="fas fa-arrow-down unstyled" th:href="@{'/comments/'+${comment.getId()}+'/downvote'}"></a>
+								</div>
+							</div>
+							<div class="d-flex flex-column justify-content-center" th:if="${!currentUser.isEvaluated(comment)}">
+								<a id="arrow-up" class="fas fa-arrow-up unstyled" th:href="@{'/comments/'+${comment.getId()}+'/upvote'}"></a>
+								<span class="fas fa-circle unstyled my-1" style="font-size: 0.5em"></span>
+								<a id="arrow-down" class="fas fa-arrow-down unstyled" th:href="@{'/comments/'+${comment.getId()}+'/downvote'}"></a>
+							</div>
 						</div>
 					</figcaption>
 				</figure>

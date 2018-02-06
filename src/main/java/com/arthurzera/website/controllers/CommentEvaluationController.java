@@ -31,6 +31,7 @@ public class CommentEvaluationController extends BasicController {
 			commentEvaluation = new CommentEvaluation(currentUser, comment, EvaluationType.UP);
 			commentEvaluationService.create(commentEvaluation);
 		}
+		mvc.setViewName("redirect:/");
 		return mvc;
 	}
 
@@ -52,6 +53,7 @@ public class CommentEvaluationController extends BasicController {
 			commentEvaluation = new CommentEvaluation(currentUser, comment, EvaluationType.DOWN);
 			commentEvaluationService.create(commentEvaluation);
 		}
+		mvc.setViewName("redirect:/");
 		return mvc;
 	}
 
