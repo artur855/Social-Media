@@ -24,12 +24,12 @@ public class PostEvaluationService implements IPostEvaluationService{
 
 	@Override
 	public List<PostEvaluation> getUpVoted() {
-		return postEvaluationRepository.findAll().stream().filter(postEvaluation -> postEvaluation.getEvaluation().name().equals("UP")).collect(Collectors.toList());
+		return postEvaluationRepository.findAll().stream().filter(postEvaluation -> postEvaluation.getEvaluation().name().equalsIgnoreCase("UP")).collect(Collectors.toList());
 	}
 
 	@Override
 	public List<PostEvaluation> getDownVoted() {
-		return postEvaluationRepository.findAll().stream().filter(postEvaluation -> postEvaluation.getEvaluation().name().equals("DOWN")).collect(Collectors.toList());
+		return postEvaluationRepository.findAll().stream().filter(postEvaluation -> postEvaluation.getEvaluation().name().equalsIgnoreCase("DOWN")).collect(Collectors.toList());
 	}
 
 	@Override

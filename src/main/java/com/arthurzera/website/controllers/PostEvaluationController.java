@@ -10,7 +10,7 @@ import com.arthurzera.website.models.PostEvaluation;
 import com.arthurzera.website.models.User;
 
 @Controller
-public class EvaluationController extends BasicController {
+public class PostEvaluationController extends BasicController {
 
 	@RequestMapping("/posts/{id}/upvote")
 	public ModelAndView upvote(@PathVariable("id") Long id) {

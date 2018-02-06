@@ -10,6 +10,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.arthurzera.website.models.User;
+import com.arthurzera.website.services.ICommentEvaluationService;
 import com.arthurzera.website.services.ICommentService;
 import com.arthurzera.website.services.INotificationService;
 import com.arthurzera.website.services.IPostEvaluationService;
@@ -48,6 +49,9 @@ public abstract class BasicController {
 	
 	@Autowired
 	protected IPostEvaluationService postEvaluationService;
+	
+	@Autowired
+	protected ICommentEvaluationService commentEvaluationService;
 
 	@Autowired
 	protected BCryptPasswordEncoder passwordEncoder;
