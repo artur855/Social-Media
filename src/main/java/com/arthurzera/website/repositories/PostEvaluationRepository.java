@@ -11,4 +11,5 @@ import com.arthurzera.website.models.User;
 public interface PostEvaluationRepository extends JpaRepository<PostEvaluation, Long>{
 	PostEvaluation findByPostEvaluated(Post postEvaluated);
 	PostEvaluation findByPostEvaluator(User postEvaluator);
+	PostEvaluation findByPostEvaluatedAndPostEvaluator(Post postEvaluated, User postEvaluator);
 }

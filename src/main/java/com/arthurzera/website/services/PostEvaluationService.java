@@ -6,7 +6,9 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.arthurzera.website.models.Post;
 import com.arthurzera.website.models.PostEvaluation;
+import com.arthurzera.website.models.User;
 import com.arthurzera.website.repositories.PostEvaluationRepository;
 
 @Service
@@ -48,6 +50,21 @@ public class PostEvaluationService implements IPostEvaluationService{
 	@Override
 	public void deleteById(Long id) {
 		postEvaluationRepository.delete(id);
+	}
+
+	@Override
+	public PostEvaluation findByPostEvaluator(User postEvaluator) {
+		return postEvaluationRepository.findByPostEvaluator(postEvaluator);
+	}
+
+	@Override
+	public PostEvaluation findByPostEvaluated(Post postEvaluated) {
+		return postEvaluationRepository.findByPostEvaluated(postEvaluated);
+	}
+
+	@Override
+	public PostEvaluation findByPostEvaluatedAndPostEvaluator(Post postEvaluated, User postEvaluator) {
+		return postEvaluationRepository.findByPostEvaluatedAndPostEvaluator(postEvaluated, postEvaluator);
 	}
 
 }
