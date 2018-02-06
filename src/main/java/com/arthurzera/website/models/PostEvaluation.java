@@ -18,11 +18,16 @@ public class PostEvaluation {
 
 	@Column
 	@Enumerated(EnumType.ORDINAL)
-	private EvaluationType evalution;
+	private EvaluationType evaluation;
 
 	public PostEvaluation() {
 	}
 
+	public PostEvaluation(User postEvaluator, Post postEvaluated, EvaluationType evaluation) {
+		this.postEvaluator = postEvaluator;
+		this.postEvaluated = postEvaluated;
+		this.evaluation = evaluation;
+	}
 	public Long getId() {
 		return id;
 	}
@@ -47,12 +52,12 @@ public class PostEvaluation {
 		this.postEvaluated = post;
 	}
 
-	public EvaluationType getEvalution() {
-		return evalution;
+	public EvaluationType getEvaluation() {
+		return evaluation;
 	}
 
-	public void setEvalution(EvaluationType evalution) {
-		this.evalution = evalution;
+	public void setEvaluation(EvaluationType evalution) {
+		this.evaluation = evalution;
 	}
 
 }

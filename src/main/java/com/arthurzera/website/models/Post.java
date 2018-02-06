@@ -154,7 +154,7 @@ public class Post {
 	public int getPoints() {
 		int points = 0;
 		for (PostEvaluation postEvaluation : evaluations) {
-			points+= postEvaluation.getEvalution().getValue();
+			points+= postEvaluation.getEvaluation().getValue();
 		}
 		return points;
 	}

@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.arthurzera.website.models.User;
 import com.arthurzera.website.services.ICommentService;
 import com.arthurzera.website.services.INotificationService;
+import com.arthurzera.website.services.IPostEvaluationService;
 import com.arthurzera.website.services.IPostService;
 import com.arthurzera.website.services.IRoleService;
 import com.arthurzera.website.services.ITagService;
@@ -44,6 +45,9 @@ public abstract class BasicController {
 
 	@Autowired
 	protected ITagService tagService;
+	
+	@Autowired
+	protected IPostEvaluationService postEvaluationService;
 
 	@Autowired
 	protected BCryptPasswordEncoder passwordEncoder;

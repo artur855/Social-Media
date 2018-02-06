@@ -43,6 +43,5 @@ public class MvCConfig extends WebMvcConfigurerAdapter {
 
 		return mailSender;
 	}
- 
 
 }

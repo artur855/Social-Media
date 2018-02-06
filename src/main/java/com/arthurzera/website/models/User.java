@@ -274,13 +274,13 @@ public class User {
 	
 	public List<Post> getPostUpvoted() {
 		List<Post> upvoted = new ArrayList<>();
-		this.postEvaluations.stream().filter(evaluation -> "UP".equalsIgnoreCase(evaluation.getEvalution().name()))
+		this.postEvaluations.stream().filter(evaluation -> "UP".equalsIgnoreCase(evaluation.getEvaluation().name()))
 				.forEach(evaluation -> upvoted.add(evaluation.getPost()));
 		return upvoted;
 	}
 	public List<Post> getPostDownVoted() {
 		List<Post> upvoted = new ArrayList<>();
-		this.postEvaluations.stream().filter(evaluation -> "DOWN".equalsIgnoreCase(evaluation.getEvalution().name()))
+		this.postEvaluations.stream().filter(evaluation -> "DOWN".equalsIgnoreCase(evaluation.getEvaluation().name()))
 		.forEach(evaluation -> upvoted.add(evaluation.getPost()));
 		return upvoted;
 	}
