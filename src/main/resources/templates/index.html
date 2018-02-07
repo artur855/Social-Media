@@ -42,23 +42,16 @@
 			<button type="submit" class="btn btn-success">Post!!</button>
 		</form>
 	</div>
-	<article th:each="post : ${allPosts}">
+	<div th:each="post : ${allPosts}">
 		<div th:replace="layout::post-body"></div>
-	</article>
+	</div>
 	</main>
 	<footer th:replace="layout :: site-footer"></footer>
 </body>
 <script type="text/javascript">
 	$('#hide-button').click(function() {
-		var $target = $(this).parents('li');
+		var $target = $(this).closest('.card');
 		$target.fadeOut("slow");
-	});
-	
-	$(function() {
-		$("#tagItem").click(
-				 
-				$(this).parents('div').html("slow");
-
 	});
 </script>
 </html>
