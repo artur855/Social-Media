@@ -78,11 +78,23 @@ public class User {
 	public User() {
 	}
 
-	public User(String username, String fullName, String email, String passwordHash) {
+	public User(String username, String fullname, String email, String passwordHash) {
 		this.username = username;
-		this.fullName = fullName;
+		this.fullName = fullname;
 		this.email = new UserEmail(email);
 		this.passwordHash = passwordHash;
+		this.enabled = false;
+		this.profilePictureUrl = "/img/profile_icons/default.png";
+		this.roles = new ArrayList<>();
+		this.posts = new ArrayList<>();
+		this.comments = new ArrayList<>();
+		this.createdAt = new Date();
+	}
+
+	public User(String username, String fullname, String email) {
+		this.username = username;
+		this.fullName = fullname;
+		this.email = new UserEmail(email);
 		this.enabled = false;
 		this.profilePictureUrl = "/img/profile_icons/default.png";
 		this.roles = new ArrayList<>();
