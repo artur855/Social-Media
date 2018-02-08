@@ -24,7 +24,7 @@
 				<div class="card-header bg-info">Account Actions</div>
 				<div class="card-body">
 					<p>
-						<a>Change user information</a>
+						<a th:href="@{'/users/'+${user.getUsername()}+'/config/change-information'}">Change user information</a>
 					</p>
 					<p>
 						<a th:href="@{'/users/'+${user.getUsername()}+'/config/change-email'}|">Change email</a>
