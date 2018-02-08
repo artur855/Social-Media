@@ -1,11 +1,11 @@
 package com.arthurzera.website.forms;
 
-import javax.validation.constraints.Size;
+import org.springframework.web.multipart.MultipartFile;
 
 public class ChangeInformationForm {
 
-	@Size(min=0)
-	private String pictureUrl;
+	
+	private MultipartFile profilePicture;
 
 	private String aboutMe;
 	
@@ -14,18 +14,17 @@ public class ChangeInformationForm {
 	public ChangeInformationForm() {
 	}
 
-	public ChangeInformationForm(String pictureUrl, String aboutMe, String cellphoneNumber) {
-		this.pictureUrl = pictureUrl;
+	public ChangeInformationForm(String aboutMe, String cellphoneNumber) {
 		this.aboutMe = aboutMe;
 		this.cellphoneNumber = cellphoneNumber;
 	}
 
-	public String getPictureUrl() {
-		return pictureUrl;
+	public MultipartFile getProfilePicture() {
+		return profilePicture;
 	}
 
-	public void setPictureUrl(String pictureUrl) {
-		this.pictureUrl = pictureUrl;
+	public void setProfilePicture(MultipartFile profilePicture) {
+		this.profilePicture = profilePicture;
 	}
 
 	public String getAboutMe() {

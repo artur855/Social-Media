@@ -7,7 +7,7 @@
 	<header th:replace="layout::header"></header>
 	<main class="container">
 	<div>
-		<img class="img-thumbnail" th:src="@{${user.getProfilePictureUrl()}}" alt="User Profile Picture" width="100" height="100" />
+		<img class="img-thumbnail" th:src="@{${user.getProfilePictureUrl()}}" alt="User Profile Picture" width="200" height="200" />
 		<div>
 			<p class="badge badge-info" th:text="${user.getAboutMe()}">About me: User</p>
 			<p class="badge badge-info">

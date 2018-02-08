@@ -65,4 +65,4 @@ local.properties
 
 #Hide personal information
 src/main/resources/application.properties
-
+src/main/resources/public/img/user_img/
