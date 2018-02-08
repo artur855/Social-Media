@@ -41,6 +41,23 @@ public class RegisterController extends BasicController {
 			mvc.setViewName("users/register");
 			return mvc;
 		}
+		if (userService.existsByUsername(registerForm.getUsername())) {
+			notifyService.addDangerMessage("Username already used!");
+			mvc.setViewName("users/register");
+			return mvc;
+		}
+		if (!registerForm.getFullName().equals("")) {
+			if (userService.existsByFullName(registerForm.getFullName())) {
+				notifyService.addDangerMessage("Username already used!");
+				mvc.setViewName("users/register");
+				return mvc;
+			}
+		}
+		if (userService.existsByEmail(registerForm.getEmail())) {
+			notifyService.addDangerMessage("Email already used!");
+			mvc.setViewName("users/register");
+			return mvc;
+		}
 		if (!registerForm.getPassword().equals(registerForm.getConfirmPassword())) {
 			notifyService.addDangerMessage("Passwords don't macth!");
 			mvc.setViewName("users/register");

@@ -1,11 +1,7 @@
 package com.arthurzera.website.controllers.auth;
 
 import java.net.URI;
-
 import javax.security.auth.login.LoginException;
-
-import org.springframework.security.authentication.jaas.SecurityContextLoginModule;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.ConnectionRepository;
 import org.springframework.social.facebook.api.Facebook;
@@ -16,7 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.arthurzera.website.controllers.BasicController;
 import com.arthurzera.website.forms.ChangePasswordEmailForm;
 import com.arthurzera.website.models.User;

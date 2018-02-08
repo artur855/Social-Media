@@ -1,7 +1,4 @@
-
 package com.arthurzera.website.services;
-
-
 
 import com.arthurzera.website.models.Post;
 import com.arthurzera.website.models.User;
@@ -9,13 +6,9 @@ import com.arthurzera.website.models.VerificationToken;
 import com.arthurzera.website.repositories.UserEmailRepository;
 import com.arthurzera.website.repositories.UserRepository;
 import com.arthurzera.website.repositories.VerificationTokenRepository;
-
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -115,6 +108,24 @@ public class UserService implements IUserService {
 		List<Post> timeLine = new ArrayList<>();
 		users.stream().forEach(user -> user.getPosts().stream().forEach(post -> timeLine.add(post)));;
 		return timeLine;
+	}
+
+
+	@Override
+	public boolean existsByUsername(String username) {
+		return userRepository.existsByUsername(username);
+	}
+
+
+	@Override
+	public boolean existsByFullName(String fullName) {
+		return userRepository.existsByFullName(fullName);
+	}
+
+
+	@Override
+	public boolean existsByEmail(String email) {
+		return userRepository.existsByEmail(userEmailRepository.findByEmail(email)) && userEmailRepository.existsByEmail(email).getEmail().equals(email);
 	}
 
 }

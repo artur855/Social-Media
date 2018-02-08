@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.arthurzera.website.repositories;
 
 import com.arthurzera.website.models.User;
@@ -15,5 +10,8 @@ import org.springframework.stereotype.Repository;
 public interface UserRepository extends JpaRepository<User, Long> {
    User findByUsername(String username);
    User findByEmail(UserEmail email);
+   boolean existsByUsername(String username);
+   boolean existsByFullName(String fullName);
+   boolean existsByEmail(UserEmail email);
    
 }
