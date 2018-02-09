@@ -118,7 +118,7 @@
 				</th:block>
 			</div>
 			<span th:if="${notifyMessages}" th:remove="all"
-				th:text="${session.remove(T(com.arthurzera.website.services.NotificationService).NOTIFY_MSG_SESSION_KEY)}"
+				th:text="${session.remove(T(com.arthurzera.social.media.services.NotificationService).NOTIFY_MSG_SESSION_KEY)}"
 			></span>
 		</div>
 	</header>
@@ -151,7 +151,7 @@
 					<br />
 					<figcaption class="d-flex text-center justify-content-center">
 						<span id="points" class="d-flex flex-column justify-content-center mr-2" th:text="${post.getPoints()}"></span>
-						<div>
+					<div sec:authorize="isAuthenticated()">
 							<div th:if="${currentUser.isEvaluated(post)}">
 								<div class="d-flex flex-column justify-content-center"
 									th:if="${currentUser.getEvaluation(post).name().equalsIgnoreCase('UP')}"
@@ -183,6 +183,13 @@
 								<a id="arrow-down" class="fas fa-arrow-down unstyled" th:href="@{'/posts/'+${post.getId()}+'/downvote'}"></a>
 							</div>
 						</div>
+						<div sec:authorize="!isAuthenticated()">
+							<div class="d-flex flex-column justify-content-center">
+								<a id="arrow-up" class="fas fa-arrow-up unstyled" th:href="@{'/posts/'+${post.getId()}+'/upvote'}"></a>
+								<span class="fas fa-circle unstyled my-1" style="font-size: 0.5em"></span>
+								<a id="arrow-down" class="fas fa-arrow-down unstyled" th:href="@{'/posts/'+${post.getId()}+'/downvote'}"></a>
+							</div>
+						</div>
 					</figcaption>
 				</figure>
 				<div class="media-body">
@@ -195,8 +202,10 @@
 						<i class="fa fa-calendar-alt"></i>
 						<small class="text-muted" th:text="${post.getTimePassed()}"> Updated x ago</small>
 					</p>
+					<div class="card">
 					<h4 class="media-body" th:if="${post.getTitle()} != null" th:text="${post.getTitle()}">Text Title</h4>
-					<div class="media-body" th:text="${post.getBody()}">Text Body</div>
+					<p class="media-body" th:text="${post.getBody()}">Text Body</p>
+					</div>
 					<ul class="list-inline list-unstyled">
 						<li id="comments" class="list-inline-item">
 							<button id="comments" class="unstyled">

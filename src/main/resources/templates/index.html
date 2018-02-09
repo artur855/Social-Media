@@ -8,13 +8,29 @@
 	<main class="container" id="posts">
 	<div class="row">
 		<div class="col-lg-3 col-md-3 col-sm-4">
-			<div class="card card-body bg-light">
-				<img class="img-fluid img-rounded" th:src="@{${currentUser.getProfilePictureUrl()}}" />
-				<h5 th:text="${currentUser.getUsername()}"></h5>
-				<h6 th:text="${currentUser.getAboutMe()}"></h6>
+			<div sec:authorize="isAuthenticated()">
+				<div class="card card-body bg-light">
+					<img class="img-fluid img-rounded" th:src="@{${currentUser.getProfilePictureUrl()}}" />
+					<h5 th:text="${currentUser.getUsername()}"></h5>
+					<h6 th:text="${currentUser.getAboutMe()}"></h6>
+				</div>
+				<br />
+				<div class="card">
+					<p class="card-header">Recommended</p>
+					<div class="card-body">
+						<p>Friend 1</p>
+						<p>Friend 2</p>
+					</div>
+				</div>
+				<div class="card">
+					<p class="card-header">Popular</p>
+					<div class="card-body">
+						<p>Friend 1</p>
+						<p>Friend 2</p>
+					</div>
+				</div>
 			</div>
-			<br />
-			<div class="card">
+			<div class="card" sec:authorize="!isAuthenticated()">
 				<p class="card-header">Popular</p>
 				<div class="card-body">
 					<p>Friend 1</p>
