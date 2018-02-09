@@ -5,45 +5,55 @@
 </head>
 <body>
 	<header th:replace="layout :: site-header"></header>
-	<aside>
-		<h2>Recent Posts</h2>
-		<a href="#" th:each="p: ${latest5Posts}" th:text="${p.getTitle()}" th:href="@{'/posts/'+${p.getId()}+'/view'}">Work Begins
-			on HTML5.1</a>
-	</aside>
 	<main class="container" id="posts">
-	<div>
-		<form id="postForm" action="posts/create" th:action="@{/posts/create}" class="card card-body" method="post"
-			th:object="${postForm}"
-		>
-			<div class="row">
-				<div class="col-sm-5">
-					<div class="form-group">
-						<input type="text" class="form-control" name="title" placeholder="Post Title" th:value="*{title}" />
-						<span class="formError" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Invalid Title</span>
-					</div>
-				</div>
-				<div class="dropdown">
-					<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-						aria-haspopup="true" aria-expanded="false"
-					>Select tag</button>
-					<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-						
-							<a id="tagItem" class="dropdown-item" role="menu-item" th:text="${tag.getTag()}" th:each="tag : ${tags}"></a>
-						 
-					</div>
-				</div>
-				<div class="col-sm-12">
-					<div class="form-group">
-						<textarea class="form-control autoExpand" rows="10" name="body" placeholder="Post Body" th:value="*{body}"></textarea>
-						<span class="formError" th:if="${#fields.hasErrors('body')}" th:errors="*{body}">Invalid Body</span>
-					</div>
+	<div class="row">
+		<div class="col-lg-3 col-md-3 col-sm-4">
+			<div class="card card-body bg-light">
+				<img class="img-fluid img-rounded" th:src="@{${currentUser.getProfilePictureUrl()}}" />
+				<h5 th:text="${currentUser.getUsername()}"></h5>
+				<h6 th:text="${currentUser.getAboutMe()}"></h6>
+			</div>
+			<br />
+			<div class="card">
+				<p class="card-header">Popular</p>
+				<div class="card-body">
+					<p>Friend 1</p>
+					<p>Friend 2</p>
 				</div>
 			</div>
-			<button type="submit" class="btn btn-success">Post!!</button>
-		</form>
-	</div>
-	<div th:each="post : ${allPosts}">
-		<div th:replace="layout::post-body"></div>
+		</div>
+		<div class="col-lg-9 col-md-9 col-sm-8">
+			<div class="card card-body bg-light">
+				<form id="postForm" action="posts/create" th:action="@{/posts/create}" method="post" th:object="${postForm}">
+					<div class="row">
+						<div class="col-sm-5">
+							<div class="form-group">
+								<input type="text" class="form-control" name="title" placeholder="Post Title" th:value="*{title}" />
+								<span class="formError" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Invalid Title</span>
+							</div>
+						</div>
+						<div class="dropdown">
+							<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+								aria-haspopup="true" aria-expanded="false"
+							>Select tag</button>
+							<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+								<a id="tagItem" class="dropdown-item" role="menu-item" th:text="${tag.getTag()}" th:each="tag : ${tags}"></a>
+							</div>
+						</div>
+						<div class="col-sm-12">
+							<div class="form-group">
+								<textarea class="form-control autoExpand" name="body" placeholder="Post Body" th:value="*{body}"></textarea>
+								<span class="formError" th:if="${#fields.hasErrors('body')}" th:errors="*{body}">Invalid Body</span>
+							</div>
+						</div>
+					</div>
+					<button type="submit" class="btn btn-primary pull-right">Post!!</button>
+				</form>
+			</div>
+			<div th:each="post : ${allPosts}">
+				<div th:replace="layout::post-body"></div>
+			</div>
+		</div>
 	</div>
 	</main>
 	<footer th:replace="layout :: site-footer"></footer>

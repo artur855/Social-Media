@@ -51,25 +51,22 @@
 							Register
 						</a>
 					</li>
-					<li id="logged-in-info nav-item active" sec:authorize="isAuthenticated()">
-						<figure>
+					<li class="nav-item active" sec:authorize="isAuthenticated()">
 						<a class="nav-link" href="users/profile.html" th:href="@{'/users/'+${currentUser.getUsername()}+'/profile'}">
-							<img th:src="${currentUser.getProfilePictureUrl()}" height="40px"/>
 							<span>
 								Hello,
 								<b th:text="${currentUser.getUsername()}">(user)</b>
 							</span>
 						</a>
-						</figure>
 					</li>
 					<li class="nav-item active" sec:authorize="hasRole('ROLE_ADMIN')">
-						<a class="nav-link mt-2" href="/users/index.html" th:href="@{/admin/home}">
+						<a class="nav-link" href="/users/index.html" th:href="@{/admin/home}">
 							<i class="fas fa-key"></i>
 							ADMIN
 						</a>
 					</li>
 					<li class="nav-item active" sec:authorize="isAuthenticated()">
-						<a class="nav-link mt-2" href="/users/index.html" th:href="@{/users/logout}">
+						<a class="nav-link" href="/users/index.html" th:href="@{/users/logout}">
 							<i class="fas fa-sign-out-alt"></i>
 							Logout
 						</a>
