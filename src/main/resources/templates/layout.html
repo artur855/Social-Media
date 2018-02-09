@@ -54,7 +54,7 @@
 					<li id="logged-in-info nav-item active" sec:authorize="isAuthenticated()">
 						<figure>
 						<a class="nav-link" href="users/profile.html" th:href="@{'/users/'+${currentUser.getUsername()}+'/profile'}">
-							<img th:src="${currentUser.getProfilePictureUrl()}" width="30px"/>
+							<img th:src="${currentUser.getProfilePictureUrl()}" height="40px"/>
 							<span>
 								Hello,
 								<b th:text="${currentUser.getUsername()}">(user)</b>
@@ -95,7 +95,7 @@
 						</div>
 					</div>
 					<div th:case="warning">
-						<div class="alert alert-success alert-dismissible fade show" role="alert">
+						<div class="alert alert-warning alert-dismissible fade show" role="alert">
 							<span th:text="${msg.text}"></span>
 							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 								<span aria-hidden="true">&times;</span>

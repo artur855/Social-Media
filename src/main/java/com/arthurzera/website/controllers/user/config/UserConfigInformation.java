@@ -2,23 +2,23 @@ package com.arthurzera.website.controllers.user.config;
 
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
+import javax.imageio.ImageIO;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.arthurzera.website.controllers.BasicController;
 import com.arthurzera.website.forms.ChangeInformationForm;
 import com.arthurzera.website.models.User;
 
 @Controller
 public class UserConfigInformation extends BasicController {
-	private static final String UPLOAD_FOLDER = "C://Users//Secret//eclipse-workspace//WebsiteArthurzera//src//main//resources//public//img//user_img//";
+	private static final String IMG_UPLOAD_FOLDER = "C://Users//Secret//eclipse-workspace//WebsiteArthurzera//src//main//resources//public//img//";
 	private static final String PARTIAL_UPLOAD_FOLDER = "/img/user_img/";
 
 	@RequestMapping("/users/{username}/config/change-information")
@@ -38,7 +38,7 @@ public class UserConfigInformation extends BasicController {
 
 	@RequestMapping(value = "/users/{username}/config/change-information", method = RequestMethod.POST)
 	public ModelAndView changeInformation(@PathVariable("username") String username,
-			ChangeInformationForm changeInformationForm, BindingResult bindingResult) {
+			ChangeInformationForm changeInformationForm, BindingResult bindingResult) throws IOException {
 		ModelAndView mvc = super.mvc();
 		if (bindingResult.hasErrors()) {
 			System.out.println(bindingResult.getFieldError().toString());
@@ -51,17 +51,35 @@ public class UserConfigInformation extends BasicController {
 		user.setCellphoneNumber(changeInformationForm.getCellphoneNumber());
 		if (!changeInformationForm.getProfilePicture().isEmpty()) {
 			try {
-				byte[] bytes = changeInformationForm.getProfilePicture().getBytes();
-				Path parentDir = Paths.get(UPLOAD_FOLDER + user.getId() + '_' + user.getUsername());
-				Path path = Paths.get(
-						parentDir.toString() + "//" + changeInformationForm.getProfilePicture().getOriginalFilename());
-				user.setProfilePictureUrl(PARTIAL_UPLOAD_FOLDER + user.getId() + '_' + user.getUsername() + "/" + changeInformationForm.getProfilePicture().getOriginalFilename());
-				if (!Files.exists(parentDir)) {
-					Files.createDirectories(parentDir);
+				ImageIO.read(changeInformationForm.getProfilePicture().getInputStream()).toString();
+				try {
+					if (!user.getProfilePictureUrl().equals(User.DEFAULT_PROFILE_PICTURE)) {
+						Path oldPicture = Paths.get(IMG_UPLOAD_FOLDER + user.getProfilePictureUrl().substring(5));
+						try {
+							Files.delete(oldPicture);
+						} catch (NoSuchFileException ex) {
+							ex.printStackTrace();
+						}
+					}
+					byte[] bytes = changeInformationForm.getProfilePicture().getBytes();
+					Path parentDir = Paths
+							.get(IMG_UPLOAD_FOLDER + "//user_img//" + user.getId() + '_' + user.getUsername());
+					Path path = Paths.get(parentDir.toString() + "//profile_picture_"
+							+ changeInformationForm.getProfilePicture().getOriginalFilename());
+					user.setProfilePictureUrl(PARTIAL_UPLOAD_FOLDER + user.getId() + '_' + user.getUsername() + "/"
+							+ changeInformationForm.getProfilePicture().getOriginalFilename());
+					if (!Files.exists(parentDir)) {
+						Files.createDirectories(parentDir);
+					}
+					Files.write(path, bytes);
+				} catch (IOException ex) {
+					ex.printStackTrace();
 				}
-				Files.write(path, bytes);
-			} catch (IOException ex) {
+			} catch (Exception ex) {
 				ex.printStackTrace();
+				notifyService.addWarningMessage("You can only upload images");
+				mvc.setViewName("redirect:/users/" + username + "/config/change-information");
+				return mvc;
 			}
 		}
 		userService.edit(user);

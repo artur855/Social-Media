@@ -11,6 +11,8 @@ import javax.persistence.*;
 @Table(name = "users")
 public class User {
 
+	public static final String DEFAULT_PROFILE_PICTURE = "/img/profile_icons/default.png";
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -96,7 +98,7 @@ public class User {
 		this.fullName = fullname;
 		this.email = new UserEmail(email);
 		this.enabled = false;
-		this.profilePictureUrl = "/img/profile_icons/default.png";
+		this.profilePictureUrl = DEFAULT_PROFILE_PICTURE;
 		this.roles = new ArrayList<>();
 		this.posts = new ArrayList<>();
 		this.comments = new ArrayList<>();
