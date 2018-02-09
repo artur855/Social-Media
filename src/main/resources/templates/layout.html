@@ -142,90 +142,95 @@
 				</div>
 			</div>
 		</div>
-		<div class="card-body">
-			<div class="media" style="margin-left: -10px;">
-				<figure>
-					<a th:href="@{'/users/'+${post.getAuthor().getUsername()}+'/profile'}">
-						<img id="profile-picture" class="rounded d-flex mx-2" th:src="@{${post.getAuthor().getProfilePictureUrl()}}" width="45px" />
-					</a>
-					<br />
-					<figcaption class="d-flex text-center justify-content-center">
-						<span id="points" class="d-flex flex-column justify-content-center mr-2" th:text="${post.getPoints()}"></span>
-					<div sec:authorize="isAuthenticated()">
-							<div th:if="${currentUser.isEvaluated(post)}">
-								<div class="d-flex flex-column justify-content-center"
-									th:if="${currentUser.getEvaluation(post).name().equalsIgnoreCase('UP')}"
-								>
-									<a id="arrow-up" class="fas fa-arrow-up unstyled" style="color: red;" th:href="@{'/posts/'+${post.getId()}+'/upvote'}"></a>
-									<span class="fas fa-circle unstyled my-1" style="font-size: 0.5em; color: red;"></span>
-									<a id="arrow-down" class="fas fa-arrow-down unstyled" th:href="@{'/posts/'+${post.getId()}+'/downvote'}"></a>
+			<div class="card-body">
+				<div class="media" style="margin-left: -10px;">
+					<figure>
+						<a th:href="@{'/users/'+${post.getAuthor().getUsername()}+'/profile'}">
+							<img id="profile-picture" class="rounded d-flex mx-2" th:src="@{${post.getAuthor().getProfilePictureUrl()}}" width="45px" />
+						</a>
+						<br />
+						<figcaption class="d-flex text-center justify-content-center">
+							<span id="points" class="d-flex flex-column justify-content-center mr-2" th:text="${post.getPoints()}"></span>
+							<div sec:authorize="isAuthenticated()">
+								<div th:if="${currentUser.isEvaluated(post)}">
+									<div class="d-flex flex-column justify-content-center"
+										th:if="${currentUser.getEvaluation(post).name().equalsIgnoreCase('UP')}"
+									>
+										<a id="arrow-up" class="fas fa-arrow-up unstyled" style="color: red;" th:href="@{'/posts/'+${post.getId()}+'/upvote'}"></a>
+										<span class="fas fa-circle unstyled my-1" style="font-size: 0.5em; color: red;"></span>
+										<a id="arrow-down" class="fas fa-arrow-down unstyled" th:href="@{'/posts/'+${post.getId()}+'/downvote'}"></a>
+									</div>
+									<div class="d-flex flex-column justify-content-center"
+										th:if="${currentUser.getEvaluation(post).name().equalsIgnoreCase('DOWN')}"
+									>
+										<a id="arrow-up" class="fas fa-arrow-up unstyled" th:href="@{'/posts/'+${post.getId()}+'/upvote'}"></a>
+										<span class="fas fa-circle unstyled my-1" style="font-size: 0.5em; color: blue;"></span>
+										<a id="arrow-down" class="fas fa-arrow-down unstyled" style="color: blue;"
+											th:href="@{'/posts/'+${post.getId()}+'/downvote'}"
+										></a>
+									</div>
+									<div class="d-flex flex-column justify-content-center"
+										th:if="${currentUser.getEvaluation(post).name().equalsIgnoreCase('NONE')}"
+									>
+										<a id="arrow-up" class="fas fa-arrow-up unstyled" th:href="@{'/posts/'+${post.getId()}+'/upvote'}"></a>
+										<span class="fas fa-circle unstyled my-1" style="font-size: 0.5em"></span>
+										<a id="arrow-down" class="fas fa-arrow-down unstyled" th:href="@{'/posts/'+${post.getId()}+'/downvote'}"></a>
+									</div>
 								</div>
-								<div class="d-flex flex-column justify-content-center"
-									th:if="${currentUser.getEvaluation(post).name().equalsIgnoreCase('DOWN')}"
-								>
-									<a id="arrow-up" class="fas fa-arrow-up unstyled" th:href="@{'/posts/'+${post.getId()}+'/upvote'}"></a>
-									<span class="fas fa-circle unstyled my-1" style="font-size: 0.5em; color: blue;"></span>
-									<a id="arrow-down" class="fas fa-arrow-down unstyled" style="color: blue;"
-										th:href="@{'/posts/'+${post.getId()}+'/downvote'}"
-									></a>
-								</div>
-								<div class="d-flex flex-column justify-content-center"
-									th:if="${currentUser.getEvaluation(post).name().equalsIgnoreCase('NONE')}"
-								>
+								<div class="d-flex flex-column justify-content-center" th:if="${!currentUser.isEvaluated(post)}">
 									<a id="arrow-up" class="fas fa-arrow-up unstyled" th:href="@{'/posts/'+${post.getId()}+'/upvote'}"></a>
 									<span class="fas fa-circle unstyled my-1" style="font-size: 0.5em"></span>
 									<a id="arrow-down" class="fas fa-arrow-down unstyled" th:href="@{'/posts/'+${post.getId()}+'/downvote'}"></a>
 								</div>
 							</div>
-							<div class="d-flex flex-column justify-content-center" th:if="${!currentUser.isEvaluated(post)}">
-								<a id="arrow-up" class="fas fa-arrow-up unstyled" th:href="@{'/posts/'+${post.getId()}+'/upvote'}"></a>
-								<span class="fas fa-circle unstyled my-1" style="font-size: 0.5em"></span>
-								<a id="arrow-down" class="fas fa-arrow-down unstyled" th:href="@{'/posts/'+${post.getId()}+'/downvote'}"></a>
+							<div sec:authorize="!isAuthenticated()">
+								<div class="d-flex flex-column justify-content-center">
+									<a id="arrow-up" class="fas fa-arrow-up unstyled" th:href="@{'/posts/'+${post.getId()}+'/upvote'}"></a>
+									<span class="fas fa-circle unstyled my-1" style="font-size: 0.5em"></span>
+									<a id="arrow-down" class="fas fa-arrow-down unstyled" th:href="@{'/posts/'+${post.getId()}+'/downvote'}"></a>
+								</div>
+							</div>
+						</figcaption>
+					</figure>
+					<div class="media-body">
+						<h6>
+							<a class="ml-1" th:href="@{'/users/'+${post.getAuthor().getUsername()}+'/profile'}"
+								th:text="${post.getAuthor().getUsername()}"
+							>Author Username</a>
+						</h6>
+						<p>
+							<i class="fa fa-calendar-alt"></i>
+							<small class="text-muted" th:text="${post.getTimePassed()}"> Updated x ago</small>
+						</p>
+						<div class="card">
+							<div class="card-body">
+								<div th:if="${post.getTitle()} != null">
+								<h4 class="card-title" th:text="${post.getTitle()}">Text Title</h4>
+								<hr class="hr_heading"/>
+								</div>
+								<p class="card-text" th:text="${post.getBody()}">Text Body</p>
 							</div>
 						</div>
-						<div sec:authorize="!isAuthenticated()">
-							<div class="d-flex flex-column justify-content-center">
-								<a id="arrow-up" class="fas fa-arrow-up unstyled" th:href="@{'/posts/'+${post.getId()}+'/upvote'}"></a>
-								<span class="fas fa-circle unstyled my-1" style="font-size: 0.5em"></span>
-								<a id="arrow-down" class="fas fa-arrow-down unstyled" th:href="@{'/posts/'+${post.getId()}+'/downvote'}"></a>
-							</div>
-						</div>
-					</figcaption>
-				</figure>
-				<div class="media-body">
-					<h6>
-						<a class="ml-1" th:href="@{'/users/'+${post.getAuthor().getUsername()}+'/profile'}"
-							th:text="${post.getAuthor().getUsername()}"
-						>Author Username</a>
-					</h6>
-					<p>
-						<i class="fa fa-calendar-alt"></i>
-						<small class="text-muted" th:text="${post.getTimePassed()}"> Updated x ago</small>
-					</p>
-					<div class="card">
-					<h4 class="media-body" th:if="${post.getTitle()} != null" th:text="${post.getTitle()}">Text Title</h4>
-					<p class="media-body" th:text="${post.getBody()}">Text Body</p>
+						<ul class="list-inline list-unstyled">
+							<li id="comments" class="list-inline-item">
+								<button id="comments" class="unstyled">
+									<i class="fa fa-comments"></i>
+									<span
+										th:text="${post.getComments().size()>1} ? ${post.getComments().size()} + ' Comments |' : ${post.getComments().size()} + ' Comment |'"
+									>x Comments |</span>
+								</button>
+							</li>
+							<li class="list-inline-item">
+								<i class="fa fa-tags"></i>
+								Tags:
+							</li>
+							<li class="list-inline-item" th:each="tag : ${post.getTags()}">
+								<a th:href="@{'/tags/'+${tag.getId()}+'/view'}">
+									<span class="badge badge-primary" th:text="${tag.getTag()}">Tag</span>
+								</a>
+							</li>
+						</ul>
 					</div>
-					<ul class="list-inline list-unstyled">
-						<li id="comments" class="list-inline-item">
-							<button id="comments" class="unstyled">
-								<i class="fa fa-comments"></i>
-								<span
-									th:text="${post.getComments().size()>1} ? ${post.getComments().size()} + ' Comments |' : ${post.getComments().size()} + ' Comment |'"
-								>x Comments |</span>
-							</button>
-						</li>
-						<li class="list-inline-item">
-							<i class="fa fa-tags"></i>
-							Tags:
-						</li>
-						<li class="list-inline-item" th:each="tag : ${post.getTags()}">
-							<a th:href="@{'/tags/'+${tag.getId()}+'/view'}">
-								<span class="badge badge-primary" th:text="${tag.getTag()}">Tag</span>
-							</a>
-						</li>
-					</ul>
-				</div>
 			</div>
 		</div>
 		<script type="text/javascript">
