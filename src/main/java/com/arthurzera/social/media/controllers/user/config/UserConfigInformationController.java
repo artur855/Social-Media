@@ -17,7 +17,7 @@ import com.arthurzera.social.media.forms.ChangeInformationForm;
 import com.arthurzera.social.media.models.User;
 
 @Controller
-public class UserConfigInformation extends BasicController {
+public class UserConfigInformationController extends BasicController {
 	private static final String IMG_UPLOAD_FOLDER = "C://Users//Secret//eclipse-workspace//WebsiteArthurzera//src//main//resources//public//img//";
 	private static final String PARTIAL_UPLOAD_FOLDER = "/img/user_img/";
 
@@ -66,7 +66,7 @@ public class UserConfigInformation extends BasicController {
 							.get(IMG_UPLOAD_FOLDER + "//user_img//" + user.getId() + '_' + user.getUsername());
 					Path path = Paths.get(parentDir.toString() + "//profile_picture_"
 							+ changeInformationForm.getProfilePicture().getOriginalFilename());
-					user.setProfilePictureUrl(PARTIAL_UPLOAD_FOLDER + user.getId() + '_' + user.getUsername() + "/"
+					user.setProfilePictureUrl(PARTIAL_UPLOAD_FOLDER + user.getId() + '_' + user.getUsername() + "/profile_picture_"
 							+ changeInformationForm.getProfilePicture().getOriginalFilename());
 					if (!Files.exists(parentDir)) {
 						Files.createDirectories(parentDir);

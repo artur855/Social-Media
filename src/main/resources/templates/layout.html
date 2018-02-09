@@ -82,7 +82,7 @@
 			</div>
 		</nav>
 		<div class="container" id="messages"
-			th:with="notifyMessages=${session[T(com.arthurzera.website.services.NotificationService).NOTIFY_MSG_SESSION_KEY]}"
+			th:with="notifyMessages=${session[T(com.arthurzera.social.media.services.NotificationService).NOTIFY_MSG_SESSION_KEY]}"
 		>
 			<div th:each="msg: ${notifyMessages}">
 				<th:block th:switch="${#strings.toLowerCase(msg.type)}">
