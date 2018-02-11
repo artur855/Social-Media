@@ -36,4 +36,8 @@ public interface IUserService {
 
 	boolean existsByEmail(String email);
 
+	List<User> findMostPopular();
+
+	List<User> findMostPopular(User currentUser);
+
 }

@@ -15,7 +15,7 @@
 				<b th:text="${user.getLastSeen()}">Last seen</b>
 			</p>
 			<h1 class="badge badge-secondary" th:text="|${user.getUsername()}'s Profile|">User's Profile</h1>
-			<div th:if="${user} != ${currentUser}">
+			<div th:if="${!user.equals(currentUser)}">
 				<a class="btn btn-primary"  th:if="${!currentUser.isFollowing(user)}" th:href="|/users/${user.getUsername()}/follow|">Follow</a>
 				<a class="btn btn-secondary" th:if="${currentUser.isFollowing(user)}" th:href="|/users/${user.getUsername()}/unfollow|">Unfollow</a>
 			</div>
@@ -28,7 +28,7 @@
 			<li class="nav-item">
 				<a class="nav-link" id="followers-tab" data-toggle="tab" href="#followers" role="tab" aria-controls="followers"
 					aria-selected="false"
-				>0 followers</a>
+				th:text="${user.getFollowers().size() + ' followers'}">0 followers</a>
 			</li>
 			
 		</ul>

@@ -6,6 +6,9 @@ import com.arthurzera.social.media.repositories.UserEmailRepository;
 import com.arthurzera.social.media.repositories.UserRepository;
 import com.arthurzera.social.media.repositories.VerificationTokenRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,6 +41,29 @@ public class UserService implements IUserService {
         return this.userRepository.findAll();
     }
 
+    @Override 
+    public List<User> findMostPopular(){
+    	List<User> users = this.userRepository.findAll();
+    	users.sort(Comparator.comparingInt(u -> u.getAveragePoints()));
+    	Collections.reverse(users);
+    	if (users.size()<5) {
+    		return users;
+    	} else {    		
+    		return users.subList(users.size()-6, users.size()-1);    	
+    	}
+    }
+    @Override 
+    public List<User> findMostPopular(User currentUser){
+    	List<User> users = this.userRepository.findAll();
+    	users.remove(currentUser);
+    	users.sort(Comparator.comparingInt(u -> u.getAveragePoints()));
+    	Collections.reverse(users);
+    	if (users.size()<5) {
+    		return users;
+    	} else {    		
+    		return users.subList(users.size()-6, users.size()-1);    	
+    	}
+    }
     @Override
     public User findById(Long id) {
         return this.userRepository.findOne(id);

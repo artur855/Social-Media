@@ -127,13 +127,16 @@
 	<div id="postCard" class="card bg-light my-2" th:fragment="post-body">
 		<div class="row">
 			<div id="userInformation" class="col-lg-3 col-md-3 col-sm-4 card-body">
-				<div style="height: 100%" class=" d-flex flex-column align-items-center">
+				<div class=" d-flex flex-column align-items-center">
 					<img class="rounded img-fluid " th:src="${post.getAuthor().getProfilePictureUrl()}" />
 					<h5 th:text="${post.getAuthor().getUsername()}">Username</h5>
 				</div>
 			</div>
 			<div id="secondColumn" class="col-lg-9 col-md-8 col-sm-8 ">
-				<div class="d-flex card-body " style="height: 100%;">
+				<div class="d-flex card-body ">
+					<div class="d-flex flex-column align-items-center justify-content-start mt-4 ml-2">
+						<span th:text="${post.getPoints()}"></span>
+					</div>
 					<div sec:authorize="isAuthenticated()">
 						<div th:if="${currentUser.isEvaluated(post)}">
 							<div th:switch="${currentUser.getEvaluation(post).name()}">

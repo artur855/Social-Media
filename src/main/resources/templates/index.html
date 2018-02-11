@@ -17,14 +17,22 @@
 				<div class="card mb-2">
 					<p class="card-header">Popular Pages</p>
 					<div class="card-body">
-						<p>Friend 1</p>
-						<p>Friend 2</p>
+						<div th:each="user:${mostPopularUsers}">
+							<a class="unstyled" th:href="@{'/users/'+${user.getUsername()}+'/profile'}">
+								<img class="img-rounded" th:src="${user.getProfilePictureUrl()}" width="30px"/>
+								<span th:text="${user.getUsername()}"></span>
+							</a>
+							<div class="float-right" sec:authorize="isAuthenticated()">
+								<a class="btn btn-primary unstyled" th:if="${!currentUser.isFollowing(user)}" th:href="@{'/users/'+${user.getUsername()}+'/follow'}">Follow</a> 
+								<a class="btn btn-secondary unstyled" th:if="${currentUser.isFollowing(user)}" th:href="@{'/users/'+${user.getUsername()}+'/unfollow'}">Unfollow</a> 
+							</div>
+						</div>
 					</div>
 				</div>
 				<div class="card mb-2">
 					<p class="card-header">Popular Posts</p>
 					<div class="card-body">
-						<div th:each="post :${mostPopular}">
+						<div th:each="post :${mostPopularPosts}">
 							<a class="unstyled" th:href="@{'/posts/'+${post.getId()}+'/view'}">
 								<img class="img-rounded img-fluid" th:src="${post.getAuthor().getProfilePictureUrl()}" width="40px"/>
 								<b th:text="|${post.hasTitle() ? post.getTitle() : post.getAuthor().getUsername()+' Post'}|">Post Title</b>

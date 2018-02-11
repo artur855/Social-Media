@@ -17,14 +17,18 @@ public class MainController extends BasicController {
 	public ModelAndView index() {
 		ModelAndView mvc = super.mvc();
 		List<Post> allPosts = null;
+		List<User> mostPopularUsers = null;
 		if (mvc.getModel().containsKey("currentUser")) {
 			User currentUser = (User) mvc.getModel().get("currentUser");
 			allPosts = postService.findTimeLine(currentUser);
+			mostPopularUsers = userService.findMostPopular(currentUser);
 		} else {
 			allPosts = postService.findTimeLine();
+			mostPopularUsers = userService.findMostPopular();
 		}
 		List<Tag> tags = tagService.findAll();
-		mvc.addObject("mostPopular", postService.findMostPopular());
+		mvc.addObject("mostPopularPosts", postService.findMostPopular());
+		mvc.addObject("mostPopularUsers", mostPopularUsers);
 		mvc.addObject("postForm", new PostForm());
 		mvc.addObject("allPosts", allPosts);
 		mvc.addObject("tags", tags);

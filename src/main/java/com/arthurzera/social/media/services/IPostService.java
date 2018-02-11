@@ -4,7 +4,6 @@ import com.arthurzera.social.media.models.Comment;
 import com.arthurzera.social.media.models.Post;
 import com.arthurzera.social.media.models.Tag;
 import com.arthurzera.social.media.models.User;
-
 import java.util.List;
 
 public interface IPostService {

@@ -353,4 +353,8 @@ public class User {
 	public EvaluationType getEvaluation(Comment comment) {
 		return this.getCommentEvaluations().stream().filter(p -> p.getCommentEvaluated().equals(comment)).findFirst().get().getEvalution();
 	}
+	
+	public int getAveragePoints() {
+		return this.posts.stream().mapToInt(Post::getPoints).sum()/this.posts.size();
+	}
 }

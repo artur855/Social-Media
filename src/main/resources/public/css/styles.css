@@ -173,7 +173,7 @@ li {
 
 #userInformation {
     margin-right: -50px;
-    margin-left: 20px;
+    margin-left: 15px;
 }
 
 .dropdown {
@@ -181,7 +181,7 @@ li {
 }
 
 #secondColumn {
-    margin-right: -20px;
+    margin-right: -10px;
 }
 
 .upvoted span, .upvoted a:first-of-type{
