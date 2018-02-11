@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="description" content="Site to learn delevopment with spring and maven" />
-<meta author="author" content="Arthur Gonçalves" />
+<meta User="User" content="Arthur Gonçalves" />
 <meta http-equiv="refresh" content="1000" />
 <link rel="icon" href="../public/img/favicon.ico" th:href="@{/img/favicon.ico}" />
 <link rel="stylesheet" href="../public/css/styles.css" th:href="@{/css/styles.css}" />
@@ -39,34 +39,34 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav mr-auto">
-					<li class="nav-item active" sec:authorize="!isAuthenticated()">
-						<a class="nav-link" href="/users/login.html" th:href="@{/users/login}">
+					<li class="nav-item active" sec:Userize="!isAuthenticated()">
+						<a class="nav-link" href="/Users/login.html" th:href="@{/Users/login}">
 							<i class="fas fa-sign-in-alt"></i>
 							Login
 						</a>
 					</li>
 					<li class="nav-item active" sec:authorize="!isAuthenticated()">
-						<a class="nav-link" href="/users/register.html" th:href="@{/users/register}">
-							<i class="fas fa-user-plus"></i>
+						<a class="nav-link" href="/Users/register.html" th:href="@{/Users/register}">
+							<i class="fas fa-User-plus"></i>
 							Register
 						</a>
 					</li>
 					<li class="nav-item active" sec:authorize="isAuthenticated()">
-						<a class="nav-link" href="users/profile.html" th:href="@{'/users/'+${currentUser.getUsername()}+'/profile'}">
+						<a class="nav-link" href="Users/profile.html" th:href="@{'/Users/'+${currentUser.getUsername()}+'/profile'}">
 							<span>
 								Hello,
-								<b th:text="${currentUser.getUsername()}">(user)</b>
+								<b th:text="${currentUser.getUsername()}">(User)</b>
 							</span>
 						</a>
 					</li>
 					<li class="nav-item active" sec:authorize="hasRole('ROLE_ADMIN')">
-						<a class="nav-link" href="/users/index.html" th:href="@{/admin/home}">
+						<a class="nav-link" href="/Users/index.html" th:href="@{/admin/home}">
 							<i class="fas fa-key"></i>
 							ADMIN
 						</a>
 					</li>
 					<li class="nav-item active" sec:authorize="isAuthenticated()">
-						<a class="nav-link" href="/users/index.html" th:href="@{/users/logout}">
+						<a class="nav-link" href="/Users/index.html" th:href="@{/Users/logout}">
 							<i class="fas fa-sign-out-alt"></i>
 							Logout
 						</a>
@@ -167,7 +167,7 @@
 					</div>
 					<div class=" col-lg-12 col-md-8 col-sm-12 ">
 						<div class="d-flex card card-body " style="height: auto;">
-							<div th:if="posthastitle ">
+							<div th:if="${post.hasTitle()} ">
 								<h5 th:text="${post.getTitle()}">Title</h5>
 								<hr class="hr_heading" />
 							</div>
@@ -205,7 +205,7 @@
 				></button>
 				<div class="dropdown-menu  dropdown-menu-left" aria-labelledby="dropdownMenuButton">
 					<button type="button" id="hide-button" class="dropdown-item" aria-label="Close" data-toggle="tooltip" data-placement="top"
-						title="Hide post"
+						title="Hide comment"
 					>
 						<span aria-hidden="true">Hide</span>
 					</button>
@@ -220,89 +220,96 @@
 	</div>
 	<!-- END TRADICIONAL POST -->
 	<!-- TRADICIONAL COMMENT -->
-	<div class="card card-outline-danger bg-light my-2" th:fragment="comment-body">
-		<div class="dropdown" style="text-align: right;">
-			<button class="pull-right btn unstyled dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-				aria-haspopup="true" aria-expanded="false"
-			></button>
-			<div class="dropdown-menu  dropdown-menu-left" aria-labelledby="dropdownMenuButton">
-				<button type="button" id="hide-button" class="dropdown-item" aria-label="Close" data-toggle="tooltip" data-placement="top"
-					title="Hide post"
-				>
-					<span aria-hidden="true">Hide</span>
-				</button>
-				<div th:if="${comment.getUser()} == ${currentUser}">
-					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" th:href="@{'/comments/'+${comment.getId()}+'/delete'}">Delete</a>
+	<div id="postCard" class="card bg-light my-2" th:fragment="post-body">
+		<div class="row">
+			<div id="userInformation" class="col-lg-3 col-md-3 col-sm-4 card-body">
+				<div style="height: 100%" class=" d-flex flex-column align-items-center">
+					<img class="rounded img-fluid " th:src="${post.getAuthor().getProfilePictureUrl()}" />
+					<h5 th:text="${post.getAuthor().getUsername()}">Username</h5>
 				</div>
 			</div>
-		</div>
-		<div class="card-body">
-			<div class="media" style="margin-left: -10px;">
-				<figure>
-					<a th:href="@{'/users/'+${comment.getUser().getUsername()}+'/profile'}">
-						<img class="rounded d-flex mx-2" th:src="@{${comment.getUser().getProfilePictureUrl()}}" width="45px" />
-					</a>
-					<br />
-					<figcaption class="d-flex text-center justify-content-center">
-						<span id="points" class="d-flex flex-column justify-content-center mr-2" th:text="${comment.getPoints()}"></span>
-						<div>
-							<div th:if="${currentUser.isEvaluated(comment)}">
-								<div class="d-flex flex-column justify-content-center"
-									th:if="${currentUser.getEvaluation(comment).name().equalsIgnoreCase('UP')}"
-								>
-									<a id="arrow-up" class="fas fa-arrow-up unstyled" style="color: red;"
-										th:href="@{'/comments/'+${comment.getId()}+'/upvote'}"
-									></a>
-									<span class="fas fa-circle unstyled my-1" style="font-size: 0.5em; color: red;"></span>
-									<a id="arrow-down" class="fas fa-arrow-down unstyled" th:href="@{'/comments/'+${comment.getId()}+'/downvote'}"></a>
+			<div id="secondColumn" class="col-lg-9 col-md-8 col-sm-8 ">
+				<div class="d-flex card-body " style="height: 100%;">
+					<div sec:authorize="isAuthenticated()">
+						<div th:if="${currentUser.isEvaluated(post)}">
+							<div th:switch="${currentUser.getEvaluation(post).name()}">
+								<div class="d-flex flex-column align-items-center ml-2 mt-3 upvoted" th:case="'UP'">
+									<a id="arrow-up" class="fas fa-arrow-up unstyled" th:href="@{'/posts/'+${post.getId()}+'/upvote'}"></a>
+									<span class="fas fa-circle unstyled my-1 " style="font-size: 0.5em"></span>
+									<a id="arrow-down" class="fas fa-arrow-down unstyled " th:href="@{'/posts/'+${post.getId()}+'/downvote'}"></a>
 								</div>
-								<div class="d-flex flex-column justify-content-center"
-									th:if="${currentUser.getEvaluation(comment).name().equalsIgnoreCase('DOWN')}"
-								>
-									<a id="arrow-up" class="fas fa-arrow-up unstyled" th:href="@{'/comments/'+${comment.getId()}+'/upvote'}"></a>
-									<span class="fas fa-circle unstyled my-1" style="font-size: 0.5em; color: blue;"></span>
-									<a id="arrow-down" class="fas fa-arrow-down unstyled" style="color: blue;"
-										th:href="@{'/comments/'+${comment.getId()}+'/downvote'}"
-									></a>
+								<div class="d-flex flex-column align-items-center ml-2 mt-3 downvoted" th:case="'DOWN'">
+									<a id="arrow-up" class="fas fa-arrow-up unstyled" th:href="@{'/posts/'+${post.getId()}+'/upvote'} "></a>
+									<span class="fas fa-circle unstyled my-1 " style="font-size: 0.5em"></span>
+									<a id="arrow-down" class="fas fa-arrow-down unstyled " th:href="@{'/posts/'+${post.getId()}+'/downvote'}"></a>
 								</div>
-								<div class="d-flex flex-column justify-content-center"
-									th:if="${currentUser.getEvaluation(comment).name().equalsIgnoreCase('NONE')}"
-								>
-									<a id="arrow-up" class="fas fa-arrow-up unstyled" th:href="@{'/comments/'+${comment.getId()}+'/upvote'}"></a>
-									<span class="fas fa-circle unstyled my-1" style="font-size: 0.5em"></span>
-									<a id="arrow-down" class="fas fa-arrow-down unstyled" th:href="@{'/comments/'+${comment.getId()}+'/downvote'}"></a>
+								<div class="d-flex flex-column align-items-center ml-2 mt-3" th:case="'NONE'">
+									<a id="arrow-up " class="fas fa-arrow-up unstyled" th:href="@{'/posts/'+${post.getId()}+'/upvote'} "></a>
+									<span class="fas fa-circle unstyled my-1 " style="font-size: 0.5em"></span>
+									<a id="arrow-down " class="fas fa-arrow-down unstyled " th:href="@{'/posts/'+${post.getId()}+'/downvote'}"></a>
 								</div>
-							</div>
-							<div class="d-flex flex-column justify-content-center" th:if="${!currentUser.isEvaluated(comment)}">
-								<a id="arrow-up" class="fas fa-arrow-up unstyled" th:href="@{'/comments/'+${comment.getId()}+'/upvote'}"></a>
-								<span class="fas fa-circle unstyled my-1" style="font-size: 0.5em"></span>
-								<a id="arrow-down" class="fas fa-arrow-down unstyled" th:href="@{'/comments/'+${comment.getId()}+'/downvote'}"></a>
 							</div>
 						</div>
-					</figcaption>
-				</figure>
-				<div class="media-body">
-					<h6>
-						<a class="ml-1" th:href="@{'/users/'+${comment.getUser().getUsername()}+'/profile'}"
-							th:text="${comment.getUser().getUsername()}"
-						>Author Username</a>
-					</h6>
-					<p>
-						<i class="fa fa-calendar-alt"></i>
-						<small class="text-muted" th:text="${comment.getTimePassed()}"> Updated x ago</small>
-					</p>
-					<div class="media-body" th:text="${comment.getBody()}">Text Body</div>
-					<ul class="list-inline">
-						<li class="list-inline-item">
-							<button class="unstyled" id="comments">
-								<i class="fa fa-comments"></i>
-								<span
-									th:text="${comment.getComments().size()>1} ? ${comment.getComments().size()} + ' Comments' : ${comment.getComments().size()} + ' Comment'"
-								>x Comments</span>
-							</button>
-						</li>
-					</ul>
+						<div class="d-flex flex-column align-items-center ml-2 mt-3 " th:if="${!currentUser.isEvaluated(post)}">
+							<a id="arrow-up " class="fas fa-arrow-up unstyled " th:href="@{'/posts/'+${post.getId()}+'/upvote'}"></a>
+							<span class="fas fa-circle unstyled my-1 " style="font-size: 0.5em"></span>
+							<a id="arrow-down " class="fas fa-arrow-down unstyled " th:href="@{'/posts/'+${post.getId()}+'/downvote'}"></a>
+						</div>
+					</div>
+					<div class="d-flex flex-column align-items-center ml-2 mt-3 " sec:authorize="!isAuthenticated()">
+						<a id="arrow-up " class="fas fa-arrow-up unstyled " th:href="@{ '/posts/'+${post.getId()}+ '/upvote'} "></a>
+						<span class="fas fa-circle unstyled my-1 " style="font-size: 0.5em"></span>
+						<a id="arrow-down " class="fas fa-arrow-down unstyled " th:href="@{ '/posts/'+${post.getId()}+ '/downvote'} "></a>
+					</div>
+					<div class=" col-lg-12 col-md-8 col-sm-12 ">
+						<div class="d-flex card card-body " style="height: auto;">
+							<div th:if="${post.hasTitle()} ">
+								<h5 th:text="${post.getTitle()}">Title</h5>
+								<hr class="hr_heading" />
+							</div>
+							<p th:text="${post.getBody()}">Body</p>
+						</div>
+						<ul class="list-inline list-unstyled ">
+							<li class="list-inline-item ">
+								<i class="fa fa-calendar-alt "></i>
+								<small class="text-muted " th:text="${post.getTimePassed()} ">Post made x ago</small>
+							</li>
+							<li id="comments " class="list-inline-item ">
+								<button id="comments " class="unstyled ">
+									<i class="fa fa-comments "></i>
+									<small class="text-muted "
+										th:text="${post.getComments().size()>1} ? ${post.getComments().size()} + ' Comments' : ${post.getComments().size()} + ' Comment'"
+									>x Comments</small>
+								</button>
+							</li>
+							<li class="list-inline-item">
+								<i class="fa fa-tags"></i>
+								<small class="text-muted">Tags:</small>
+							</li>
+							<li class="list-inline-item" th:each="tag : ${post.getTags()}">
+								<a th:href="@{'/tags/'+${tag.getId()}+'/view'}">
+									<small class="badge badge-primary" th:text="${tag.getTag()}">Tag</small>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="dropdown">
+				<button class="pull-right btn unstyled dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+					aria-haspopup="true" aria-expanded="false"
+				></button>
+				<div class="dropdown-menu  dropdown-menu-left" aria-labelledby="dropdownMenuButton">
+					<button type="button" id="hide-button" class="dropdown-item" aria-label="Close" data-toggle="tooltip" data-placement="top"
+						title="Hide comment"
+					>
+						<span aria-hidden="true">Hide</span>
+					</button>
+					<a class="dropdown-item" th:href="@{'/comments/'+${comment.getId()}+'/view'}">See comment page</a>
+					<div th:if="${comment.getUser()} == ${currentUser}">
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item" th:href="@{'/comments/'+${comment.getId()}+'/delete'}">Delete</a>
+					</div>
 				</div>
 			</div>
 		</div>

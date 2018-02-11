@@ -23,19 +23,19 @@ public class Post {
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	private User author;
 
-	@OneToMany(mappedBy="post", targetEntity=Comment.class)
+	@OneToMany(mappedBy = "post", targetEntity = Comment.class)
 	private List<Comment> comments;
-	
+
 	@Column(nullable = false)
 	private Date date;
-	
+
 	@ManyToMany
 	@JoinTable
 	private List<Tag> tags;
-	
-	@OneToMany(mappedBy="postEvaluated", targetEntity=PostEvaluation.class)
+
+	@OneToMany(mappedBy = "postEvaluated", targetEntity = PostEvaluation.class)
 	private List<PostEvaluation> evaluations;
-	
+
 	public Post() {
 	}
 
@@ -46,14 +46,13 @@ public class Post {
 		this.tags = new ArrayList<>();
 		this.comments = new ArrayList<>();
 		this.date = new Date();
-		 
+
 	}
 
 	@Override
 	public String toString() {
 		return "Post{" + "id=" + id + ", title=" + title + ", body=" + body + ", author=" + author + '}';
 	}
-	
 
 	public Long getId() {
 		return id;
@@ -121,6 +120,7 @@ public class Post {
 	public void setComments(List<Comment> comments) {
 		this.comments = comments;
 	}
+
 	public void addComment(Comment comment) {
 		this.comments.add(comment);
 	}
@@ -135,29 +135,32 @@ public class Post {
 
 	public void setTags(List<Tag> tags) {
 		this.tags = tags;
-		
+
 	}
-	
+
 	public boolean hasTag(Tag tag) {
 		return this.tags.contains(tag);
 	}
-	
+
 	public void addTag(Tag tag) {
 		this.tags.add(tag);
 		tag.getPosts().add(this);
 	}
+
 	public void removeTag(Tag tag) {
 		this.tags.remove(tag);
 		tag.getPosts().remove(this);
 	}
- 
+
 	public int getPoints() {
 		int points = 0;
 		for (PostEvaluation postEvaluation : evaluations) {
-			points+= postEvaluation.getEvaluation().getValue();
+			points += postEvaluation.getEvaluation().getValue();
 		}
 		return points;
 	}
-	
-	
+
+	public boolean hasTitle() {
+		return this.title != null && !this.title.equals("");
+	}
 }
