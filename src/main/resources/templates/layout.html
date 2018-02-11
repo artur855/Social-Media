@@ -39,20 +39,20 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav mr-auto">
-					<li class="nav-item active" sec:Userize="!isAuthenticated()">
-						<a class="nav-link" href="/Users/login.html" th:href="@{/Users/login}">
+					<li class="nav-item active" sec:authorize="!isAuthenticated()">
+						<a class="nav-link" th:href="@{/users/login}">
 							<i class="fas fa-sign-in-alt"></i>
 							Login
 						</a>
 					</li>
 					<li class="nav-item active" sec:authorize="!isAuthenticated()">
-						<a class="nav-link" href="/Users/register.html" th:href="@{/Users/register}">
+						<a class="nav-link" th:href="@{/users/register}">
 							<i class="fas fa-User-plus"></i>
 							Register
 						</a>
 					</li>
 					<li class="nav-item active" sec:authorize="isAuthenticated()">
-						<a class="nav-link" href="Users/profile.html" th:href="@{'/Users/'+${currentUser.getUsername()}+'/profile'}">
+						<a class="nav-link" th:href="@{'/users/'+${currentUser.getUsername()}+'/profile'}">
 							<span>
 								Hello,
 								<b th:text="${currentUser.getUsername()}">(User)</b>
@@ -60,13 +60,13 @@
 						</a>
 					</li>
 					<li class="nav-item active" sec:authorize="hasRole('ROLE_ADMIN')">
-						<a class="nav-link" href="/Users/index.html" th:href="@{/admin/home}">
+						<a class="nav-link" th:href="@{/admin/home}">
 							<i class="fas fa-key"></i>
 							ADMIN
 						</a>
 					</li>
 					<li class="nav-item active" sec:authorize="isAuthenticated()">
-						<a class="nav-link" href="/Users/index.html" th:href="@{/Users/logout}">
+						<a class="nav-link" th:href="@{/users/logout}">
 							<i class="fas fa-sign-out-alt"></i>
 							Logout
 						</a>
@@ -220,76 +220,63 @@
 	</div>
 	<!-- END TRADICIONAL POST -->
 	<!-- TRADICIONAL COMMENT -->
-	<div id="postCard" class="card bg-light my-2" th:fragment="post-body">
+	<div id="commentCard" class="card bg-light my-2" th:fragment="comment-body">
 		<div class="row">
 			<div id="userInformation" class="col-lg-3 col-md-3 col-sm-4 card-body">
 				<div style="height: 100%" class=" d-flex flex-column align-items-center">
-					<img class="rounded img-fluid " th:src="${post.getAuthor().getProfilePictureUrl()}" />
-					<h5 th:text="${post.getAuthor().getUsername()}">Username</h5>
+					<img class="rounded img-fluid " th:src="${comment.getUser().getProfilePictureUrl()}" />
+					<h5 th:text="${comment.getUser().getUsername()}">Username</h5>
 				</div>
 			</div>
 			<div id="secondColumn" class="col-lg-9 col-md-8 col-sm-8 ">
 				<div class="d-flex card-body " style="height: 100%;">
 					<div sec:authorize="isAuthenticated()">
-						<div th:if="${currentUser.isEvaluated(post)}">
-							<div th:switch="${currentUser.getEvaluation(post).name()}">
+						<div th:if="${currentUser.isEvaluated(comment)}">
+							<div th:switch="${currentUser.getEvaluation(comment).name()}">
 								<div class="d-flex flex-column align-items-center ml-2 mt-3 upvoted" th:case="'UP'">
-									<a id="arrow-up" class="fas fa-arrow-up unstyled" th:href="@{'/posts/'+${post.getId()}+'/upvote'}"></a>
+									<a id="arrow-up" class="fas fa-arrow-up unstyled" th:href="@{'/comments/'+${comment.getId()}+'/upvote'}"></a>
 									<span class="fas fa-circle unstyled my-1 " style="font-size: 0.5em"></span>
-									<a id="arrow-down" class="fas fa-arrow-down unstyled " th:href="@{'/posts/'+${post.getId()}+'/downvote'}"></a>
+									<a id="arrow-down" class="fas fa-arrow-down unstyled " th:href="@{'/comments/'+${comment.getId()}+'/downvote'}"></a>
 								</div>
 								<div class="d-flex flex-column align-items-center ml-2 mt-3 downvoted" th:case="'DOWN'">
-									<a id="arrow-up" class="fas fa-arrow-up unstyled" th:href="@{'/posts/'+${post.getId()}+'/upvote'} "></a>
+									<a id="arrow-up" class="fas fa-arrow-up unstyled" th:href="@{'/comments/'+${comment.getId()}+'/upvote'} "></a>
 									<span class="fas fa-circle unstyled my-1 " style="font-size: 0.5em"></span>
-									<a id="arrow-down" class="fas fa-arrow-down unstyled " th:href="@{'/posts/'+${post.getId()}+'/downvote'}"></a>
+									<a id="arrow-down" class="fas fa-arrow-down unstyled " th:href="@{'/comments/'+${comment.getId()}+'/downvote'}"></a>
 								</div>
 								<div class="d-flex flex-column align-items-center ml-2 mt-3" th:case="'NONE'">
-									<a id="arrow-up " class="fas fa-arrow-up unstyled" th:href="@{'/posts/'+${post.getId()}+'/upvote'} "></a>
+									<a id="arrow-up " class="fas fa-arrow-up unstyled" th:href="@{'/comments/'+${comment.getId()}+'/upvote'} "></a>
 									<span class="fas fa-circle unstyled my-1 " style="font-size: 0.5em"></span>
-									<a id="arrow-down " class="fas fa-arrow-down unstyled " th:href="@{'/posts/'+${post.getId()}+'/downvote'}"></a>
+									<a id="arrow-down " class="fas fa-arrow-down unstyled " th:href="@{'/comments/'+${comment.getId()}+'/downvote'}"></a>
 								</div>
 							</div>
 						</div>
-						<div class="d-flex flex-column align-items-center ml-2 mt-3 " th:if="${!currentUser.isEvaluated(post)}">
-							<a id="arrow-up " class="fas fa-arrow-up unstyled " th:href="@{'/posts/'+${post.getId()}+'/upvote'}"></a>
+						<div class="d-flex flex-column align-items-center ml-2 mt-3 " th:if="${!currentUser.isEvaluated(comment)}">
+							<a id="arrow-up " class="fas fa-arrow-up unstyled " th:href="@{'/comments/'+${comment.getId()}+'/upvote'}"></a>
 							<span class="fas fa-circle unstyled my-1 " style="font-size: 0.5em"></span>
-							<a id="arrow-down " class="fas fa-arrow-down unstyled " th:href="@{'/posts/'+${post.getId()}+'/downvote'}"></a>
+							<a id="arrow-down " class="fas fa-arrow-down unstyled " th:href="@{'/comments/'+${comment.getId()}+'/downvote'}"></a>
 						</div>
 					</div>
 					<div class="d-flex flex-column align-items-center ml-2 mt-3 " sec:authorize="!isAuthenticated()">
-						<a id="arrow-up " class="fas fa-arrow-up unstyled " th:href="@{ '/posts/'+${post.getId()}+ '/upvote'} "></a>
+						<a id="arrow-up " class="fas fa-arrow-up unstyled " th:href="@{ '/comments/'+${comment.getId()}+ '/upvote'} "></a>
 						<span class="fas fa-circle unstyled my-1 " style="font-size: 0.5em"></span>
-						<a id="arrow-down " class="fas fa-arrow-down unstyled " th:href="@{ '/posts/'+${post.getId()}+ '/downvote'} "></a>
+						<a id="arrow-down " class="fas fa-arrow-down unstyled " th:href="@{ '/comments/'+${comment.getId()}+ '/downvote'} "></a>
 					</div>
 					<div class=" col-lg-12 col-md-8 col-sm-12 ">
 						<div class="d-flex card card-body " style="height: auto;">
-							<div th:if="${post.hasTitle()} ">
-								<h5 th:text="${post.getTitle()}">Title</h5>
-								<hr class="hr_heading" />
-							</div>
-							<p th:text="${post.getBody()}">Body</p>
+							<p th:text="${comment.getBody()}">Body</p>
 						</div>
 						<ul class="list-inline list-unstyled ">
 							<li class="list-inline-item ">
 								<i class="fa fa-calendar-alt "></i>
-								<small class="text-muted " th:text="${post.getTimePassed()} ">Post made x ago</small>
+								<small class="text-muted " th:text="${comment.getTimePassed()} ">Comment made x ago</small>
 							</li>
 							<li id="comments " class="list-inline-item ">
 								<button id="comments " class="unstyled ">
 									<i class="fa fa-comments "></i>
 									<small class="text-muted "
-										th:text="${post.getComments().size()>1} ? ${post.getComments().size()} + ' Comments' : ${post.getComments().size()} + ' Comment'"
+										th:text="${post.getComments().size()>1} ? ${comment.getComments().size()} + ' Comments' : ${comment.getComments().size()} + ' Comment'"
 									>x Comments</small>
 								</button>
-							</li>
-							<li class="list-inline-item">
-								<i class="fa fa-tags"></i>
-								<small class="text-muted">Tags:</small>
-							</li>
-							<li class="list-inline-item" th:each="tag : ${post.getTags()}">
-								<a th:href="@{'/tags/'+${tag.getId()}+'/view'}">
-									<small class="badge badge-primary" th:text="${tag.getTag()}">Tag</small>
-								</a>
 							</li>
 						</ul>
 					</div>
