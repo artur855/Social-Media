@@ -11,8 +11,6 @@ public interface IPostService {
 
 	List<Post> findAll();
 
-	List<Post> findLatest5();
-
 	Post findById(Long id);
 
 	Post create(Post post);
@@ -26,5 +24,11 @@ public interface IPostService {
 	Post findByComments(Comment comments);
 
 	Post findByAuthor(User author);
+
+	List<Post> findTimeLine();
+
+	List<Post> findTimeLine(User currentUser);
+
+	List<Post> findMostPopular();
 
 }

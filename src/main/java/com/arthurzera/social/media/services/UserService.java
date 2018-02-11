@@ -1,13 +1,11 @@
 package com.arthurzera.social.media.services;
 
-import com.arthurzera.social.media.models.Post;
 import com.arthurzera.social.media.models.User;
 import com.arthurzera.social.media.models.VerificationToken;
 import com.arthurzera.social.media.repositories.UserEmailRepository;
 import com.arthurzera.social.media.repositories.UserRepository;
 import com.arthurzera.social.media.repositories.VerificationTokenRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -99,17 +97,6 @@ public class UserService implements IUserService {
 		userRepository.save(currentUser);
 		userRepository.save(user);
 	}
-
-
-	@Override
-	public List<Post> findTimeLine(User currentUser) {
-		List<User> users = currentUser.getFollowing();
-		users.add(currentUser);
-		List<Post> timeLine = new ArrayList<>();
-		users.stream().forEach(user -> user.getPosts().stream().forEach(post -> timeLine.add(post)));;
-		return timeLine;
-	}
-
 
 	@Override
 	public boolean existsByUsername(String username) {

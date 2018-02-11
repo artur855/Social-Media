@@ -1,6 +1,5 @@
 package com.arthurzera.social.media.services;
 
-import com.arthurzera.social.media.models.Post;
 import com.arthurzera.social.media.models.User;
 import com.arthurzera.social.media.models.VerificationToken;
 import java.util.List;
@@ -10,8 +9,6 @@ public interface IUserService {
 	boolean authenticate(String username, String password);
 
 	List<User> findAll();
-
-	List<Post> findTimeLine(User currentUser);
 
 	User findById(Long id);
 

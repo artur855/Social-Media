@@ -14,19 +14,22 @@
 					<h5 th:text="${currentUser.getUsername()}"></h5>
 					<h6 th:text="${currentUser.getAboutMe()}"></h6>
 				</div>
-				
 				<div class="card mb-2">
-					<p class="card-header">Recommended</p>
+					<p class="card-header">Popular Pages</p>
 					<div class="card-body">
 						<p>Friend 1</p>
 						<p>Friend 2</p>
 					</div>
 				</div>
 				<div class="card mb-2">
-					<p class="card-header">Popular</p>
+					<p class="card-header">Popular Posts</p>
 					<div class="card-body">
-						<p>Friend 1</p>
-						<p>Friend 2</p>
+						<div th:each="post :${mostPopular}">
+							<a class="unstyled" th:href="@{'/posts/'+${post.getId()}+'/view'}">
+								<img class="img-rounded img-fluid" th:src="${post.getAuthor().getProfilePictureUrl()}" width="40px"/>
+								<b th:text="|${post.hasTitle() ? post.getTitle() : post.getAuthor().getUsername()+' Post'}|">Post Title</b>
+							</a>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -39,7 +42,7 @@
 			</div>
 		</div>
 		<div class="col-lg-9 col-md-9 col-sm-8">
-			<div class="card card-body bg-light">
+			<div class="card card-body bg-light" sec:authorize="isAuthenticated()">
 				<form id="postForm" action="posts/create" th:action="@{/posts/create}" method="post" th:object="${postForm}">
 					<div class="row">
 						<div class="col-sm-5">

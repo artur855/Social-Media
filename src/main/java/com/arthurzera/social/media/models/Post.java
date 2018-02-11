@@ -51,7 +51,7 @@ public class Post {
 
 	@Override
 	public String toString() {
-		return "Post{" + "id=" + id + ", title=" + title + ", body=" + body + ", author=" + author + '}';
+		return "Post{" + "id=" + id + ", title=" + title + ", body=" + body + ", author=" + author +" , date="+ date.toString()+'}';
 	}
 
 	public Long getId() {

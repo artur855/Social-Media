@@ -17,19 +17,17 @@ public class MainController extends BasicController {
 	public ModelAndView index() {
 		ModelAndView mvc = super.mvc();
 		List<Post> allPosts = null;
-		List<Post> latest5Posts = null;
 		if (mvc.getModel().containsKey("currentUser")) {
 			User currentUser = (User) mvc.getModel().get("currentUser");
-			allPosts = userService.findTimeLine(currentUser);
+			allPosts = postService.findTimeLine(currentUser);
 		} else {
-			allPosts = postService.findAll();
+			allPosts = postService.findTimeLine();
 		}
-		latest5Posts = postService.findLatest5();
 		List<Tag> tags = tagService.findAll();
+		mvc.addObject("mostPopular", postService.findMostPopular());
 		mvc.addObject("postForm", new PostForm());
 		mvc.addObject("allPosts", allPosts);
 		mvc.addObject("tags", tags);
-		mvc.addObject("latest5Posts", latest5Posts);
 		mvc.addObject("commentForm", new CommentForm());
 		mvc.setViewName("index");
 		return mvc;
