@@ -1,171 +1,193 @@
 html {
-	background-color: #F5F5F5;
+    background-color: #F5F5F5;
 }
 
 html body {
-	margin: 0% 5%;
-	float: center;
-	box-shadow: 0px 2px 30px 5px;
-	padding-bottom: 10px;
+    margin: 0% 5%;
+    float: center;
+    box-shadow: 0px 2px 30px 5px;
+    padding-bottom: 10px;
 }
 
 aside.card.pull-left {
-	float: left;
+    float: left;
 }
 
-body>aside {
-	float: right;
-	width: 200px;
-	background: #CCC;
-	padding: 15px;
-	margin-left: 20px;
-	margin-top: 10px;
-	margin-right: 10px;
+body > aside {
+    float: right;
+    width: 200px;
+    background: #CCC;
+    padding: 15px;
+    margin-left: 20px;
+    margin-top: 10px;
+    margin-right: 10px;
 }
 
-body>aside>h2 {
-	margin: 5px 0px 15px 0px;
+body > aside > h2 {
+    margin: 5px 0px 15px 0px;
 }
 
-body>aside a {
-	display: block;
-	margin: 5px 0px;
-	text-decoration: none;
+body > aside a {
+    display: block;
+    margin: 5px 0px;
+    text-decoration: none;
 }
 
-body>main:after {
-	content: '';
-	display: block;
-	clear: both;
+body > main:after {
+    content: '';
+    display: block;
+    clear: both;
 }
 
 footer {
-	padding-top: 10px;
+    padding-top: 10px;
 }
 
 #messages {
-	margin-top: 10px;
-	margin-bottom: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .hr_heading {
-	display: block;
-	height: 1px;
-	border: 0;
-	border-top: 1px solid #ccc;
-	margin: 1em 0;
-	padding: 0;
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 1em 0;
+    padding: 0;
 }
 
 .formError {
-	color: red;
-	font-style: italic;
+    color: red;
+    font-style: italic;
 }
 
 .loginForm div:first-child[class*="col-"] {
-	margin-left: 13.5%;
+    margin-left: 13.5%;
 }
 
 .loginForm h2 {
-	text-align: center;
+    text-align: center;
 }
 
 .registerForm div:first-child[class*="col-"] {
-	margin-left: 13.5%;
+    margin-left: 13.5%;
 }
 
 .registerForm h2 {
-	text-align: center;
+    text-align: center;
 }
 
-.registerForm>button {
-	margin-left: 14%;
+.registerForm > button {
+    margin-left: 14%;
 }
 
 .spanOr {
-	display: block;
-	position: absolute;
-	left: 50%;
-	top: -1em;
-	margin-left: -1.5em;
-	background-color: white;
-	width: 3em;
-	color: #AAA;
-	text-align: center;
-	margin-top: 1.2em;
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: -1em;
+    margin-left: -1.5em;
+    background-color: white;
+    width: 3em;
+    color: #AAA;
+    text-align: center;
+    margin-top: 1.2em;
 }
 
 .btn-google {
-	background-color: #D85040;
-	color: #FFF;
+    background-color: #D85040;
+    color: #FFF;
 }
 
 .btn-google:hover {
-	background-color: #c35040;
-	color: #FFF;
+    background-color: #c35040;
+    color: #FFF;
 }
 
 .btn-github {
-	background-color: #000;
-	color: #FFF;
+    background-color: #000;
+    color: #FFF;
 }
 
 .btn-github:hover {
-	color: #FFF;
+    color: #FFF;
 }
 
 .btn-facebook {
-	background-color: #3B5998;
-	color: #FFF;
+    background-color: #3B5998;
+    color: #FFF;
 }
 
 .btn-facebook:hover {
-	background-color: #1D3469;
-	color: #FFF;
+    background-color: #1D3469;
+    color: #FFF;
 }
 
 .input-group-text {
-	width: 2.5em;
+    width: 2.5em;
 }
 
 .btn-error {
-	text-align: center;
+    text-align: center;
 }
 
 .btn-error a {
-	height: 40px;
-	text-align: center;
-	margin: 2px;
-	line-height: 25px;
+    height: 40px;
+    text-align: center;
+    margin: 2px;
+    line-height: 25px;
 }
 
-ul, li {
-	list-style: none;
-	text-decoration: none;
-	padding: 0px;
+ul,
+li {
+    list-style: none;
+    text-decoration: none;
+    padding: 0px;
 }
 
 .unstyled {
-	outline: none;
-	background: none;
-	border: none;
-	text-decoration: none;
-	color: inherit;
+    outline: none;
+    background: none;
+    border: none;
+    text-decoration: none;
+    color: inherit;
 }
 
 .unstyled:hover {
-	text-decoration: none;
-	color: inherit;
+    text-decoration: none;
+    color: inherit;
 }
 
 #points {
-	color: #A9A9A9;
-	font-size: larger;
-	font-weight: bold;
+    color: #A9A9A9;
+    font-size: larger;
+    font-weight: bold;
 }
 
 .dropdown-menu {
-	height: auto;
-	max-height: 200px;
-	overflow-x: hidden;
+    height: auto;
+    max-height: 200px;
+    overflow-x: hidden;
+}
+
+#userInformation {
+    margin-right: -50px;
+    margin-left: 20px;
+}
+
+.dropdown {
+    width: 0px;
+}
+
+#secondColumn {
+    margin-right: -20px;
+}
+
+.upvoted span, .upvoted a:first-of-type{
+	color: red;	
+}
+
+.downvoted span, .downvoted a:last-of-type{
+	color:blue;
 }
